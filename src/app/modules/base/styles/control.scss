@@ -1,0 +1,45 @@
+// Кнопка регистрации.
+.btn-signup {
+  background: #FFFFFF;
+  color: #7C3AED;
+  border: 1px solid #7C3AED;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 0px 10px;
+}
+
+// Кнопка регистрации (при наведении).
+.btn-signup.p-button.p-button-help:hover {
+  background: none;
+  color: #7C3AED;
+  border: 1px solid #7C3AED;
+}
+
+// Кнопка регистрации (при фокусе).
+.btn-signup.p-button.p-button-help:focus {
+  box-shadow: none;
+}
+
+// Кнопка авторизации.
+.btn-signin {
+  background: #7C3AED;
+  color: white;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 0px 10px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+// Кнопка авторизации (при наведении).
+.btn-signin.p-button.p-button-help:hover {
+  background: #7C3AED;
+  color: white;
+}
+
+// Кнопка авторизации (при фокусе).
+.btn-signin.p-button.p-button-help:focus {
+    box-shadow: none;
+}

@@ -1,1 +1,47 @@
 @use "../base/styles/common.scss";
+@use "../base/styles/control.scss";
+
+.block-menu {
+  //   margin-top: 30px;
+
+  .header-menu {
+    list-style-type: none;
+    // margin: 0 auto;
+    margin: 0;
+
+    .header-menu-item {
+      margin: 0 10px;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      font-feature-settings: 'liga'off;
+      color: #01004E;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .title {
+    margin: 0 10px;
+    color: #01004E;
+    font-family: 'Stolzl';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .sub-title {
+    margin: 0 10px;
+    color: #01004E;
+    font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
