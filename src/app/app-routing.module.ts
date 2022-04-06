@@ -6,6 +6,11 @@ const routes: Routes = [
   {
     path: "",
     component: MainPageModule
+  },
+
+  {
+    path: "signup",
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserMainModule)
   }
 ];
 

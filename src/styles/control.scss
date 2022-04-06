@@ -41,5 +41,32 @@
 
 // Кнопка авторизации (при фокусе).
 .btn-signin.p-button.p-button-help:focus {
-    box-shadow: none;
+  box-shadow: none;
+}
+
+// Поля ввода для форм регистрации, авторизации и подобных.
+.input-pur-form {
+  width: 396px;
+  background: #F2FEFE;
+  border-radius: 6px;
+  color: #F2FEFE;
+  margin: 8px 0px;
+  height: 46px;
+  border: none;
+}
+
+// Кнопка на формах регистрации и тд.
+.button-action-pur-form {
+  background: #7C3AED;
+  border-radius: 8px;
+  width: 396px;
+  height: 56px;
+  margin: 20px 0px;
+  color: #FFFFFF;
+  border: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
 }
