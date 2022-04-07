@@ -1,18 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPageModule } from './modules/main-page/main-page.component';
 
-const routes: Routes = [
-  {
-    path: "",
-    component: MainPageModule
-  },
-
-  {
-    path: "signup",
-    loadChildren: () => import('./modules/user/user.module').then(m => m.UserMainModule)
-  }
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
