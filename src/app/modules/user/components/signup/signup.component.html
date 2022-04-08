@@ -7,29 +7,53 @@
       <div>
         <label>Ваше ФИО</label>
         <br>
-        <input class="input-pur-form" type="text" placeholder="Ваше ФИО">
+        <input 
+          class="input-pur-form" 
+          type="text" 
+          placeholder="Ваше ФИО"
+          name="fio"
+          [(ngModel)]="firstName">
       </div>
 
       <div>
         <label>E-mail или телефон</label>
         <br>
-        <input class="input-pur-form" type="text" placeholder="Ваш e-mail или номер телефона">
+        <input 
+          class="input-pur-form" 
+          type="text" 
+          placeholder="Ваш e-mail или номер телефона"
+          name="contact"
+          [(ngModel)]="contactData">
       </div>
 
       <div>
         <label>Выбрать роль</label>
         <br>
-        <input class="input-pur-form" type="text" placeholder="Преподаватель/ ученик / партнер">
+        <input 
+        class="input-pur-form" 
+        type="text" 
+        name="role"
+        placeholder="Преподаватель/ ученик / партнер"
+        [(ngModel)]="userRole">
       </div>
 
       <div>
         <label>Пароль</label>
         <br>
-        <input class="input-pur-form" type="text" placeholder="Придумайте пароль">
+        <input 
+          class="input-pur-form" 
+          type="text" 
+          placeholder="Придумайте пароль"
+          name="pass"
+          [(ngModel)]="userPassword">
       </div>
 
       <span class="input-group-btn">
-        <button class="button-action-pur-form">Создать</button>
+        <button 
+          class="button-action-pur-form" 
+          (click)="onCreateUser()">
+          Создать
+        </button>
       </span>
     </div>
   </div>
