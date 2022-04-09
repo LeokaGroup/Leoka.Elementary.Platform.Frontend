@@ -1,0 +1,38 @@
+<form class="col-lg-6 offset-lg-3 form-signup">
+    <!-- <img src="../../../../../assets/images/fonsig_3502.svg"> -->
+  <div class="row justify-content-center">
+    <p class="text-center title-pur">Войдите в аккаунт</p>
+
+    <div class="form-reg">
+      <div>
+        <label>Логин</label>
+        <br>
+        <input 
+          class="input-pur-form" 
+          type="text" 
+          placeholder="Ваш e-mail или номер телефона"
+          name="login"
+          [(ngModel)]="userLogin">
+      </div>
+
+      <div>
+        <label>Пароль</label>
+        <br>
+        <input 
+          class="input-pur-form" 
+          type="text" 
+          placeholder="Ввведите пароль"
+          name="password"
+          [(ngModel)]="userPassword">
+      </div>
+
+      <span class="input-group-btn">
+        <button 
+          class="button-action-pur-form" 
+          (click)="onSignIn()">
+          Войти
+        </button>
+      </span>
+    </div>
+  </div>
+</form>

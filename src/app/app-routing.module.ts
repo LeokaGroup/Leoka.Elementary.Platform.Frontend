@@ -9,7 +9,7 @@ const routes: Routes = [
   },
 
   {
-    path: "signup",
+    path: "user",
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserMainModule)
   }
 ];

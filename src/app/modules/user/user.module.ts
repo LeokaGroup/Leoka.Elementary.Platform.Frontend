@@ -11,9 +11,10 @@ import { SignUpModule } from './components/signup/signup.component';
 import { UserService } from './services/user.service';
 import { UserRoutingModule } from './user-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { SignInModule } from './components/signip/signin.component';
 
 @NgModule({
-    declarations: [SignUpModule],
+    declarations: [SignUpModule, SignInModule],
     imports: [ CommonModule, CheckboxModule, DropdownModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ButtonModule, TabViewModule, ToastModule, DialogModule, HttpClientModule ],
     exports: [],
     providers: [UserService],

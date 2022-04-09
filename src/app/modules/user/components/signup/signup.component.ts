@@ -19,7 +19,7 @@ export class SignUpModule implements OnInit {
     userRole: string = "";
     contactData: string = "";
 
-    public readonly addUser$ = this.userService.addUser$;
+    public readonly signupUser$ = this.userService.signupUser$;
 
     constructor(private http: HttpClient,
         private readonly userService: UserService) {
@@ -34,10 +34,10 @@ export class SignUpModule implements OnInit {
      * Функция создаст нового пользователя.
      * @returns - Данные пользователя.
      */
-    public onCreateUser() {
-        this.userService.createUser(this.firstName, this.contactData, this.userPassword, this.userRole)
+    public onSignUp() {
+        this.userService.signupUser(this.firstName, this.contactData, this.userPassword, this.userRole)
             .subscribe(response => {
-                console.log(response)
+                console.log(this.signupUser$.value);
             });
     };
 }
