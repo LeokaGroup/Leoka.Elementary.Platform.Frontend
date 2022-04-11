@@ -2,5 +2,11 @@
 @use "/src/styles/control.scss";
 
 .form-signup {
-    // background-image: url("../../../../../assets/images/fonsig_3502.svg");
+  // background-image: url("../../../../../assets/images/fonsig_3502.svg");
+  width: 400px;
+  margin: 0 auto;
+}
+
+.item-pur-form {
+    margin: 8px 0px;
 }

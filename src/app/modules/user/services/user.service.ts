@@ -8,7 +8,7 @@ import { UserInput } from '../models/user-input';
 export class UserService {
     public readonly signupUser$ = new BehaviorSubject<any>(undefined);
     public readonly signinUser$ = new BehaviorSubject<any>(undefined);
-
+    
     constructor(private readonly http: HttpClient) {
 
     }
@@ -21,14 +21,14 @@ export class UserService {
       * @param userRole - Роль пользователя.
       * @returns - Данные пользователя.
       */
-    public signupUser(firstName: string, contactData: string, userPassword: string, userRole: string) {
+    public async signupUserAsync(firstName: string, contactData: string, userPassword: string, userRole: string) {
         let userInput = new UserInput();
         userInput.firstName = firstName;
         userInput.contactData = contactData;
         userInput.userPassword = userPassword;
         userInput.userRole = userRole;
 
-        return this.http.post(API_URL.apiUrl + "/user/signup", userInput).pipe(
+        return await this.http.post(API_URL.apiUrl + "/user/signup", userInput).pipe(
             tap(data => this.signupUser$.next(data))
         );
     };
@@ -39,9 +39,12 @@ export class UserService {
      * @param userPassword - Пароль.
      * @returns - Данные пользователя.
      */
-    public signinUser(userLogin: string, userPassword: string) {
-        return this.http.get(API_URL.apiUrl + "/user/signin?userLogin=" + userLogin + "&userPassword=" + userPassword).pipe(
-            tap(data => this.signinUser$.next(data))
+    public async signinUserAsync(userLogin: string, userPassword: string) {
+        return await this.http.get(API_URL.apiUrl + "/user/signin?userLogin=" + userLogin + "&userPassword=" + userPassword).pipe(
+            tap((data: any) => {
+                sessionStorage["token"] = data.token;
+                this.signinUser$.next(data);
+            })
         );
     };
 }

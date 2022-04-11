@@ -1,5 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { CommonDataService } from "src/app/modules/base/services/common.service";
+import { RoleService } from "../../services/role.service";
 import { UserService } from "../../services/user.service";
 
 @Component({
@@ -16,28 +18,38 @@ export class SignUpModule implements OnInit {
     phoneNumber: string = "";
     userEmail: string = "";
     userPassword: string = "";
-    userRole: string = "";
+    selectedRole: string = "";
     contactData: string = "";
 
     public readonly signupUser$ = this.userService.signupUser$;
+    public readonly roles$ = this.roleService.roles$;
 
     constructor(private http: HttpClient,
-        private readonly userService: UserService) {
+        private readonly userService: UserService,
+        private readonly roleService: RoleService) {
 
     };
 
     public async ngOnInit() {
-
+        await this.getRolesAsync();
+        
     };
 
     /**
      * Функция создаст нового пользователя.
      * @returns - Данные пользователя.
      */
-    public onSignUp() {
-        this.userService.signupUser(this.firstName, this.contactData, this.userPassword, this.userRole)
+    public async onSignUpAsync() {
+        (await this.userService.signupUserAsync(this.firstName, this.contactData, this.userPassword, this.selectedRole))
             .subscribe(response => {
                 console.log(this.signupUser$.value);
+            });
+    };
+
+    private async getRolesAsync() {
+        (await this.roleService.getRolesAsync())
+            .subscribe(response => {
+                console.log("Список ролей", this.roles$.value);
             });
     };
 }

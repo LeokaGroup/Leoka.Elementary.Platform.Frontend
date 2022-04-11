@@ -30,8 +30,8 @@ export class SignInModule implements OnInit {
      * Функция авторизует пользователя.
      * @returns - Данные пользователя.
      */
-    public onSignIn() {
-        this.userService.signinUser(this.userLogin, this.userPassword)
+    public async onSignInAsync() {
+        (await this.userService.signinUserAsync(this.userLogin, this.userPassword))
             .subscribe(response => {
                 console.log(this.signinUser$.value);
             });

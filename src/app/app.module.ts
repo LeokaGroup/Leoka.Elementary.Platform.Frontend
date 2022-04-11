@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { HeaderModule } from './modules/header/header.component';
 import { MainPageModule } from './modules/main-page/main-page.component';
 import {ButtonModule} from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from "@angular/common/http";
+import { RoleService } from "./modules/user/services/role.service";
 
 @NgModule({
   declarations: [
@@ -20,9 +23,11 @@ import {ButtonModule} from 'primeng/button';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ButtonModule
+    ButtonModule,
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RoleService],
 
   bootstrap: [AppComponent]
 })
