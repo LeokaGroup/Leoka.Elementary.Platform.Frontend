@@ -1,58 +1,32 @@
+<img class="signup-fon" src="../../../../../assets/images/main-page/First.jpg">
+
 <form class="col-lg-6 offset-lg-3 form-signup">
-    <!-- <img src="../../../../../assets/images/fonsig_3502.svg"> -->
   <div class="row justify-content-center">
     <p class="text-center title-pur">Создайте аккаунт</p>
 
     <div>
       <div class="item-pur-form">
-        <label>Ваше ФИО</label>
-        <br>
-        <input 
-          class="input-pur-form" 
-          type="text" 
-          placeholder="Введите ФИО"
-          name="fio"
-          [(ngModel)]="firstName">
+        <input class="input-pur-form" type="text" placeholder="Введите ФИО" name="fio" [(ngModel)]="firstName">
       </div>
 
       <div class="item-pur-form">
-        <label>E-mail или телефон</label>
-        <br>
-        <input 
-          class="input-pur-form" 
-          type="text" 
-          placeholder="Ваш e-mail или номер телефона"
-          name="contact"
+        <input class="input-pur-form" type="text" placeholder="Ваш e-mail или номер телефона" name="contact"
           [(ngModel)]="contactData">
       </div>
 
       <div class="dropdown-pur-form">
-        <label>Выбрать роль</label>
-        <br> 
-       <p-dropdown 
-            [options]="roles$.value" 
-            [(ngModel)]="selectedRole" 
-            name="role"
-            optionLabel="roleName" 
-            placeholder="Выберете роль">
-         </p-dropdown>
+        <p-dropdown [options]="roles$.value" [(ngModel)]="selectedRole" name="role" optionLabel="roleName"
+          placeholder="Выберете роль">
+        </p-dropdown>
       </div>
 
       <div class="item-pur-form">
-        <label>Пароль</label>
-        <br>
-        <input 
-          class="input-pur-form" 
-          type="text" 
-          placeholder="Придумайте пароль"
-          name="pass"
+        <input class="input-pur-form" type="text" placeholder="Придумайте пароль" name="pass"
           [(ngModel)]="userPassword">
       </div>
 
       <span class="input-group-btn">
-        <button 
-          class="button-action-pur-form" 
-          (click)="onSignUpAsync()">
+        <button class="button-action-pur-form" (click)="onSignUpAsync()">
           Создать
         </button>
       </span>

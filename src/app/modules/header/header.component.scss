@@ -1,5 +1,6 @@
 @use "/src/styles/common.scss";
 @use "/src/styles/control.scss";
+@use "/src/styles/fonts.scss";
 
 .block-menu {
   //   margin-top: 30px;
@@ -13,13 +14,14 @@
 
     .header-menu-item {
       margin: 0 10px;
-      font-family: 'Inter';
+      font-family: 'Gilroy-Bold';
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
-      line-height: 20px;
-      font-feature-settings: 'liga';
-      color: #01004E;
+      color: #4C1D95;
+      line-height: 22px;
+
+letter-spacing: 0.1px;
 
       &:hover {
         cursor: pointer;
@@ -29,8 +31,8 @@
 
   .title {
     margin: 0 10px;
-    color: #01004E;
-    // font-family: 'Stolzl';
+    color: #7C3AED;
+    font-family: 'Stolzl';
     font-style: normal;
     font-weight: 900;
     font-size: 20px;
@@ -39,11 +41,14 @@
 
   .sub-title {
     margin: 0 10px;
-    color: #01004E;
-    font-family: 'SF Pro Display';
-    font-style: normal;
+    color: #7C3AED;
+    // font-family: 'SF Pro Display';
+    // font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 12px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.474em;
   }
 }
