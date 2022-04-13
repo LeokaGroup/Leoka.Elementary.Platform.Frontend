@@ -26,20 +26,29 @@ export class RoleService {
      // Функция отсчитывает время бездействия юзера, по окончании простоя убивает сессию и перенаправляет на страницу авторизации.
      public deadlineSession(): void {
         var idleTime = 0;
-
-        $(document).ready(() => {
+        document.addEventListener("DOMContentLoaded", function(event) {
             //Increment the idle time counter every minute.
             var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
             //Zero the idle timer on mouse movement.
-            $(this).mousemove(function (e) {
+            // $(this).mousemove(function (e) {
+            //     idleTime = 0;
+            // });
+            document.addEventListener('mousemove', e => {
                 idleTime = 0;
             });
 
-            $(this).keypress(function (e) {
+            document.addEventListener('keypress', e => {
                 idleTime = 0;
             });
+
+            // $(this).keypress(function (e) {
+            //     idleTime = 0;
+            // });
         });
+        // $(document).ready(() => {
+            
+        // });
 
         const timerIncrement = () => {
             idleTime++;
