@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
-import { UserInput } from '../models/user-input';
+import { UserInput } from '../models/input/user-input';
 
 @Injectable()
 export class UserService {
@@ -16,16 +16,16 @@ export class UserService {
      /**
       * Функция создаст нового пользователя.
       * @param firstName - Имя пользователя.
-      * @param contactData - Email или номер телефона.
-      * @param userPassword - Пароль.
+      * @param userPhoneNumber - Номер телефона.
+      * @param userEmail - Email.
       * @param userRole - Роль пользователя.
       * @returns - Данные пользователя.
       */
-    public async signupUserAsync(firstName: string, contactData: string, userPassword: string, userRole: string) {
+    public async signupUserAsync(firstName: string, userPhoneNumber: string, userEmail: string, userRole: string) {
         let userInput = new UserInput();
         userInput.firstName = firstName;
-        userInput.contactData = contactData;
-        userInput.userPassword = userPassword;
+        userInput.userPhoneNumber = userPhoneNumber;
+        userInput.userEmail = userEmail;
         userInput.userRole = userRole;
 
         return await this.http.post(API_URL.apiUrl + "/user/signup", userInput).pipe(

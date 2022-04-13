@@ -1,9 +1,7 @@
 export class UserInput {
     firstName: string = "";
-
-    contactData: string = "";
-
+    userEmail: string = "";
+    userPhoneNumber: string = "";
     userPassword: string = "";
-
     userRole: string = "";
 }

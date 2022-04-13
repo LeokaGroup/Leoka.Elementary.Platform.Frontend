@@ -15,11 +15,10 @@ import { UserService } from "../../services/user.service";
  */
 export class SignUpModule implements OnInit {
     firstName: string = "";
-    phoneNumber: string = "";
+    userPhoneNumber: string = "";
     userEmail: string = "";
-    userPassword: string = "";
+    // userPassword: string = "";
     selectedRole: string = "";
-    contactData: string = "";
 
     public readonly signupUser$ = this.userService.signupUser$;
     public readonly roles$ = this.roleService.roles$;
@@ -40,7 +39,7 @@ export class SignUpModule implements OnInit {
      * @returns - Данные пользователя.
      */
     public async onSignUpAsync() {
-        (await this.userService.signupUserAsync(this.firstName, this.contactData, this.userPassword, this.selectedRole))
+        (await this.userService.signupUserAsync(this.firstName, this.userPhoneNumber, this.userEmail, this.selectedRole))
             .subscribe(response => {
                 console.log(this.signupUser$.value);
             });

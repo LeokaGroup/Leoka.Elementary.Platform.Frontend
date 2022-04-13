@@ -10,8 +10,13 @@
       </div>
 
       <div class="item-pur-form">
-        <input class="input-pur-form" type="text" placeholder="Ваш e-mail или номер телефона" name="contact"
-          [(ngModel)]="contactData">
+        <input class="input-pur-form" type="text" placeholder="Ваш e-mail" name="userEmail"
+          [(ngModel)]="userEmail">
+      </div>
+
+      <div class="item-pur-form">
+        <input class="input-pur-form" type="text" placeholder="Ваш номер телефона" name="userPhoneNumber"
+          [(ngModel)]="userPhoneNumber">
       </div>
 
       <div class="dropdown-pur-form">
@@ -20,10 +25,10 @@
         </p-dropdown>
       </div>
 
-      <div class="item-pur-form">
+      <!-- <div class="item-pur-form">
         <input class="input-pur-form" type="text" placeholder="Придумайте пароль" name="pass"
           [(ngModel)]="userPassword">
-      </div>
+      </div> -->
 
       <span class="input-group-btn">
         <button class="button-action-pur-form" (click)="onSignUpAsync()">
