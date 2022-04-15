@@ -6,6 +6,8 @@
   //   margin-top: 30px;
   padding-top: 20px;
   padding-bottom: 70px;
+  z-index: 2;
+  position: absolute;
 
   .header-menu {
     list-style-type: none;
@@ -20,8 +22,7 @@
       font-size: 14px;
       color: #4C1D95;
       line-height: 22px;
-
-letter-spacing: 0.1px;
+      letter-spacing: 0.1px;
 
       &:hover {
         cursor: pointer;

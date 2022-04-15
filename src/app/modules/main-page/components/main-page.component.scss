@@ -1,0 +1,13 @@
+@use "/src/styles/common.scss";
+@use "/src/styles/control.scss";
+
+.start-fon {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    // top: 68px;
+    // filter: blur(100px);
+    z-index: 1;
+}
