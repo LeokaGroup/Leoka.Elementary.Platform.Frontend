@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CommonDataService } from "../base/services/common.service";
-import { RoleService } from "../user/services/role.service";
+import { RoleService } from "../../user/services/role.service";
 
 @Component({
     selector: "header",
