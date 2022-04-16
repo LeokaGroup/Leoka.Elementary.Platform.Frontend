@@ -30,6 +30,10 @@
     }
   }
 
+  .block-logo {
+    text-align: start;
+  }
+
   .title {
     margin: 0 10px;
     color: #7C3AED;
@@ -43,13 +47,12 @@
   .sub-title {
     margin: 0 10px;
     color: #7C3AED;
-    // font-family: 'SF Pro Display';
-    // font-style: normal;
+    font-family: 'Gilroy-Regular';
     font-weight: 400;
-    font-size: 12px;
-    line-height: 28px;
+    font-size: 10px;
+    line-height: 10px;
     display: flex;
     align-items: center;
-    letter-spacing: 0.474em;
+    letter-spacing: 1pt;
   }
 }

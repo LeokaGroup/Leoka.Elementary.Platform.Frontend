@@ -20,9 +20,36 @@
       </div>
 
       <div class="dropdown-pur-form">
-        <p-dropdown [options]="roles$.value" [(ngModel)]="selectedRole" name="role" optionLabel="roleName"
+        <p-dropdown [options]="roles$ | async" [(ngModel)]="selectedRole" name="role" optionLabel="roleName"
           placeholder="Выберете роль">
         </p-dropdown>
+      </div>
+
+      <div class="dropdown-pur-form block-regulations col-lg-12">
+        <p-checkbox 
+              name="regulations" 
+              [binary]="true" 
+              inputId="regulations"
+              (onChange)="isAcceptRegulations=!isAcceptRegulations">
+        </p-checkbox>
+        
+        <label for="regulations" class="regulations-text">
+          Я подтверждаю согласие на обработку персональных данных в соответствии с <strong>Политикой конфиденциальности,
+            ознакомился и согласен с Условиями пользовательского соглашения, Оферты Leoka Elementary</strong>
+        </label>
+      </div>
+
+      <div class="dropdown-pur-form block-regulations col-lg-12">
+        <p-checkbox 
+            name="news" 
+            [binary]="true" 
+            inputId="news"
+            (onChange)="isNews=!isNews">
+        </p-checkbox>
+
+        <label for="news" class="regulations-text">
+          Я согласен получать уведомления о новых предложениях <strong>Leoka Elementary</strong>
+        </label>
       </div>
 
       <!-- <div class="item-pur-form">
@@ -31,7 +58,10 @@
       </div> -->
 
       <span class="input-group-btn">
-        <button class="button-action-pur-form" (click)="onSignUpAsync()">
+        <button 
+            class="button-action-pur-form" 
+            [disabled]="!isAcceptRegulations"
+            (click)="onSignUpAsync()">
           Создать
         </button>
       </span>
