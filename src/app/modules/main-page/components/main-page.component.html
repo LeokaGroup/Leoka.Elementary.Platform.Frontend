@@ -1,0 +1,12 @@
+<div>
+    <img class="start-fon" src="../../../../../assets/images/main-page/First.jpg">
+</div>  
+
+<div class="main-block">
+    <div class="main-block-title">{{mainFon$.value.fonTitle}}</div>
+    <div class="main-block-subtitle">{{mainFon$.value.fonSubTitle}}</div>
+
+    <ul class="main-items" *ngFor="let item of mainFon$.value.mainFonStudentItems">
+        <li class="main-item">{{item.fonSubTitleText}}</li>
+    </ul>
+</div>

@@ -1,6 +1,5 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { CommonDataService } from "src/app/modules/base/services/common.service";
+import { BehaviorSubject } from "rxjs";
 import { RoleService } from "../../services/role.service";
 import { UserService } from "../../services/user.service";
 
@@ -17,21 +16,20 @@ export class SignUpModule implements OnInit {
     firstName: string = "";
     userPhoneNumber: string = "";
     userEmail: string = "";
-    // userPassword: string = "";
     selectedRole: string = "";
+    isAcceptRegulations: boolean = false;
+    isNews: boolean = false;
 
     public readonly signupUser$ = this.userService.signupUser$;
     public readonly roles$ = this.roleService.roles$;
 
-    constructor(private http: HttpClient,
-        private readonly userService: UserService,
+    constructor(private readonly userService: UserService,
         private readonly roleService: RoleService) {
-
+            
     };
 
     public async ngOnInit() {
         await this.getRolesAsync();
-        
     };
 
     /**
@@ -45,9 +43,13 @@ export class SignUpModule implements OnInit {
             });
     };
 
+    /**
+     * Функция получит список ролей.
+     * @returns - Список ролей.
+     */
     private async getRolesAsync() {
         (await this.roleService.getRolesAsync())
-            .subscribe(response => {
+            .subscribe(_ => {
                 console.log("Список ролей", this.roles$.value);
             });
     };

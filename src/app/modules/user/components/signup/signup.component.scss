@@ -3,6 +3,7 @@
 
 .form-signup {
   position: absolute;
+  padding-top: 200px;
 }
 
 .item-pur-form {
@@ -10,15 +11,6 @@
   text-align: center;
 }
 
-.signup-fon {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  left: 0px;
-  // top: 0px;
-  // top: 68px;
-  filter: blur(100px);
-}
 
 .dropdown-pur-form {
   text-align: center;
@@ -30,7 +22,7 @@
 }
 
 ::ng-deep .dropdown-pur-form .p-dropdown {
-  width: 384px;
+  width: 400px;
   height: 46px;
   left: 0px;
   top: 0px;
@@ -48,7 +40,20 @@
   }
 }
 
-// body { 
-//   // background-image: url(../../../../../assets/images/main-page/B-new.jpg); 
-//   background: filter(url(../../../../../assets/images/main-page/B-new.jpg), blur(100px));
-// }
+.block-regulations {
+  display: flex;
+  text-align: start;
+  justify-content: center;
+  margin: 20px 0px 0px 0px;
+  align-items: start;
+
+  .regulations-text {
+    font-family: 'Gilroy-Regular';
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    color: #425466;
+    width: 349px;
+    margin: 0 10px;
+  }
+}

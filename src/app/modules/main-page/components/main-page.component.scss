@@ -1,0 +1,47 @@
+@use "/src/styles/common.scss";
+@use "/src/styles/control.scss";
+
+.start-fon {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  left: 0px;
+  top: 0px;
+  // top: 68px;
+  // filter: blur(100px);
+  z-index: 1;
+}
+
+.main-block {
+  position: absolute;
+  z-index: 3;
+  width: 600px;
+  height: 216px;
+  left: 112px;
+  top: 184px;
+
+  .main-block-title {
+    color: #4C1D95;
+    font-family: 'Gilroy-Bold';
+    font-size: 64px;
+    line-height: 72px;
+    letter-spacing: -0.005em;
+  }
+
+  .main-block-subtitle {
+    font-family: 'Gilroy-Bold';
+    font-size: 24px;
+    line-height: 28px;
+    margin: 37px 0px 0px 0;
+    color: #7C3AED;
+  }
+
+  .main-items {
+    font-family: 'Gilroy-Regular';
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.44px;
+    color: #4C1D95;
+    margin: 30px 0px;
+  }
+}
