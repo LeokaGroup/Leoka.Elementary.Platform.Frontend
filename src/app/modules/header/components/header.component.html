@@ -1,6 +1,6 @@
 <div class="">
     <div class="block-menu d-flex align-items-center justify-content-around text-center col-lg-12">
-        <div class="d-flex align-items-center block-logo">
+        <div class="d-flex align-items-center block-logo" [routerLink]="['/']">
           <div>
             <img src="../../../assets/images/Logo.png">
           </div>
@@ -13,25 +13,11 @@
         </div>
 
         <ul class="header-menu d-flex">
+          <div *ngFor="let item of headerData$.value">
             <li class="header-menu-item">
-                О нас
+              {{item.headerItem}}
             </li>
-
-            <li class="header-menu-item">
-                Учителя
-            </li>
-
-            <li class="header-menu-item">
-                Тарифы
-            </li>
-
-            <li class="header-menu-item">
-                Блог
-            </li>
-
-            <li class="header-menu-item">
-                Курсы
-            </li>
+          </div>
         </ul>
         
         <div>
@@ -39,14 +25,16 @@
                 pButton pRipple 
                 type="button" 
                 label="Регистрация" 
-                class="p-button-raised p-button-help btn-signup">
+                class="p-button-raised p-button-help btn-signup"
+                [routerLink]="['/user/signup']">
             </button>
             
             <button 
                 pButton pRipple 
                 type="button" 
                 label="Вход" 
-                class="p-button-raised p-button-help btn-signin">
+                class="p-button-raised p-button-help btn-signin"
+                [routerLink]="['/user/signin']">
         </button>
         </div>
     </div>

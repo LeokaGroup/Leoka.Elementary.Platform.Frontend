@@ -10,13 +10,13 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
 import { RoleService } from "./modules/user/services/role.service";
-import { MainPageModule } from "./modules/main-page/components/main-page.component";
+import { MainPageService } from "./modules/main-page/services/main-page.service";
 import { HeaderModule } from "./modules/header/components/header.component";
+import { HeaderService } from "./modules/header/services/header.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPageModule,
     HeaderModule
   ],
 
@@ -27,7 +27,7 @@ import { HeaderModule } from "./modules/header/components/header.component";
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [RoleService],
+  providers: [RoleService, MainPageService, HeaderService],
 
   bootstrap: [AppComponent]
 })

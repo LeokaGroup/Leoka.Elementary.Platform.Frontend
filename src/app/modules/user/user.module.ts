@@ -11,7 +11,7 @@ import { SignUpModule } from './components/signup/signup.component';
 import { UserService } from './services/user.service';
 import { UserRoutingModule } from './user-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { SignInModule } from './components/signip/signin.component';
+import { SignInModule } from './components/signin/signin.component';
 import { RoleService } from './services/role.service';
 
 @NgModule({

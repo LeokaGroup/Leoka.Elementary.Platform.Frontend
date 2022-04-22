@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { MainPageService } from "../services/main-page.service";
 
 @Component({
     selector: "main-page",
@@ -9,10 +10,19 @@ import { Component, OnInit } from "@angular/core";
 /**
  * Класс модуля Главной страницы.
  */
-export class MainPageModule implements OnInit {
-    constructor() {};
+export class MainModule implements OnInit {
+    public readonly mainFon$ = this.mainPageService.mainFon$;
+
+    constructor(private mainPageService: MainPageService) {};
 
     public async ngOnInit() {        
-       
+       await this.getHeaderItemsAsync();
     };    
+
+    private async getHeaderItemsAsync() {
+        (await this.mainPageService.getMainFonItemsAsync())
+        .subscribe(response => {
+            console.log("Данные фона студента: ", this.mainFon$.value);
+        });
+    };
 }

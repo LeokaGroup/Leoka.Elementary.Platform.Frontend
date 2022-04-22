@@ -8,15 +8,15 @@ import {TabViewModule} from 'primeng/tabview';
 import {ToastModule} from 'primeng/toast';
 import {DialogModule} from 'primeng/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import { MainPageModule } from './components/main-page.component';
 import { MainPageService } from './services/main-page.service';
 import { MainPageRoutingModule } from './main-page-routing.module';
+import { MainModule } from './components/main-page.component';
 
 @NgModule({
-    declarations: [MainPageModule],
+    declarations: [MainModule],
     imports: [ CommonModule, CheckboxModule, DropdownModule, FormsModule, ReactiveFormsModule, MainPageRoutingModule, ButtonModule, TabViewModule, ToastModule, DialogModule, HttpClientModule ],
     exports: [],
     providers: [MainPageService ],
 })
 
-export class UserMainModule {}
+export class MainPageModule {}
