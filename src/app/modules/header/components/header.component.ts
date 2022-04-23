@@ -24,10 +24,14 @@ export class HeaderModule implements OnInit {
         await this.getHeaderItemsAsync();
     };    
 
+     /**
+     * Функция получит список элементов хидера.
+     * @returns - Список элементов хидера.
+     */
     private async getHeaderItemsAsync() {
         console.log("getHeaderItemsAsync");
         (await this.headerService.getHeaderItemsAsync())
-        .subscribe(response => {
+        .subscribe(_ => {
             console.log("Данные хидера: ", this.headerData$.value);
         });
     };

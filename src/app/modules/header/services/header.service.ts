@@ -11,6 +11,10 @@ export class HeaderService {
 
     }
 
+    /**
+     * Функция получит список элементов хидера.
+     * @returns - Список элементов хидера.
+     */
     public async getHeaderItemsAsync() {
         return await this.http.get(API_URL.apiUrl + "/main/header").pipe(
             tap(data => this.headerData$.next(data)
