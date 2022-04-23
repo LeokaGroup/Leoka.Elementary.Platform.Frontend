@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { forkJoin } from "rxjs";
 import { MainPageService } from "../services/main-page.service";
 
 @Component({
@@ -13,12 +14,20 @@ import { MainPageService } from "../services/main-page.service";
 export class MainModule implements OnInit {
     public readonly mainFon$ = this.mainPageService.mainFon$;
     public readonly reception$ = this.mainPageService.reception$;
+    public readonly begin$ = this.mainPageService.begin$;
 
     constructor(private mainPageService: MainPageService) {};
 
     public async ngOnInit() {        
        await this.getHeaderItemsAsync();
        await this.getReceptionAsync();
+       await this.getBeginAsync();
+
+        forkJoin([
+            await this.getHeaderItemsAsync(),
+            await this.getReceptionAsync(),
+            await this.getBeginAsync()
+        ]).subscribe();
     };    
 
     /**
@@ -32,10 +41,25 @@ export class MainModule implements OnInit {
         });
     };
 
+    /**
+     * Функция получит данные для блока записи на бесплатный урок.
+     * @returns - Данные блока.
+     */
     private async getReceptionAsync() {
         (await this.mainPageService.getReceptionAsync())
         .subscribe(_ => {
             console.log("Данные записи на урок: ", this.reception$.value);
+        });
+    };
+
+    /**
+     * Функция получит данные для блока с чего начать.
+     * @returns - Данные блока.
+     */
+    private async getBeginAsync() {
+        (await this.mainPageService.getBeginAsync())
+        .subscribe(_ => {
+            console.log("Данные с чего начать: ", this.begin$.value);
         });
     };
 }

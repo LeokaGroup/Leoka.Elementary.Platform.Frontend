@@ -71,3 +71,64 @@
     line-height: 21px;
   }
 }
+
+.block-begin {
+  .begin-title {
+    font-family: 'Gilroy-Bold';
+    font-size: 48px;
+    line-height: 60px;
+    text-align: center;
+    letter-spacing: -0.025em;
+    color: #4C1D95;
+    margin-top: 66px;
+  }
+
+  .begin-subtitle {
+    font-family: 'Gilroy-Regular';
+    font-size: 20px;
+    line-height: 32px;
+    text-align: center;
+    color: #4C1D95;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+  }
+
+  .begin-items {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 64px 0px;
+  }
+
+  .begin-item {
+    width: 384px;
+    height: 194px;
+
+    .title-item {
+      color: #4C1D95;
+      font-family: 'Gilroy-Bold';
+      font-size: 24px;
+      line-height: 36px;
+      margin: 8px 0px;
+      text-align: center;
+    }
+
+    .subtitle-item {
+      white-space: pre-line;
+      font-family: 'Gilroy-Regular';
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      letter-spacing: 0.44px;
+      color: #4C1D95;
+      margin: 8px 0px;
+    }
+
+    .img-item {
+      line-height: 36px;
+      margin: 8px 0px;
+      text-align: center;
+    }
+  }
+}
