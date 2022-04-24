@@ -1,6 +1,28 @@
 @use "/src/styles/common.scss";
 @use "/src/styles/control.scss";
 
+@mixin mentorAndStudentBlockSubTitle {
+  font-family: 'Gilroy-Regular';
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 0.15px;
+  color: #4C1D95;
+  white-space: pre-line;
+}
+
+@mixin platformCards {
+  background: #FFFFFF;
+  box-shadow: 0px 4px 8px -2px rgba(17, 24, 39, 0.1),
+    0px 2px 4px -2px rgba(17, 24, 39, 0.06);
+  border-radius: 8px;
+  width: 592px;
+  height: 522px;
+  margin-top: 100px;
+  padding: 50px 50px 60px;
+  margin: 0 32px;
+  
+}
+
 .start-fon {
   width: 100%;
   height: 100vh;
@@ -278,5 +300,71 @@
       border: none;
       margin-left: 320px;
     }
+  }
+}
+
+.block-about {
+  background: linear-gradient(180deg, #D5FAFC 0%, #F4F9FD 100%);
+
+  .about-title {
+    font-family: 'Gilroy-Bold';
+    font-size: 48px;
+    line-height: 60px;
+    letter-spacing: -0.025em;
+    color: #4C1D95;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 216px;
+    padding-top: 159px;
+  }
+
+  .about-subtitle {
+    font-family: 'Gilroy-Regular';
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.15px;
+    color: #4C1D95;
+    margin-left: 216px;
+  }
+
+  .block-student {
+    @include platformCards();
+
+    margin-top: 100px;
+    // margin-left: 112px;
+
+    .student-title {
+      font-family: 'Gilroy-Bold';
+      font-size: 24px;
+      line-height: 36px;
+      color: #4C1D95;
+    }
+
+    .student-subtitle {
+      @include mentorAndStudentBlockSubTitle();
+    }
+  }
+
+  .block-mentor {
+    @include platformCards();
+
+    // margin-right: 112px;
+    
+    .mentor-title {
+      font-family: 'Gilroy-Bold';
+      font-size: 24px;
+      line-height: 36px;
+      color: #4C1D95;
+    }
+
+    .mentor-subtitle {
+      @include mentorAndStudentBlockSubTitle();
+    }
+  }
+
+  .block-platform-cards {
+    display: flex;
+    justify-content: center;
   }
 }

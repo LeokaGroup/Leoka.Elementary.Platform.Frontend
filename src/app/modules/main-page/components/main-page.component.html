@@ -1,115 +1,152 @@
 <div>
-    <img class="start-fon" src="../../../../../assets/images/main-page/First.jpg">
-</div>  
+  <img class="start-fon" src="../../../../../assets/images/main-page/First.jpg">
+</div>
 
 <!-- Блок фона. -->
 <div class="main-block">
-    <div class="main-block-title">{{mainFon$.value.fonTitle}}</div>
-    <div class="main-block-subtitle">{{mainFon$.value.fonSubTitle}}</div>
+  <div class="main-block-title">{{mainFon$.value.fonTitle}}</div>
+  <div class="main-block-subtitle">{{mainFon$.value.fonSubTitle}}</div>
 
-    <ul class="main-items" *ngFor="let item of mainFon$.value.mainFonStudentItems">
-        <li class="main-item">{{item.fonSubTitleText}}</li>
-    </ul>
+  <ul class="main-items" *ngFor="let item of mainFon$.value.mainFonStudentItems">
+    <li class="main-item">{{item.fonSubTitleText}}</li>
+  </ul>
 </div>
 
 <!-- Блок записи на урок. -->
 <div class="block-reception col-xxl-12 col-xl-12 col-lg-12 col-md-12">
-    <div class="recetion-title">
-        {{reception$.value.writeReceptionText}}
-    </div>
+  <div class="recetion-title">
+    {{reception$.value.writeReceptionText}}
+  </div>
 
-    <button class="button-action-reception">
-        {{reception$.value.writeReceptionButtonText}}
-    </button>
+  <button class="button-action-reception">
+    {{reception$.value.writeReceptionButtonText}}
+  </button>
 </div>
 
 <!-- Блок с чего начать. -->
 <div class="block-begin">
-    <div class="begin-title">
-        {{begin$.value.whereBeginTitle}}
+  <div class="begin-title">
+    {{begin$.value.whereBeginTitle}}
+  </div>
+
+  <div class="begin-subtitle">
+    {{begin$.value.whereBeginSubTitle}}
+  </div>
+
+  <div class="begin-items">
+    <div class="begin-item" *ngFor="let item of begin$.value.whereBeginItems">
+      <div class="img-item">
+        <img [src]="item.beginUrlIcon" alt="">
+      </div>
+
+      <div class="title-item">
+        {{item.beginTitle}}
+      </div>
+
+      <div class="subtitle-item">
+        {{item.beginSubTitle}}
+      </div>
     </div>
-
-    <div class="begin-subtitle">
-        {{begin$.value.whereBeginSubTitle}}
-    </div>
-
-    <div class="begin-items">
-        <div class="begin-item" *ngFor="let item of begin$.value.whereBeginItems">
-            <div class="img-item">
-                <img [src]="item.beginUrlIcon" alt="">
-            </div>
-
-            <div class="title-item">
-                {{item.beginTitle}}
-            </div>
-
-            <div class="subtitle-item">
-                {{item.beginSubTitle}}
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 
 <!-- Блок умного класса. -->
 <div class="block-smart-class col-lg-12">
-    <div class="smart-title">
-        {{smartClass$.value.smartClassTitle}}
+  <div class="smart-title">
+    {{smartClass$.value.smartClassTitle}}
+  </div>
+
+  <div class="block-smart-subtitle">
+    <div class="smart-subtitle">
+      {{smartClass$.value.smartClassSubTitle}}
+    </div>
+  </div>
+
+  <div class="smart-items d-flex">
+    <div class="col-lg-6 card card-first">
+      <ul class="smart-item" *ngFor="let item of smartClass$.value.smartClassStudentItems">
+        <li>
+          <div class="smart-item-title">
+            {{item.smartItemTitle}}
+          </div>
+
+          <div class="smart-item-subtitle">
+            {{item.smartItemSubTitle}}
+          </div>
+        </li>
+      </ul>
     </div>
 
-   <div class="block-smart-subtitle">
-     <div class="smart-subtitle">
-       {{smartClass$.value.smartClassSubTitle}}
-     </div>
-   </div>
-
-    <div class="smart-items d-flex">
-      <div class="col-lg-6 card card-first">
-        <ul class="smart-item" *ngFor="let item of smartClass$.value.smartClassStudentItems">
-          <li>
-            <div class="smart-item-title">
-              {{item.smartItemTitle}}
-            </div>
-
-            <div class="smart-item-subtitle">
-              {{item.smartItemSubTitle}}
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="col-lg-6 card card-second">
-        Вставим изображение, когда внедрим интеграцию видео-связи.
-      </div>
+    <div class="col-lg-6 card card-second">
+      Вставим изображение, когда внедрим интеграцию видео-связи.
     </div>
+  </div>
 </div>
 
 <!-- Блок со списком вопросов. -->
 <div class="block-questions">
-    <div class="best-title">
-        {{options$.value.bestOptionTitle}}
-    </div>
+  <div class="best-title">
+    {{options$.value.bestOptionTitle}}
+  </div>
 
-    <div class="best-subtitle">
-        {{options$.value.bestOptionSubTitle}}
-    </div>
+  <div class="best-subtitle">
+    {{options$.value.bestOptionSubTitle}}
+  </div>
 
-    <div class="questions-items">
-        <div class="question-item" *ngFor="let item of best$.value">
-            <div class="item-title">
-                {{item.mainBestOptionQuestionText}}
-            </div>
+  <div class="questions-items">
+    <div class="question-item" *ngFor="let item of best$.value">
+      <div class="item-title">
+        {{item.mainBestOptionQuestionText}}
+      </div>
 
-            <div class="item-variants">
-              <div class="item-variant" *ngFor="let variant of item.mainBestOptions">
-                {{variant.variantText}}
-              </div>
-            </div>
+      <div class="item-variants">
+        <div class="item-variant" *ngFor="let variant of item.mainBestOptions">
+          {{variant.variantText}}
         </div>
-
-       <div>
-         <button class="button-action-find-mentor col-lg-12">
-           {{options$.value.bestOptionButtonText}}
-         </button>
-       </div>
+      </div>
     </div>
+
+    <div>
+      <button class="button-action-find-mentor col-lg-12">
+        {{options$.value.bestOptionButtonText}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Блок о нашем сервисе. -->
+<div class="block-about col-lg-12">
+  <div class="about-title">
+    {{about$.value.aboutTitle}}
+  </div>
+
+  <div class="about-subtitle">
+    {{about$.value.aboutSubTitle}}
+  </div>
+
+  <div class="block-platform-cards">
+    <div class="block-student col-lg-6">
+      <div class="student-title">
+        {{about$.value.aboutStudentTitle}}
+      </div>
+
+      <div class="student-subtitle">
+        {{about$.value.aboutStudentSubTitle}}
+      </div>
+    </div>
+
+    <div class="block-mentor col-lg-6">
+      <div class="mentor-title">
+        {{about$.value.aboutMentorTitle}}
+      </div>
+
+      <div class="mentor-subtitle">
+        {{about$.value.aboutMentorSubTitle}}
+      </div>
+
+      <div>
+        <p-button class="button-detail mt-24" label="Подробнее..." styleClass="p-button-link"></p-button>
+      </div>
+    </div>
+  </div>
 </div>

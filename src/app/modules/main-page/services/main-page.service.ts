@@ -14,6 +14,7 @@ export class MainPageService {
     public best$ = new BehaviorSubject<any>([]);
     public smartClass$ = new BehaviorSubject<any>({});
     public options$ = new BehaviorSubject<any>({});
+    public about$ = new BehaviorSubject<any>({});
 
     constructor(private readonly http: HttpClient) {
 
@@ -76,6 +77,16 @@ export class MainPageService {
     public async getOptionsAsync() {
         return await this.http.get(API_URL.apiUrl + "/main/options").pipe(
             tap(data => this.options$.next(data))
+        );
+    };
+
+    /**
+     * Функция получит данные о платформе.
+     * @returns - Данные блока.
+     */
+    public async getAboutAsync() {
+        return await this.http.get(API_URL.apiUrl + "/main/about").pipe(
+            tap(data => this.about$.next(data))
         );
     };
 }

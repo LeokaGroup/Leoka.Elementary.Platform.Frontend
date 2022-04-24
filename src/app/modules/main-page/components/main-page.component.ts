@@ -18,6 +18,7 @@ export class MainModule implements OnInit {
     public readonly best$ = this.mainPageService.best$;
     public readonly smartClass$ = this.mainPageService.smartClass$;
     public readonly options$ = this.mainPageService.options$;
+    public readonly about$ = this.mainPageService.about$;
 
     constructor(private mainPageService: MainPageService) {};
 
@@ -28,7 +29,8 @@ export class MainModule implements OnInit {
             await this.getBeginAsync(),
             await this.getBestAsync(),
             await this.getSmartClassAsync(),
-            await this.getOptionsAsync()
+            await this.getOptionsAsync(),
+            await this.getAboutAsync()
         ]).subscribe();
     };    
 
@@ -95,6 +97,17 @@ export class MainModule implements OnInit {
         (await this.mainPageService.getOptionsAsync())
         .subscribe(_ => {
             console.log("Данные для списка вопросов: ", this.options$.value);
+        });
+    };
+
+    /**
+     * Функция получит данные о платформе.
+     * @returns - Данные блока.
+     */
+    private async getAboutAsync() {
+        (await this.mainPageService.getAboutAsync())
+        .subscribe(_ => {
+            console.log("Данные о платформе: ", this.about$.value);
         });
     };
 }
