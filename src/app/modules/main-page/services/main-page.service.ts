@@ -8,6 +8,8 @@ export class MainPageService {
     public mainFon$ = new BehaviorSubject<any>({});
     public reception$ = new BehaviorSubject<any>({});
     public begin$ = new BehaviorSubject<any>({});
+    public best$ = new BehaviorSubject<any>([]);
+    public smartClass$ = new BehaviorSubject<any>({});
 
     constructor(private readonly http: HttpClient) {
 
@@ -40,6 +42,26 @@ export class MainPageService {
     public async getBeginAsync() {
         return await this.http.get(API_URL.apiUrl + "/main/begin").pipe(
             tap(data => this.begin$.next(data))
+        );
+    };
+
+    /**
+     * Функция получит список вопросов.
+     * @returns - Список вопросов с вариантами ответов.
+     */
+    public async getBestAsync() {
+        return await this.http.get(API_URL.apiUrl + "/main/questions").pipe(
+            tap(data => this.best$.next(data))
+        );
+    };
+
+    /**
+     * Функция получит данные для блоа умного класса.
+     * @returns - Данные для блока.
+     */
+     public async getSmartClassAsync() {
+        return await this.http.get(API_URL.apiUrl + "/main/smart-class").pipe(
+            tap(data => this.smartClass$.next(data))
         );
     };
 }

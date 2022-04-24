@@ -132,3 +132,76 @@
     }
   }
 }
+
+.block-smart-class {
+  background: #F4F9FD;
+
+  .smart-title {
+    font-family: 'Gilroy-Bold';
+    font-size: 48px;
+    line-height: 60px;
+    text-align: center;
+    letter-spacing: -0.025em;
+    color: #4C1D95;
+    margin: 8px 0px;
+    padding-top: 66px;
+  }
+
+  .block-smart-subtitle {
+    display: flex;
+    justify-content: center;
+  }
+
+  .smart-subtitle {
+    font-family: 'Gilroy-Regular';
+    font-size: 20px;
+    line-height: 32px;
+    text-align: center;
+    letter-spacing: 0.15px;
+    color: #4C1D95;
+    margin: 8px 0px;
+    white-space: pre-line;
+    width: 800px;
+  }
+
+  .smart-items {
+    .card {
+      background: #FFFFFF;
+      box-shadow: 0px 4px 40px rgba(90, 90, 137, 0.25);
+      border-radius: 20px 0px 0px 20px;
+      margin: 0 32px 0 0;
+      padding: 38px 58px;
+      margin-top: 50px;
+      width: 588px
+    }
+
+    .card-first {
+      margin-left: 116px;
+    }
+
+    .card-second {
+      margin-right: 116px;
+    }
+
+    .smart-item {
+      .smart-item-title {
+        font-family: 'Gilroy-Bold';
+        font-size: 24px;
+        line-height: 36px;
+        color: #4C1D95;
+      }
+
+      .smart-item-subtitle {
+        font-family: 'Gilroy-Regular';
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.44px;
+        color: #4C1D95;
+        margin-left: 42px;
+        margin-top: 5px;
+        white-space: pre-line;
+        width: 405px;
+      }
+    }
+  }
+}

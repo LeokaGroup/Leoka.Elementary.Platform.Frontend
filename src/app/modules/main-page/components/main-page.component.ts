@@ -15,18 +15,18 @@ export class MainModule implements OnInit {
     public readonly mainFon$ = this.mainPageService.mainFon$;
     public readonly reception$ = this.mainPageService.reception$;
     public readonly begin$ = this.mainPageService.begin$;
+    public readonly best$ = this.mainPageService.best$;
+    public readonly smartClass$ = this.mainPageService.smartClass$;
 
     constructor(private mainPageService: MainPageService) {};
 
     public async ngOnInit() {        
-       await this.getHeaderItemsAsync();
-       await this.getReceptionAsync();
-       await this.getBeginAsync();
-
         forkJoin([
-            await this.getHeaderItemsAsync(),
+            await this.getFonAsync(),
             await this.getReceptionAsync(),
-            await this.getBeginAsync()
+            await this.getBeginAsync(),
+            await this.getBestAsync(),
+            await this.getSmartClassAsync()
         ]).subscribe();
     };    
 
@@ -34,7 +34,7 @@ export class MainModule implements OnInit {
      * Функция получит список элементов хидера.
      * @returns - Список элементов хидера.
      */
-    private async getHeaderItemsAsync() {
+    private async getFonAsync() {
         (await this.mainPageService.getMainFonItemsAsync())
         .subscribe(_ => {
             console.log("Данные фона студента: ", this.mainFon$.value);
@@ -60,6 +60,28 @@ export class MainModule implements OnInit {
         (await this.mainPageService.getBeginAsync())
         .subscribe(_ => {
             console.log("Данные с чего начать: ", this.begin$.value);
+        });
+    };
+
+    /**
+     * Функция получит список вопросов.
+     * @returns - Список вопросов с вариантами ответов.
+     */
+    private async getBestAsync() {
+        (await this.mainPageService.getBestAsync())
+        .subscribe(_ => {
+            console.log("Список вопросов: ", this.best$.value);
+        });
+    };
+
+     /**
+     * Функция получит данные для блоа умного класса.
+     * @returns - Данные для блока.
+     */
+      private async getSmartClassAsync() {
+        (await this.mainPageService.getSmartClassAsync())
+        .subscribe(_ => {
+            console.log("Данные умного класса: ", this.smartClass$.value);
         });
     };
 }
