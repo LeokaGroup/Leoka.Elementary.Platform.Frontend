@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
 
+/**
+ * Сервис ролей.
+ */
 @Injectable()
 export class RoleService {
     public readonly roles$ = new BehaviorSubject<any>(undefined);

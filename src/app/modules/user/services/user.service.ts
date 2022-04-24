@@ -4,6 +4,9 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
 import { UserInput } from '../models/input/user-input';
 
+/**
+ * Сервис пользователя.
+ */
 @Injectable()
 export class UserService {
     public readonly signupUser$ = new BehaviorSubject<any>(undefined);

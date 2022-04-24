@@ -82,3 +82,34 @@
       </div>
     </div>
 </div>
+
+<!-- Блок со списком вопросов. -->
+<div class="block-questions">
+    <div class="best-title">
+        {{options$.value.bestOptionTitle}}
+    </div>
+
+    <div class="best-subtitle">
+        {{options$.value.bestOptionSubTitle}}
+    </div>
+
+    <div class="questions-items">
+        <div class="question-item" *ngFor="let item of best$.value">
+            <div class="item-title">
+                {{item.mainBestOptionQuestionText}}
+            </div>
+
+            <div class="item-variants">
+              <div class="item-variant" *ngFor="let variant of item.mainBestOptions">
+                {{variant.variantText}}
+              </div>
+            </div>
+        </div>
+
+       <div>
+         <button class="button-action-find-mentor col-lg-12">
+           {{options$.value.bestOptionButtonText}}
+         </button>
+       </div>
+    </div>
+</div>

@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
 
+/**
+ * Сервис главной страницы.
+ */
 @Injectable()
 export class MainPageService {
     public mainFon$ = new BehaviorSubject<any>({});
@@ -10,6 +13,7 @@ export class MainPageService {
     public begin$ = new BehaviorSubject<any>({});
     public best$ = new BehaviorSubject<any>([]);
     public smartClass$ = new BehaviorSubject<any>({});
+    public options$ = new BehaviorSubject<any>({});
 
     constructor(private readonly http: HttpClient) {
 
@@ -62,6 +66,16 @@ export class MainPageService {
      public async getSmartClassAsync() {
         return await this.http.get(API_URL.apiUrl + "/main/smart-class").pipe(
             tap(data => this.smartClass$.next(data))
+        );
+    };
+
+    /**
+     * Функция получит данные для списка вопросов.
+     * @returns - Данные для списка.
+     */
+    public async getOptionsAsync() {
+        return await this.http.get(API_URL.apiUrl + "/main/options").pipe(
+            tap(data => this.options$.next(data))
         );
     };
 }
