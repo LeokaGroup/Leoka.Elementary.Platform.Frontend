@@ -15,6 +15,7 @@ export class MainPageService {
     public smartClass$ = new BehaviorSubject<any>({});
     public options$ = new BehaviorSubject<any>({});
     public about$ = new BehaviorSubject<any>({});
+    public request$ = new BehaviorSubject<any>({});
 
     constructor(private readonly http: HttpClient) {
 
@@ -87,6 +88,16 @@ export class MainPageService {
     public async getAboutAsync() {
         return await this.http.get(API_URL.apiUrl + "/main/about").pipe(
             tap(data => this.about$.next(data))
+        );
+    };
+
+    /**
+     * Функция получит данные для блока заявки.
+     * @returns - Данные блока.
+     */
+    public async getRequestAsync() {
+        return await this.http.get(API_URL.apiUrl + "/main/request").pipe(
+            tap(data => this.request$.next(data))
         );
     };
 }

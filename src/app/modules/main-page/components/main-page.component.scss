@@ -305,6 +305,7 @@
 
 .block-about {
   background: linear-gradient(180deg, #D5FAFC 0%, #F4F9FD 100%);
+  padding-bottom: 150px;
 
   .about-title {
     font-family: 'Gilroy-Bold';
@@ -332,7 +333,6 @@
     @include platformCards();
 
     margin-top: 100px;
-    // margin-left: 112px;
 
     .student-title {
       font-family: 'Gilroy-Bold';
@@ -349,8 +349,6 @@
   .block-mentor {
     @include platformCards();
 
-    // margin-right: 112px;
-    
     .mentor-title {
       font-family: 'Gilroy-Bold';
       font-size: 24px;
@@ -366,5 +364,69 @@
   .block-platform-cards {
     display: flex;
     justify-content: center;
+  }
+}
+
+.block-request {
+  background: #FFFFFF;
+  box-shadow: 0px 4px 40px rgba(90, 90, 137, 0.25);
+  border-radius: 0px 20px 20px 0px;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  .left-block {
+    width: 416px;
+    height: 502px;
+    margin-left: 112px;
+    background: #7C3AED;
+    box-shadow: 0px 4px 40px rgba(90, 90, 137, 0.25);
+    border-radius: 20px 0px 0px 20px;
+    padding: 59px;
+
+    .request-title {
+      font-family: 'Gilroy-Bold';
+      font-size: 48px;
+      line-height: 60px;
+      letter-spacing: -0.025em;
+      color: #FFFFFF;
+    }
+
+    .request-subtitle {
+      font-family: 'Gilroy-Regular';
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.44px;
+      color: #FFFFFF;
+      margin-top: 30px;
+    }
+  }
+
+  .rigth-block {
+    width: 800px;
+    height: 502px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 40px rgba(90, 90, 137, 0.25);
+    border-radius: 0px 20px 20px 0px;
+  }
+}
+
+.request-form {
+  .request-first-line-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .request-second-line-item {
+    display: flex;
+    justify-content: center;
+    margin-top: 38px;
+  }
+
+  .request-last-line-item {
+    display: flex;
+    justify-content: center;
+    margin-top: 38px;
   }
 }

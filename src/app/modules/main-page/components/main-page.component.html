@@ -150,3 +150,90 @@
     </div>
   </div>
 </div>
+
+<!-- Блок записи на урок. -->
+<div class="block-reception col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+  <div class="recetion-title">
+    {{reception$.value.writeReceptionText}}
+  </div>
+
+  <button class="button-action-reception">
+    {{reception$.value.writeReceptionButtonText}}
+  </button>
+</div>
+
+<!-- Блок с заявкой. -->
+<div class="block-request">
+  <div class="left-block">
+    <div class="request-title">
+      {{request$.value.requestTitle}}
+    </div>
+
+    <div class="request-subtitle">
+      {{request$.value.requestSubTitle}}
+    </div>
+  </div>
+
+  <div class="rigth-block">
+    <form class="request-form" [formGroup]="requestForm" novalidate>
+      <div class="request-first-line-item">
+        <div class="form-group">
+          <input class="form-control input-request" name="requestFirstName" formControlName="requestFirstName"
+            placeholder="{{request$.value.requestFirstName}}" />
+
+          <!-- <div class="alert alert-danger"
+            *ngIf="requestForm.controls['requestFirstName'].invalid && requestForm.controls['requestFirstName'].touched">
+            Не указано имя
+          </div> -->
+        </div>
+
+        <div class="form-group">
+          <input class="form-control input-request" name="requestLastName" formControlName="requestLastName"
+            placeholder="{{request$.value.requestLastName}}" />
+
+          <!-- <div class="alert alert-danger"
+            *ngIf="requestForm.controls['requestLastName'].invalid && requestForm.controls['requestLastName'].touched">
+            Не указана фамилия
+          </div> -->
+        </div>
+      </div>
+
+      <div class="request-second-line-item">
+        <div class="form-group">
+          <input class="form-control input-request" name="requestEmail" formControlName="requestEmail"
+            placeholder="{{request$.value.requestEmail}}" />
+
+          <!-- <div class="alert alert-danger"
+            *ngIf="requestForm.controls['requestFirstName'].invalid && requestForm.controls['requestFirstName'].touched">
+            Не указано имя
+          </div> -->
+        </div>
+
+        <div class="form-group">
+          <input class="form-control input-request" name="requestPhoneNumber" formControlName="requestPhoneNumber"
+            placeholder="{{request$.value.requestPhoneNumber}}" />
+
+          <!-- <div class="alert alert-danger"
+            *ngIf="requestForm.controls['requestLastName'].invalid && requestForm.controls['requestLastName'].touched">
+            Не указана фамилия
+          </div> -->
+        </div>
+      </div>
+
+      <div class="request-second-line-item">
+        <div class="form-group">
+          <textarea class="form-control input-request input-message" name="requestMessage" formControlName="requestMessage"
+          placeholder="{{request$.value.requestMessage}}">
+            
+          </textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <button class="button-request" [disabled]="requestForm.invalid" (click)="onCreateRequest()">
+            {{request$.value.requestButtonText}}
+          </button>
+      </div>
+  </form>
+  </div>
+</div>

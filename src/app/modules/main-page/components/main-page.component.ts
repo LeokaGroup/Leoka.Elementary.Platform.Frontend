@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { forkJoin } from "rxjs";
 import { MainPageService } from "../services/main-page.service";
 
@@ -19,6 +20,16 @@ export class MainModule implements OnInit {
     public readonly smartClass$ = this.mainPageService.smartClass$;
     public readonly options$ = this.mainPageService.options$;
     public readonly about$ = this.mainPageService.about$;
+    public readonly request$ = this.mainPageService.request$;
+
+    requestForm : FormGroup = new FormGroup({
+             
+        "requestFirstName": new FormControl("", Validators.required),
+        "requestLastName": new FormControl("", Validators.required),
+        "requestEmail": new FormControl("", Validators.required),
+        "requestPhoneNumber": new FormControl("", Validators.required),
+        "requestMessage": new FormControl("", Validators.required)
+    });
 
     constructor(private mainPageService: MainPageService) {};
 
@@ -30,7 +41,8 @@ export class MainModule implements OnInit {
             await this.getBestAsync(),
             await this.getSmartClassAsync(),
             await this.getOptionsAsync(),
-            await this.getAboutAsync()
+            await this.getAboutAsync(),
+            await this.getRequestAsync()
         ]).subscribe();
     };    
 
@@ -109,5 +121,20 @@ export class MainModule implements OnInit {
         .subscribe(_ => {
             console.log("Данные о платформе: ", this.about$.value);
         });
+    };
+
+    /**
+     * Функция получит данные для блока заявки.
+     * @returns - Данные блока.
+     */
+    private async getRequestAsync() {
+        (await this.mainPageService.getRequestAsync())
+        .subscribe(_ => {
+            console.log("Данные блока заявки: ", this.request$.value);
+        });
+    };
+
+    public async onCreateRequest() {
+
     };
 }

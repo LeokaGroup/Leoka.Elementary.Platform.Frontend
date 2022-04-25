@@ -79,6 +79,22 @@
   line-height: 24px;
 }
 
+.button-request {
+  width: 243px;
+  height: 50px;
+  background: #7C3AED;
+  border-radius: 8px;
+  margin: 20px 0px;
+  color: #FFFFFF;
+  border: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
 ::ng-deep .mt-24 .p-button-link {
   padding: 0;
   margin-top: 24px;
@@ -90,4 +106,25 @@
   line-height: 22px;
   letter-spacing: 0.1px;
   color: #7C3AED;
+}
+
+.input-request {
+  width: 267.18px;
+  height: 32px;
+  margin: 0 30px;
+  border: none;
+  border-bottom: 1px solid #C4C4C4;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.request-form {
+  margin: 59px;
+}
+
+.input-message {
+  width: 558.23px;
+  height: 127px;
 }
