@@ -16,6 +16,7 @@ export class MainPageService {
     public options$ = new BehaviorSubject<any>({});
     public about$ = new BehaviorSubject<any>({});
     public request$ = new BehaviorSubject<any>({});
+    public mentor$ = new BehaviorSubject<any>({});
 
     constructor(private readonly http: HttpClient) {
 
@@ -98,6 +99,16 @@ export class MainPageService {
     public async getRequestAsync() {
         return await this.http.get(API_URL.apiUrl + "/main/request").pipe(
             tap(data => this.request$.next(data))
+        );
+    };
+
+    /**
+     * Функция получит данные блока преподавателя.
+     * @returns - Данные блока.
+     */
+    public async getMentorAsync() {
+        return await this.http.get(API_URL.apiUrl + "/main/mentor").pipe(
+            tap(data => this.mentor$.next(data))
         );
     };
 }

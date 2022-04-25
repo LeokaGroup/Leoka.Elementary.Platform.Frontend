@@ -128,3 +128,27 @@
   width: 558.23px;
   height: 127px;
 }
+
+::ng-deep .button-mentor .p-button {
+  font-family: 'Gilroy-Bold';
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  color: #087592;
+  width: 210px;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: none;
+  margin-top: 54px;
+
+  &:hover {
+    background: #FFFFFF;
+    color: #087592;
+  }
+
+  &:focus {
+    border: none;
+    box-shadow: none;
+  }
+}

@@ -21,9 +21,10 @@ export class MainModule implements OnInit {
     public readonly options$ = this.mainPageService.options$;
     public readonly about$ = this.mainPageService.about$;
     public readonly request$ = this.mainPageService.request$;
+    public readonly mentor$ = this.mainPageService.mentor$;
 
+    // Форма заявки.
     requestForm : FormGroup = new FormGroup({
-             
         "requestFirstName": new FormControl("", Validators.required),
         "requestLastName": new FormControl("", Validators.required),
         "requestEmail": new FormControl("", Validators.required),
@@ -33,7 +34,8 @@ export class MainModule implements OnInit {
 
     constructor(private mainPageService: MainPageService) {};
 
-    public async ngOnInit() {        
+    public async ngOnInit() {     
+        // Параллельно получает данные на ините страницы.   
         forkJoin([
             await this.getFonAsync(),
             await this.getReceptionAsync(),
@@ -42,7 +44,8 @@ export class MainModule implements OnInit {
             await this.getSmartClassAsync(),
             await this.getOptionsAsync(),
             await this.getAboutAsync(),
-            await this.getRequestAsync()
+            await this.getRequestAsync(),
+            await this.getMentorAsync()
         ]).subscribe();
     };    
 
@@ -136,5 +139,16 @@ export class MainModule implements OnInit {
 
     public async onCreateRequest() {
 
+    };
+
+    /**
+     * Функция получит данные блока преподавателя.
+     * @returns - Данные блока.
+     */
+    private async getMentorAsync() {
+        (await this.mainPageService.getMentorAsync())
+        .subscribe(_ => {
+            console.log("Данные блока преподавателя: ", this.mentor$.value);
+        });
     };
 }
