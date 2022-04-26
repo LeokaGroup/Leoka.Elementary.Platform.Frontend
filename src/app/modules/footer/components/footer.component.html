@@ -1,0 +1,55 @@
+<div class="footer">
+  <div class="d-flex align-items-center block-logo" [routerLink]="['/']">
+    <div>
+      <img src="../../../assets/images/Logo.png">
+    </div>
+
+    <div>
+      <span class="title">Leoka Elementary</span>
+      <br>
+      <span class="sub-title">Образовательная платформа</span>
+    </div>
+  </div>
+
+  <div class="block-footers">
+    <!-- 1 ряд. -->
+    <div class="block-footer">
+      <div *ngFor="let item of aFooter1Items">
+        <div class="footer-item">
+          {{item.footerItemText}}
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 ряд. -->
+    <div class="block-footer">
+      <div *ngFor="let item of aFooter2Items">
+        <div class="footer-item">
+          {{item.footerItemText}}
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 ряд. -->
+    <div class="block-footer">
+      <div *ngFor="let item of aFooter3Items">
+        <div class="footer-item">
+          {{item.footerItemText}}
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 ряд. -->
+    <div class="block-footer">
+      <div *ngFor="let item of aFooter4Items">
+        <div class="footer-item">
+          {{item.footerItemText}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-date">
+    © {{dateLine}} Leoka Elementary. Все права защищены
+  </div>
+</div>

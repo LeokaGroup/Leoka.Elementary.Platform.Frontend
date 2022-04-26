@@ -13,11 +13,14 @@ import { RoleService } from "./modules/user/services/role.service";
 import { MainPageService } from "./modules/main-page/services/main-page.service";
 import { HeaderModule } from "./modules/header/components/header.component";
 import { HeaderService } from "./modules/header/services/header.service";
+import { FooterService } from "./modules/footer/services/footer.service";
+import { FooterModule } from "./modules/footer/components/footer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderModule
+    HeaderModule,
+    FooterModule
   ],
 
   imports: [
@@ -27,7 +30,7 @@ import { HeaderService } from "./modules/header/services/header.service";
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [RoleService, MainPageService, HeaderService],
+  providers: [RoleService, MainPageService, HeaderService, FooterService],
 
   bootstrap: [AppComponent]
 })

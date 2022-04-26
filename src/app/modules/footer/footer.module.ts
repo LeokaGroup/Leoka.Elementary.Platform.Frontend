@@ -8,15 +8,15 @@ import {TabViewModule} from 'primeng/tabview';
 import {ToastModule} from 'primeng/toast';
 import {DialogModule} from 'primeng/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import { HeaderModule } from './components/header.component';
-import { HeaderRoutingModule } from './header-routing.module';
-import { HeaderService } from './services/header.service';
+import { FooterModule } from './components/footer.component';
+import { FooterRoutingModule } from './footer-routing.module';
+import { FooterService } from './services/footer.service';
 
 @NgModule({
-    declarations: [HeaderModule],
-    imports: [ CommonModule, CheckboxModule, DropdownModule, FormsModule, ReactiveFormsModule, HeaderRoutingModule, ButtonModule, TabViewModule, ToastModule, DialogModule, HttpClientModule ],
+    declarations: [FooterModule],
+    imports: [ CommonModule, CheckboxModule, DropdownModule, FormsModule, ReactiveFormsModule, FooterRoutingModule, ButtonModule, TabViewModule, ToastModule, DialogModule, HttpClientModule ],
     exports: [],
-    providers: [HeaderService],
+    providers: [FooterService],
 })
 
-export class HeaderMainModule {}
+export class FooterMainModule {}

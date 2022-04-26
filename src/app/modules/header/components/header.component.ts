@@ -29,7 +29,6 @@ export class HeaderModule implements OnInit {
      * @returns - Список элементов хидера.
      */
     private async getHeaderItemsAsync() {
-        console.log("getHeaderItemsAsync");
         (await this.headerService.getHeaderItemsAsync())
         .subscribe(_ => {
             console.log("Данные хидера: ", this.headerData$.value);
