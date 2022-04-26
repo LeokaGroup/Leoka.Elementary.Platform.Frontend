@@ -1,4 +1,4 @@
-<div>
+<div class="block-fon">
   <img class="start-fon" src="../../../../../assets/images/main-page/First.jpg">
 </div>
 
@@ -125,28 +125,46 @@
   </div>
 
   <div class="block-platform-cards">
-    <div class="block-student col-lg-6">
-      <div class="student-title">
-        {{about$.value.aboutStudentTitle}}
+    <div class="block-student col-lg-6 d-flex">
+      <div>
+        <div class="platform-img">
+          <img [src]="about$.value.urlIconStudent" alt="">
+        </div>
       </div>
 
-      <div class="student-subtitle">
-        {{about$.value.aboutStudentSubTitle}}
+      <div class="block-title">
+        <div class="student-title">
+          {{about$.value.aboutStudentTitle}}
+        </div>
+  
+        <div class="student-subtitle">
+          {{about$.value.aboutStudentSubTitle}}
+        </div>
       </div>
     </div>
 
     <div class="block-mentor col-lg-6">
-      <div class="mentor-title">
-        {{about$.value.aboutMentorTitle}}
-      </div>
-
-      <div class="mentor-subtitle">
-        {{about$.value.aboutMentorSubTitle}}
-      </div>
-
+     <div class="d-flex">
       <div>
-        <p-button class="button-detail mt-24" label="Подробнее..." styleClass="p-button-link"></p-button>
+        <div class="platform-img">
+          <img [src]="about$.value.urlIconMentor" alt="">
+        </div>
       </div>
+      
+      <div class="block-title">
+        <div class="mentor-title">
+          {{about$.value.aboutMentorTitle}}
+        </div>
+  
+        <div class="mentor-subtitle">
+          {{about$.value.aboutMentorSubTitle}}
+        </div>
+
+        <div>
+          <p-button class="button-detail mt-24" label="Подробнее..." styleClass="p-button-link"></p-button>
+        </div>
+      </div>
+     </div>
     </div>
   </div>
 </div>
@@ -240,17 +258,22 @@
 
 <!-- Блок преподавателя. -->
 <div class="block-mentor">
-  <div class="mentor-items">
-    <div class="mentor-title">
-      {{mentor$.value.mentorWorkTitle}}
+  <div class="mentor-items col-lg-12 ">
+    <div class="">
+      <div class="mentor-title">
+        {{mentor$.value.mentorWorkTitle}}
+      </div>
+  
+      <div class="mentor-subtitle">
+        {{mentor$.value.mentorWorkSubTitle}}
+      </div>
+  
+      <div class="button-mentor">
+        <button pButton type="button" label="Перейти"></button>
+      </div>
     </div>
 
-    <div class="mentor-subtitle">
-      {{mentor$.value.mentorWorkSubTitle}}
-    </div>
-
-    <div class="button-mentor">
-      <button pButton type="button" label="Перейти"></button>
-    </div>
+    <div class="">
+      <img [src]="mentor$.value.mentorWorkUrl" alt="">
   </div>
 </div>

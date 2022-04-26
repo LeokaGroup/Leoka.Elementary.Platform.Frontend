@@ -20,13 +20,16 @@
   margin-top: 100px;
   padding: 50px 50px 60px;
   margin: 0 32px;
-  
 }
 
-.start-fon {
-  width: 100%;
-  height: 100vh;
-  z-index: 1;
+.block-fon {
+  overflow-x: hidden;
+  .start-fon {
+    // width: 100%;
+    width: 100vw;
+    // height: 100vh;
+    z-index: 1;
+  }
 }
 
 .main-block {
@@ -333,16 +336,21 @@
     @include platformCards();
 
     margin-top: 100px;
+  }
+
+  .block-title {
+    display: flex;
+    flex-direction: column;
+
+    .student-subtitle {
+      @include mentorAndStudentBlockSubTitle();
+    }
 
     .student-title {
       font-family: 'Gilroy-Bold';
       font-size: 24px;
       line-height: 36px;
       color: #4C1D95;
-    }
-
-    .student-subtitle {
-      @include mentorAndStudentBlockSubTitle();
     }
   }
 
@@ -359,6 +367,10 @@
     .mentor-subtitle {
       @include mentorAndStudentBlockSubTitle();
     }
+  }
+
+  .platform-img {
+    margin-right: 20px;
   }
 
   .block-platform-cards {
@@ -438,8 +450,10 @@
   overflow: hidden;
 
   .mentor-items {
-    margin-left: 112px;
+    // margin-left: 112px;
     margin-top: 51px;
+    display: flex;
+    justify-content: space-evenly;
 
     .mentor-title {
       font-family: 'Gilroy-Bold';
