@@ -17,7 +17,7 @@ import { FooterService } from "./modules/footer/services/footer.service";
 import { FooterModule } from "./modules/footer/components/footer.component";
 import { NgxLoadingModule } from "ngx-loading";
 import { NetworkService } from "./modules/base/services/network.service";
-import { NetworkInterceptor } from "./core/interceptors/api-interceptor";
+import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
 
 @NgModule({
   declarations: [
