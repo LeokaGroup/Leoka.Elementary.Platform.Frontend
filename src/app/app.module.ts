@@ -16,8 +16,8 @@ import { HeaderService } from "./modules/header/services/header.service";
 import { FooterService } from "./modules/footer/services/footer.service";
 import { FooterModule } from "./modules/footer/components/footer.component";
 import { NgxLoadingModule } from "ngx-loading";
+import { NetworkService } from "./modules/base/services/network.service";
 import { NetworkInterceptor } from "./core/interceptors/api-interceptor";
-import { LoadingService } from "./modules/base/services/loading.service";
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { LoadingService } from "./modules/base/services/loading.service";
       useClass: NetworkInterceptor,
       multi: true
     },
-    LoadingService
+    NetworkService
   ],
 
   bootstrap: [AppComponent]

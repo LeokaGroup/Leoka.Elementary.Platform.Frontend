@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingService } from './modules/base/services/loading.service';
+import { NetworkService } from './modules/base/services/network.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +10,5 @@ import { LoadingService } from './modules/base/services/loading.service';
 export class AppComponent {
   public loading$ = this.loader.loading$;
 
-  constructor(public loader: LoadingService) {}
+  constructor(public loader: NetworkService) {}
 }

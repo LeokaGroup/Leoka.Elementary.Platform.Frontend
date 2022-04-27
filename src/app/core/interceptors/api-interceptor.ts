@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from "@angular/common/http";
 import { catchError, finalize, tap } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
-import { LoadingService } from "src/app/modules/base/services/loading.service";
+import { NetworkService } from "src/app/modules/base/services/network.service";
 
 // Класс перехватчика api-запросов.
 @Injectable()
 export class NetworkInterceptor implements HttpInterceptor {
-    constructor(private loader: LoadingService) {
+    constructor(private loader: NetworkService) {
 
     }
 
