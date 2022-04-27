@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpHandler, HttpRequest } from "@angular/common/http";
-import { catchError } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { throwError } from "rxjs";
+import { LoadingService } from "src/app/modules/base/services/loading.service";
 
 // Класс перехватчика api-запросов.
 @Injectable()
-export class ParamInterceptor implements HttpInterceptor {
-    constructor() {
+export class NetworkInterceptor implements HttpInterceptor {
+    constructor(private loader: LoadingService) {
 
     }
 
@@ -28,11 +29,18 @@ export class ParamInterceptor implements HttpInterceptor {
 
         // req = req.clone({ headers: req.headers.set('Content-Type', 'multipart/form-data;boundary="boundary"') });
 
-        return next.handle(req).pipe(
-            catchError(err => {
-                // this.commonService.routeToStart(err);
+        this.loader.setBusy(true);
 
-                return throwError(err.message);
+        return next.handle(req).pipe(
+            tap(_ => {
+                this.loader.setBusy(false);
+            }),
+
+            catchError(response => {
+                // this.commonService.routeToStart(err);
+                this.loader.setBusy(false);
+
+                return throwError(response.message);
             }));
     }
 }
