@@ -15,7 +15,7 @@ import { HeaderModule } from "./modules/header/components/header.component";
 import { HeaderService } from "./modules/header/services/header.service";
 import { FooterService } from "./modules/footer/services/footer.service";
 import { FooterModule } from "./modules/footer/components/footer.component";
-import { NgxLoadingModule } from "ngx-loading";
+// import { NgxLoadingModule } from "ngx-loading";
 import { NetworkService } from "./modules/base/services/network.service";
 import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
 
@@ -32,12 +32,12 @@ import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
     ButtonModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgxLoadingModule.forRoot({
-      primaryColour: '#7C3AED',
-      secondaryColour: '#7C3AED',
-      tertiaryColour: '#7C3AED',
-      fullScreenBackdrop: true
-    })
+    // NgxLoadingModule.forRoot({
+    //   primaryColour: '#7C3AED',
+    //   secondaryColour: '#7C3AED',
+    //   tertiaryColour: '#7C3AED',
+    //   fullScreenBackdrop: true
+    // })
   ],
 
   providers: [
