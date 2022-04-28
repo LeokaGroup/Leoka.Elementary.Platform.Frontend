@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
 import { RoleService } from "../../services/role.service";
 import { UserService } from "../../services/user.service";
 
@@ -16,7 +15,7 @@ export class SignUpModule implements OnInit {
     firstName: string = "";
     userPhoneNumber: string = "";
     userEmail: string = "";
-    selectedRole: string = "";
+    selectedRole: any;
     isAcceptRegulations: boolean = false;
     isNews: boolean = false;
 
@@ -37,8 +36,8 @@ export class SignUpModule implements OnInit {
      * @returns - Данные пользователя.
      */
     public async onSignUpAsync() {
-        (await this.userService.signupUserAsync(this.firstName, this.userPhoneNumber, this.userEmail, this.selectedRole))
-            .subscribe(response => {
+        (await this.userService.signupUserAsync(this.firstName, this.userPhoneNumber, this.userEmail, this.selectedRole.roleSysName))
+            .subscribe(_ => {
                 console.log(this.signupUser$.value);
             });
     };

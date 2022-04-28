@@ -1,11 +1,11 @@
 <!-- <p-toast [style]="{ marginTop: '80px' }"></p-toast> -->
 
+<ngx-loading [show]="loading$.value"></ngx-loading>
+
 <header></header>
 
 <main class="app-container">
-  <router-outlet>
-    <ngx-loading [show]="loading$.value"></ngx-loading>
-  </router-outlet>
+  <router-outlet></router-outlet>
 </main>
 
 <footer [hidden]="currentRoute === '/user/signup' || currentRoute === '/user/signin'"></footer>
