@@ -6,7 +6,9 @@ export class NetworkService {
     private _loading = new BehaviorSubject<boolean>(false);
     public readonly loading$ = this._loading;
 
-    constructor() { }
+    constructor() {
+
+    }
 
     /**
      * Функция ставит бизи или снимает.
