@@ -40,8 +40,6 @@ import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
     })
   ],
 
-  exports: [NgxLoadingModule],
-
   providers: [
     RoleService,
     MainPageService,
