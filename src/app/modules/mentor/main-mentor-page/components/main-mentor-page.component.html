@@ -1,0 +1,51 @@
+<div class="block-fon">
+  <img class="start-fon" src="../../../../../assets/images/main-page/Ellipse 2170.svg">
+</div>
+
+<!-- Блок фона. -->
+<div class="main-block">
+  <div class="main-block-title">{{mainMentor$.value.fonTitle}}</div>
+    <div class="main-block-subtitle">{{mainMentor$.value.fonSubTitle}}</div>
+  
+    <!-- <ul class="main-items" *ngFor="let item of mainMentor$.value.mainMentorItems">
+      <li class="main-item">{{item.fonSubTitleTextFirst}}</li>
+    </ul> -->
+</div>
+
+<!-- Блок записи на урок. -->
+<div class="block-reception col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+  <div class="recetion-title">
+    {{reception$.value.writeReceptionText}}
+  </div>
+
+  <button class="button-action-reception">
+    {{reception$.value.writeReceptionButtonText}}
+  </button>
+</div>
+
+<!-- Блок с чего начать. -->
+<div class="block-begin">
+  <div class="begin-title">
+    {{begin$.value.whereBeginTitle}}
+  </div>
+
+  <div class="begin-subtitle">
+    {{begin$.value.whereBeginSubTitle}}
+  </div>
+
+  <div class="begin-items">
+    <div class="begin-item" *ngFor="let item of begin$.value.whereBeginItems">
+      <div class="img-item">
+        <img [src]="item.beginUrlIcon" alt="">
+      </div>
+
+      <div class="title-item">
+        {{item.beginTitle}}
+      </div>
+
+      <div class="subtitle-item">
+        {{item.beginSubTitle}}
+      </div>
+    </div>
+  </div>
+</div>

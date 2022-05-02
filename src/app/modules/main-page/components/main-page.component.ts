@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { forkJoin } from "rxjs";
 import { MainPageService } from "../services/main-page.service";
+import { NavigationStart, Router, Event as NavigationEvent } from "@angular/router";
 
 @Component({
     selector: "main-page",
@@ -22,6 +23,7 @@ export class MainModule implements OnInit {
     public readonly about$ = this.mainPageService.about$;
     public readonly request$ = this.mainPageService.request$;
     public readonly mentor$ = this.mainPageService.mentor$;
+    public readonly mainMentor$ = this.mainPageService.mainMentor$;
 
     // Форма заявки.
     requestForm : FormGroup = new FormGroup({
@@ -32,20 +34,22 @@ export class MainModule implements OnInit {
         "requestMessage": new FormControl("", Validators.required)
     });
 
-    constructor(private mainPageService: MainPageService) {};
+    constructor(private mainPageService: MainPageService,
+        private _router: Router) {};
 
     public async ngOnInit() {     
         // Параллельно получает данные на ините страницы.   
         forkJoin([
             await this.getFonAsync(),
-            await this.getReceptionAsync(),
-            await this.getBeginAsync(),
+            await this.getReceptionAsync(1),
+            await this.getBeginAsync(1),
             await this.getBestAsync(),
             await this.getSmartClassAsync(),
             await this.getOptionsAsync(),
             await this.getAboutAsync(),
             await this.getRequestAsync(),
-            await this.getMentorAsync()
+            await this.getMentorAsync(),
+            await this.getMainMentorAsync()
         ]).subscribe();
     };    
 
@@ -62,10 +66,11 @@ export class MainModule implements OnInit {
 
     /**
      * Функция получит данные для блока записи на бесплатный урок.
+     * @typeRole - Тип роли.
      * @returns - Данные блока.
      */
-    private async getReceptionAsync() {
-        (await this.mainPageService.getReceptionAsync())
+    private async getReceptionAsync(typeRole: number) {
+        (await this.mainPageService.getReceptionAsync(typeRole))
         .subscribe(_ => {
             console.log("Данные записи на урок: ", this.reception$.value);
         });
@@ -73,10 +78,11 @@ export class MainModule implements OnInit {
 
     /**
      * Функция получит данные для блока с чего начать.
+     * @typeRole - Тип роли.
      * @returns - Данные блока.
      */
-    private async getBeginAsync() {
-        (await this.mainPageService.getBeginAsync())
+    private async getBeginAsync(typeRole: number) {
+        (await this.mainPageService.getBeginAsync(typeRole))
         .subscribe(_ => {
             console.log("Данные с чего начать: ", this.begin$.value);
         });
@@ -149,6 +155,17 @@ export class MainModule implements OnInit {
         (await this.mainPageService.getMentorAsync())
         .subscribe(_ => {
             console.log("Данные блока преподавателя: ", this.mentor$.value);
+        });
+    };
+
+    /**
+     * Функция получит данные блока преподавателя.
+     * @returns - Данные блока.
+     */
+     private async getMainMentorAsync() {
+        (await this.mainPageService.getMainMentorAsync())
+        .subscribe(_ => {
+            console.log("Преподавателя: ", this.mainMentor$.value);
         });
     };
 }

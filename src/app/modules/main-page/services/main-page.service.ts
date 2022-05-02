@@ -17,6 +17,7 @@ export class MainPageService {
     public about$ = new BehaviorSubject<any>({});
     public request$ = new BehaviorSubject<any>({});
     public mentor$ = new BehaviorSubject<any>({});
+    public mainMentor$ = new BehaviorSubject<any>({});
 
     constructor(private readonly http: HttpClient) {
 
@@ -34,20 +35,22 @@ export class MainPageService {
 
     /**
      * Функция получит данные для блока записи на бесплатный урок.
+     * @typeRole - Тип роли.
      * @returns - Данные блока.
      */
-    public async getReceptionAsync() {
-        return await this.http.get(API_URL.apiUrl + "/main/reception").pipe(
+    public async getReceptionAsync(typeRole: number) {
+        return await this.http.get(API_URL.apiUrl + "/main/reception?typeRole=" + typeRole).pipe(
             tap(data => this.reception$.next(data))
         );
     };
 
     /**
      * Функция получит данные для блока с чего начать.
+       * @typeRole - Тип роли.
      * @returns - Данные блока.
      */
-    public async getBeginAsync() {
-        return await this.http.get(API_URL.apiUrl + "/main/begin").pipe(
+    public async getBeginAsync(typeRole: number) {
+        return await this.http.get(API_URL.apiUrl + "/main/begin?typeRole=" + typeRole).pipe(
             tap(data => this.begin$.next(data))
         );
     };
@@ -107,8 +110,18 @@ export class MainPageService {
      * @returns - Данные блока.
      */
     public async getMentorAsync() {
-        return await this.http.get(API_URL.apiUrl + "/main/mentor").pipe(
+        return await this.http.get(API_URL.apiUrl + "/main/for-mentor").pipe(
             tap(data => this.mentor$.next(data))
+        );
+    };
+
+    /**
+     * Функция получит данные для блока преподавателя на главной странице преподавателя.
+     * @returns - Данные для блока.
+     */
+    public async getMainMentorAsync() {
+        return await this.http.get(API_URL.apiUrl + "/main/mentor").pipe(
+            tap(data => this.mainMentor$.next(data))
         );
     };
 }
