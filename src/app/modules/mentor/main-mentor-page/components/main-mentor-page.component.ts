@@ -16,6 +16,7 @@ export class MentorModule implements OnInit {
     public readonly mainMentor$ = this.mainPageService.mainMentor$;
     public readonly reception$ = this.mainPageService.reception$;
     public readonly begin$ = this.mainPageService.begin$;
+    public readonly smartClass$ = this.mainPageService.smartClass$;
 
     // Форма заявки.
     requestForm : FormGroup = new FormGroup({
@@ -34,6 +35,7 @@ export class MentorModule implements OnInit {
             await this.getMainMentorAsync(),
             await this.getReceptionAsync(2),
             await this.getBeginAsync(2),
+            await this.getSmartClassAsync(2)
         ]).subscribe();
     };    
 
@@ -68,6 +70,18 @@ export class MentorModule implements OnInit {
         (await this.mainPageService.getBeginAsync(typeRole))
         .subscribe(_ => {
             console.log("Данные с чего начать: ", this.begin$.value);
+        });
+    };
+
+    /**
+     * Функция получит данные для блоа умного класса.
+     * @typeRole - Тип роли.
+     * @returns - Данные для блока.
+     */
+     private async getSmartClassAsync(typeRole: number) {
+        (await this.mainPageService.getSmartClassAsync(typeRole))
+        .subscribe(_ => {
+            console.log("Данные умного класса: ", this.smartClass$.value);
         });
     };
 }

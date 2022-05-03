@@ -44,7 +44,7 @@ export class MainModule implements OnInit {
             await this.getReceptionAsync(1),
             await this.getBeginAsync(1),
             await this.getBestAsync(),
-            await this.getSmartClassAsync(),
+            await this.getSmartClassAsync(1),
             await this.getOptionsAsync(),
             await this.getAboutAsync(),
             await this.getRequestAsync(),
@@ -101,10 +101,11 @@ export class MainModule implements OnInit {
 
      /**
      * Функция получит данные для блоа умного класса.
+     * @typeRole - Тип роли.
      * @returns - Данные для блока.
      */
-      private async getSmartClassAsync() {
-        (await this.mainPageService.getSmartClassAsync())
+      private async getSmartClassAsync(typeRole: number) {
+        (await this.mainPageService.getSmartClassAsync(typeRole))
         .subscribe(_ => {
             console.log("Данные умного класса: ", this.smartClass$.value);
         });

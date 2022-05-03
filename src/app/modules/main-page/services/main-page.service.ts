@@ -69,8 +69,8 @@ export class MainPageService {
      * Функция получит данные для блоа умного класса.
      * @returns - Данные для блока.
      */
-     public async getSmartClassAsync() {
-        return await this.http.get(API_URL.apiUrl + "/main/smart-class").pipe(
+     public async getSmartClassAsync(typeRole: number) {
+        return await this.http.get(API_URL.apiUrl + "/main/smart-class?typeRole=" + typeRole).pipe(
             tap(data => this.smartClass$.next(data))
         );
     };
