@@ -15,6 +15,11 @@ const routes: Routes = [
   {
     path: "mentor",
     loadChildren: () => import('./modules/mentor/mentor.module').then(m => m.MainMentorModule)
+  },
+
+  {
+    path: "profile",
+    loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
   }
 ];
 
