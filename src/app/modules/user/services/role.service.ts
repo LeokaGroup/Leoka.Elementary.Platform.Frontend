@@ -94,6 +94,7 @@ export class RoleService {
         }, 530000); // Каждые 9 мин. 
     };  
 
+    // TODO: Позжде заменить на использование Guard из Angular.
     public routeToStart(err: any) {
         if (err.status === 401) {
            sessionStorage.clear();

@@ -1,5 +1,5 @@
 <div class="">
-    <div class="block-menu d-flex align-items-center justify-content-around text-center col-lg-12">
+    <div class="col-lg-12" [ngClass]="{ blockMenuMain: isBlockMenuMain, blockMenuProfile: isBlockMenuProfile }">
         <div class="d-flex align-items-center block-logo" [routerLink]="['/']">
           <div>
             <img src="../../../assets/images/Logo.png">

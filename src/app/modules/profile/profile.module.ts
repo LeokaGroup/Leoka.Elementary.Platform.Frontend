@@ -11,12 +11,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfileStartModule } from './profile-start/components/profile-start.component';
 import { ProfileStartService } from './profile-start/services/profile-start.service';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { ProfileStartGuard } from 'src/app/core/guards/profile-start.guard';
 
 @NgModule({
     declarations: [ProfileStartModule],
     imports: [ CommonModule, CheckboxModule, DropdownModule, FormsModule, ReactiveFormsModule, ProfileRoutingModule, ButtonModule, TabViewModule, ToastModule, DialogModule, HttpClientModule ],
     exports: [],
-    providers: [ProfileStartService ],
+    providers: [ProfileStartService, ProfileStartGuard ],
 })
 
 export class ProfileModule {}
