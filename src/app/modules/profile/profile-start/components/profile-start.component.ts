@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { forkJoin } from "rxjs";
 import { ProfileStartService } from "../services/profile-start.service";
 
 @Component({
@@ -11,23 +12,25 @@ import { ProfileStartService } from "../services/profile-start.service";
  * Класс модуля Главной страницы преподавателя.
  */
 export class ProfileStartModule implements OnInit {
+    public readonly userProfileInfo$ = this._profileStartService.userProfileInfo$;
+
     constructor(private _profileStartService: ProfileStartService) {};
 
     public async ngOnInit() {     
         // Параллельно получает данные на ините страницы.   
-        // forkJoin([
-        //     await this.getMainMentorAsync()        
-        // ]).subscribe();
+        forkJoin([
+            await this.getProfileInfoAsync()        
+        ]).subscribe();
     };    
 
-    // /**
-    //  * Функция получит данные блока преподавателя.
-    //  * @returns - Данные блока.
-    //  */
-    //  private async getMainMentorAsync() {
-    //     (await this.mainPageService.getMainMentorAsync())
-    //     .subscribe(_ => {
-    //         console.log("Преподавателя: ", this.mainMentor$.value);
-    //     });
-    // };
+    /**
+     * Функция получит данные блока преподавателя.
+     * @returns - Данные блока.
+     */
+     private async getProfileInfoAsync() {
+        (await this._profileStartService.getProfileInfoAsync())
+        .subscribe(_ => {
+            console.log("Данные о профиле: ", this.userProfileInfo$.value);
+        });
+    };
 }

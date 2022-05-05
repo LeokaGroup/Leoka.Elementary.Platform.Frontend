@@ -1,7 +1,5 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { API_URL } from "src/app/core/core-urls/api-urls";
+import { Router } from "@angular/router";
 
 /**
  * Сервис общих функций.
@@ -10,10 +8,17 @@ import { API_URL } from "src/app/core/core-urls/api-urls";
 export class CommonDataService {
     currentRoute: any;
 
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        private route: ActivatedRoute) {
-            // this.currentRoute = this.route.snapshot.queryParams;
+    constructor(private router: Router) {
+            
     }
+
+    public routeToStart(err: any) {
+        console.log("routeToStart", err);
+
+        if (err.status === 0) {        
+            sessionStorage.clear();
+            
+            this.router.navigate(["/user/signin"]);
+        }
+    };
 };

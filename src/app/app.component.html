@@ -8,4 +8,7 @@
   <router-outlet></router-outlet>
 </main>
 
-<footer [hidden]="currentRoute === '/user/signup' || currentRoute === '/user/signin'"></footer>
+<footer [hidden]="currentRoute === '/user/signup' 
+                || currentRoute === '/user/signin'
+                || currentRoute === '/profile/start?profile=true'">
+</footer>
