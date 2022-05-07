@@ -8,7 +8,7 @@ import { API_URL } from 'src/app/core/core-urls/api-urls';
  */
 @Injectable()
 export class ProfileStartService {
-    public readonly userProfileInfo$ = new BehaviorSubject<any>(null);
+    public readonly userProfileInfo$ = new BehaviorSubject<any>([]);
     
     constructor(private readonly http: HttpClient) {
 

@@ -18,6 +18,7 @@ import { FooterModule } from "./modules/footer/components/footer.component";
 import { NgxLoadingModule } from "ngx-loading";
 import { NetworkService } from "./modules/base/services/network.service";
 import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
+import { CommonDataService } from "./modules/base/services/common.service";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
       useClass: NetworkInterceptor,
       multi: true
     },
-    NetworkService
+    NetworkService,
+    CommonDataService
   ],
 
   bootstrap: [AppComponent]

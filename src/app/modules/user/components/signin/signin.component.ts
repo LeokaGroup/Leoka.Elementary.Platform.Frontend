@@ -36,7 +36,7 @@ export class SignInModule implements OnInit {
         (await this.userService.signinUserAsync(this.userLogin, this.userPassword))
             .subscribe(_ => {
                 console.log(this.signinUser$.value);
-                this._router.navigate(["/profile/start"], { queryParams: { profile: true } });
+                this._router.navigate(["/profile/welcome"], { queryParams: { profile: true } });
             });
     };
 }

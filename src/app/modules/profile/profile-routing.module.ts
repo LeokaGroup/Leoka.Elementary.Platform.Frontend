@@ -5,7 +5,7 @@ import { ProfileStartModule } from './profile-start/components/profile-start.com
 
 const routes: Routes = [
     {
-        path: 'start', component: ProfileStartModule
+        path: 'welcome', component: ProfileStartModule
     },
 
     {

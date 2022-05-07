@@ -31,7 +31,7 @@ export class NetworkInterceptor implements HttpInterceptor {
         this.loader.setBusy(true);
 
         return next.handle(req).pipe(
-            tap(response => {
+            tap(_ => {
                 
              }),
 

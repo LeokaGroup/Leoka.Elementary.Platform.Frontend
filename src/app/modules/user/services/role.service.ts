@@ -9,7 +9,7 @@ import { API_URL } from 'src/app/core/core-urls/api-urls';
  */
 @Injectable()
 export class RoleService {
-    public readonly roles$ = new BehaviorSubject<any>(undefined);
+    public readonly roles$ = new BehaviorSubject<any>(null);
 
     constructor(private readonly http: HttpClient,
         private router: Router) {

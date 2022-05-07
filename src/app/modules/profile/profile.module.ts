@@ -16,6 +16,8 @@ import { ProfileMenuService } from './profile-menu/services/profile-menu.service
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { NetworkInterceptor } from 'src/app/core/interceptors/network-interceptor';
 import { CommonDataService } from '../base/services/common.service';
+import { ProfileService } from './services/profile.service';
+import {MegaMenuModule} from 'primeng/megamenu';
 
 @NgModule({
     declarations: [ProfileStartModule, ProfileMenuModule],
@@ -33,7 +35,7 @@ import { CommonDataService } from '../base/services/common.service';
         DialogModule,
         HttpClientModule,
         TieredMenuModule,
-
+        MegaMenuModule
     ],
 
     exports: [],
@@ -46,7 +48,8 @@ import { CommonDataService } from '../base/services/common.service';
             useClass: NetworkInterceptor,
             multi: true
         },
-        CommonDataService
+        CommonDataService,
+        ProfileService
     ],
 })
 
