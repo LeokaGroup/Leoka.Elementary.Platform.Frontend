@@ -17,25 +17,45 @@
             <li class="header-menu-item">
               {{item.headerItem}}
             </li>
-          </div>
+          </div>          
         </ul>
         
         <div>
-            <button 
-                pButton pRipple 
-                type="button" 
-                label="Регистрация" 
-                class="p-button-raised p-button-help btn-signup"
-                [routerLink]="['/user/signup']">
-            </button>
-            
-            <button 
-                pButton pRipple 
-                type="button" 
-                label="Вход" 
-                class="p-button-raised p-button-help btn-signin"
-                [routerLink]="['/user/signin']">
-        </button>
+              <button *ngIf="isVisibleButtonsAuth"
+                  pButton pRipple 
+                  type="button" 
+                  label="Регистрация" 
+                  class="p-button-raised p-button-help btn-signup"
+                  [routerLink]="['/user/signup']">
+              </button>
+              
+              <button *ngIf="isVisibleButtonsAuth"
+                  pButton pRipple 
+                  type="button" 
+                  label="Вход" 
+                  class="p-button-raised p-button-help btn-signin"
+                  [routerLink]="['/user/signin']">
+          </button>
+
+          <div class="d-flex">
+            <div *ngFor="let item of profileHeaderMenuItems">
+              <img class="img-profile" *ngIf="!item.isDropdown" [src]="item.iconUrl">
+
+              <!-- Выпадающее меню профиля. -->
+              <div class="dropdown" *ngIf="item.isDropdown">
+                <img class="img-profile" [src]="item.iconUrl" data-bs-toggle="dropdown">
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li *ngFor="let item of profileDropdownMenuItems">
+                    <div class="dropdown-item d-flex">
+                      <img class="dropdown-img" [src]="item.iconUrl">
+                      <div>{{item.profileItemTitle}}</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </div>

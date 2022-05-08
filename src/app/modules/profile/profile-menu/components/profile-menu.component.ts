@@ -27,21 +27,21 @@ export class ProfileMenuModule implements OnInit {
     };
 
     // /**
-    //  * Функция получит данные блока преподавателя.
+  //  * Функция получит данные списка меню хидера.
     //  * @returns - Данные блока.
     //  */
     private async getProfileMenuItemsAsync() {
         (await this._profileService.getProfileMenuItemsAsync())
             .subscribe(_ => {
-                console.log("Данные меню: ", this.userProfileMenuItems$.value);
-
                 // Чистит массив, чтобы не было пустых объектов вначале.
                 this.aProfileLeftMenuItems = [];
 
                 // Наполнит массив элементами меню.
-                this.userProfileMenuItems$.value.profileLeftMenuItems.forEach((item: any, ind: number) => {
+                this.userProfileMenuItems$.value.profileLeftMenuItems.forEach((item: any) => {
                     this.aProfileLeftMenuItems.push({ label: item.profileItemTitle });
                 });
+
+                console.log("aProfileLeftMenuItems", this.aProfileLeftMenuItems);
             });
     };
 }

@@ -1,7 +1,3 @@
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "popper.js/dist/popper.min.js";
-import "bootstrap/dist/js/bootstrap.min.js";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +15,8 @@ import { NgxLoadingModule } from "ngx-loading";
 import { NetworkService } from "./modules/base/services/network.service";
 import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
 import { CommonDataService } from "./modules/base/services/common.service";
+import { ProfileService } from "./modules/profile/services/profile.service";
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -38,7 +36,7 @@ import { CommonDataService } from "./modules/base/services/common.service";
       secondaryColour: '#7C3AED',
       tertiaryColour: '#7C3AED',
       fullScreenBackdrop: true
-    })
+    })      
   ],
 
   providers: [
@@ -52,7 +50,8 @@ import { CommonDataService } from "./modules/base/services/common.service";
       multi: true
     },
     NetworkService,
-    CommonDataService
+    CommonDataService,
+    ProfileService
   ],
 
   bootstrap: [AppComponent]
