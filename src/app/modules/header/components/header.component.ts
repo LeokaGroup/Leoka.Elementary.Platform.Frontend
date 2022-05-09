@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { RoleService } from "../../user/services/role.service";
 import { HeaderService } from "../services/header.service";
-import { ActivatedRoute } from "@angular/router";
 import { ProfileService } from "../../profile/services/profile.service";
+import { NavigationStart, Router, Event as NavigationEvent, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "header",
@@ -23,19 +23,26 @@ export class HeaderModule implements OnInit {
     isBlockMenuProfile: boolean = false;
     isProfile: boolean = false;
     isVisibleButtonsAuth: boolean = false;
+    public currentRoute: string = "";
 
     constructor(private readonly roleService: RoleService,
         private headerService: HeaderService,
         private _route: ActivatedRoute,
-        private _profileService: ProfileService) {
-
+        private _profileService: ProfileService,
+        private _router: Router) {
+            
     };
 
     public async ngOnInit() {
         await this.roleService.refreshToken();
         await this.getHeaderItemsAsync();
         this.configureHeaderStyles();
-        await this.getProfileMenuItemsAsync();
+        await this.getProfileMenuItemsAsync();              
+    };
+
+    public ngAfterViewInit() {               
+        this.checkRouteUrl();
+        this.refreshHeaderMenuItems();
     };
 
     /**
@@ -70,6 +77,9 @@ export class HeaderModule implements OnInit {
                 }
 
                 console.log("profile", this.isProfile);
+
+                // Уберет кнопки входа и регистрации.
+                this.isVisibleButtonsAuth = !sessionStorage["token"] ? true : false;            
             }
         );
     };
@@ -80,6 +90,8 @@ export class HeaderModule implements OnInit {
     //  * @returns - Данные блока.
     //  */
     private async getProfileMenuItemsAsync() {
+        this.profileHeaderMenuItems = [];
+        
         (await this._profileService.getProfileMenuItemsAsync())
             .subscribe(_ => {
                 // Наполнит массив элементами меню.
@@ -97,5 +109,29 @@ export class HeaderModule implements OnInit {
                 console.log("Все меню: ",this.userProfileMenuItems$.value);
                 console.log("Выпадающее меню: ",this.profileDropdownMenuItems);
             });
+    };
+
+    private checkRouteUrl() {
+        this._router.events
+            .subscribe((event: NavigationEvent) => {
+                    if (event instanceof NavigationStart) {
+                        console.log(event.url);
+                        this.currentRoute = event.url;
+                    }
+                });
+    };
+
+    private refreshHeaderMenuItems() {
+        this._route.queryParams.subscribe(
+            async (queryParam: any) => {
+                this.isProfile = queryParam['profile'];
+
+                // Если пользователь зашел в профиль, значит изменить стили для хидера.
+                if (!!this.isProfile) {
+                    this.profileHeaderMenuItems = [];
+                    await this.getProfileMenuItemsAsync();
+                }
+            }
+        );
     };
 }
