@@ -61,13 +61,14 @@
 }
 
 .blockMenuProfile {
-  padding-top: 20px;
-  padding-bottom: 70px;
+  // padding-top: 20px;
+  // padding-bottom: 70px;
   z-index: 2;
   // position: absolute;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 80px;
 
   .header-menu {
     list-style-type: none;

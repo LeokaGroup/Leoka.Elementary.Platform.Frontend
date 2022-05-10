@@ -91,34 +91,35 @@ export class HeaderModule implements OnInit {
     //  */
     private async getProfileMenuItemsAsync() {
         this.profileHeaderMenuItems = [];
+        this.profileDropdownMenuItems = [];
         
         (await this._profileService.getProfileMenuItemsAsync())
             .subscribe(_ => {
                 // Наполнит массив элементами меню.
-                this.userProfileMenuItems$.value.profileHeaderMenuItems.forEach((item: any) => {
-                    this.profileHeaderMenuItems.push(item);
-                });
+                if (this.profileHeaderMenuItems.length == 0) {
+                    this.userProfileMenuItems$.value.profileHeaderMenuItems.forEach((item: any) => {
+                        this.profileHeaderMenuItems.push(item);
+                    });
 
-                // Наполнит массив элементами выпадающего меню.
-                this.userProfileMenuItems$.value.profileDropdownMenuItems.forEach((item: any) => {
-                    this.profileDropdownMenuItems.push(item);
-                });
-
+                    // Наполнит массив элементами выпадающего меню.
+                    this.userProfileMenuItems$.value.profileDropdownMenuItems.forEach((item: any) => {
+                        this.profileDropdownMenuItems.push(item);
+                    });
+                }               
+            
                 console.log("profileHeaderMenuItems", this.profileHeaderMenuItems);
-                console.log(this.userProfileMenuItems$.value.profileHeaderMenuItems);
-                console.log("Все меню: ",this.userProfileMenuItems$.value);
-                console.log("Выпадающее меню: ",this.profileDropdownMenuItems);
+                console.log("profileDropdownMenuItems", this.profileDropdownMenuItems);
             });
     };
 
     private checkRouteUrl() {
         this._router.events
             .subscribe((event: NavigationEvent) => {
-                    if (event instanceof NavigationStart) {
-                        console.log(event.url);
-                        this.currentRoute = event.url;
-                    }
-                });
+                if (event instanceof NavigationStart) {
+                    console.log(event.url);
+                    this.currentRoute = event.url;
+                }
+            });
     };
 
     private refreshHeaderMenuItems() {
@@ -126,7 +127,6 @@ export class HeaderModule implements OnInit {
             async (queryParam: any) => {
                 this.isProfile = queryParam['profile'];
 
-                // Если пользователь зашел в профиль, значит изменить стили для хидера.
                 if (!!this.isProfile) {
                     this.profileHeaderMenuItems = [];
                     await this.getProfileMenuItemsAsync();

@@ -13,7 +13,6 @@ import { ProfileService } from "../../services/profile.service";
  */
 export class ProfileMenuModule implements OnInit {
     public readonly userProfileMenuItems$ = this._profileService.userProfileMenuItems$;
-    aProfileLeftMenuItems: any[] = [{}];
 
     constructor(private _profileService: ProfileService) {
 
@@ -31,17 +30,8 @@ export class ProfileMenuModule implements OnInit {
     //  * @returns - Данные блока.
     //  */
     private async getProfileMenuItemsAsync() {
-        (await this._profileService.getProfileMenuItemsAsync())
-            .subscribe(_ => {
-                // Чистит массив, чтобы не было пустых объектов вначале.
-                this.aProfileLeftMenuItems = [];
-
-                // Наполнит массив элементами меню.
-                this.userProfileMenuItems$.value.profileLeftMenuItems.forEach((item: any) => {
-                    this.aProfileLeftMenuItems.push({ label: item.profileItemTitle });
-                });
-
-                console.log("aProfileLeftMenuItems", this.aProfileLeftMenuItems);
-            });
+        (await this._profileService.getProfileMenuItemsAsync()).subscribe(_ => {
+            console.log("profileLeftMenuItems",this.userProfileMenuItems$.value.profileLeftMenuItems);
+        });
     };
 }

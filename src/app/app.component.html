@@ -3,6 +3,7 @@
 <ngx-loading [show]="loading$.value"></ngx-loading>
 
 <header></header>
+<knowledge-lk *ngIf="currentRoute === '/profile/welcome?profile=true'"></knowledge-lk>
 
 <main class="app-container">
   <router-outlet></router-outlet>

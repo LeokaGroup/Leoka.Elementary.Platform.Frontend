@@ -16,13 +16,14 @@ import { NetworkService } from "./modules/base/services/network.service";
 import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
 import { CommonDataService } from "./modules/base/services/common.service";
 import { ProfileService } from "./modules/profile/services/profile.service";
-import { MenubarModule } from 'primeng/menubar';
+import { KnowledgeLkModule } from './modules/knowledge/knowledge-lk/knowledge-lk.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderModule,
-    FooterModule
+    FooterModule,
+    KnowledgeLkModule
   ],
 
   imports: [
