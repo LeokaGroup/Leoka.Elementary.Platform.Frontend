@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { BehaviorSubject } from "rxjs";
 
 /**
  * Сервис общих функций.
@@ -7,6 +8,7 @@ import { Router } from "@angular/router";
 @Injectable()
 export class CommonDataService {
     currentRoute: any;
+    public readonly isVisibleHeaderItems$ = new BehaviorSubject<boolean>(false);
 
     constructor(private router: Router) {
             

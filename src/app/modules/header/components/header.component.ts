@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { RoleService } from "../../user/services/role.service";
 import { HeaderService } from "../services/header.service";
 import { ProfileService } from "../../profile/services/profile.service";
-import { NavigationStart, Router, Event as NavigationEvent, ActivatedRoute } from "@angular/router";
+import { NavigationStart, Router, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from "@angular/router";
+import { CommonDataService } from "../../base/services/common.service";
 
 @Component({
     selector: "header",
@@ -24,12 +25,14 @@ export class HeaderModule implements OnInit {
     isProfile: boolean = false;
     isVisibleButtonsAuth: boolean = false;
     public currentRoute: string = "";
+    isVisibleHeaderItems: boolean = false;
 
     constructor(private readonly roleService: RoleService,
         private headerService: HeaderService,
         private _route: ActivatedRoute,
         private _profileService: ProfileService,
-        private _router: Router) {
+        private _router: Router,
+        private _commonService: CommonDataService) {
             
     };
 
@@ -60,28 +63,22 @@ export class HeaderModule implements OnInit {
      * Функция выставит стили для хидера.
      */
     private configureHeaderStyles(): void {
-        this._route.queryParams.subscribe(
-            (queryParam: any) => {
-                this.isProfile = queryParam['profile'];
+        this._router.events
+            .subscribe((event: NavigationEvent) => {
+                if (event instanceof NavigationEnd) {
+                    console.log(event.url);
+                    if (event.url == '/profile/welcome'
+                        || event.url == "/profile/form") {
+                        this.isBlockMenuMain = false;
+                        this.isBlockMenuProfile = true;
+                    }
 
-                // Если пользователь зашел в профиль, значит изменить стили для хидера.
-                if (!!this.isProfile) {
-                    this.isBlockMenuMain = false;
-                    this.isBlockMenuProfile = true;
+                    else {
+                        this.isBlockMenuMain = true;
+                        this.isBlockMenuProfile = false;
+                    }
                 }
-
-                // Иначе использовать исходные стили хидера.
-                else {
-                    this.isBlockMenuMain = true;
-                    this.isBlockMenuProfile = false;
-                }
-
-                console.log("profile", this.isProfile);
-
-                // Уберет кнопки входа и регистрации.
-                this.isVisibleButtonsAuth = !sessionStorage["token"] ? true : false;            
-            }
-        );
+            });
     };
 
     
@@ -116,8 +113,15 @@ export class HeaderModule implements OnInit {
         this._router.events
             .subscribe((event: NavigationEvent) => {
                 if (event instanceof NavigationStart) {
-                    console.log(event.url);
-                    this.currentRoute = event.url;
+                    console.log(event.url);               
+                    if (event.url == '/profile/welcome'
+                        || event.url == "/profile/form") {
+                        this.isVisibleHeaderItems = true;
+                    }      
+                    
+                    else {
+                        this.isVisibleHeaderItems = false;
+                    }
                 }
             });
     };
@@ -133,5 +137,5 @@ export class HeaderModule implements OnInit {
                 }
             }
         );
-    };
+    };   
 }

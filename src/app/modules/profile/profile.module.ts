@@ -18,9 +18,14 @@ import { NetworkInterceptor } from 'src/app/core/interceptors/network-intercepto
 import { CommonDataService } from '../base/services/common.service';
 import { ProfileService } from './services/profile.service';
 import {MegaMenuModule} from 'primeng/megamenu';
+import { ProfileFormModule } from './profile-form/components/profile-form.component';
 
 @NgModule({
-    declarations: [ProfileStartModule, ProfileMenuModule],
+    declarations: [
+        ProfileStartModule, 
+        ProfileMenuModule,
+        ProfileFormModule
+    ],
 
     imports: [
         CommonModule,

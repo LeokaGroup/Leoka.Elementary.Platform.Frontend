@@ -3,7 +3,8 @@
 <ngx-loading [show]="loading$.value"></ngx-loading>
 
 <header></header>
-<knowledge-lk *ngIf="currentRoute === '/profile/welcome?profile=true'"></knowledge-lk>
+<knowledge-lk class="d-flex" *ngIf="currentRoute === '/profile/welcome' 
+                    || currentRoute === '/profile/form'"></knowledge-lk>
 
 <main class="app-container">
   <router-outlet></router-outlet>
@@ -11,5 +12,5 @@
 
 <footer [hidden]="currentRoute === '/user/signup' 
                 || currentRoute === '/user/signin'
-                || currentRoute === '/profile/welcome?profile=true'">
+                || currentRoute === '/profile/welcome'">
 </footer>

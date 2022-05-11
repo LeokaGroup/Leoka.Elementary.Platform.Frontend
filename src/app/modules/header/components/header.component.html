@@ -37,7 +37,7 @@
               [routerLink]="['/user/signin']">
           </button>
 
-          <div class="d-flex" *ngIf="currentRoute === '/profile/welcome?profile=true'">
+          <div class="d-flex" *ngIf="isVisibleHeaderItems">
             <div *ngFor="let item of profileHeaderMenuItems">
               <img class="img-profile" *ngIf="!item.isDropdown" [src]="item.iconUrl">
 
