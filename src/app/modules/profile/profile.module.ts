@@ -19,12 +19,14 @@ import { CommonDataService } from '../base/services/common.service';
 import { ProfileService } from './services/profile.service';
 import {MegaMenuModule} from 'primeng/megamenu';
 import { ProfileFormModule } from './profile-form/components/profile-form.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
     declarations: [
         ProfileStartModule, 
         ProfileMenuModule,
-        ProfileFormModule
+        ProfileFormModule        
     ],
 
     imports: [
@@ -40,7 +42,10 @@ import { ProfileFormModule } from './profile-form/components/profile-form.compon
         DialogModule,
         HttpClientModule,
         TieredMenuModule,
-        MegaMenuModule
+        MegaMenuModule,
+        FileUploadModule,
+        InputTextModule,
+        
     ],
 
     exports: [],

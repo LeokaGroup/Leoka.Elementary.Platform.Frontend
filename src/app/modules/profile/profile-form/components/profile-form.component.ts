@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { forkJoin } from "rxjs";
+import { ProfileService } from "../../services/profile.service";
 
 @Component({
     selector: "profile-form",
@@ -11,23 +12,27 @@ import { forkJoin } from "rxjs";
  * Класс модуля анкеты профиля пользователя.
  */
 export class ProfileFormModule implements OnInit {
-    constructor() {};
+    public readonly profileItems$ = this._profileService.profileItems$;
+    selectedItem: string = "";
+    checkedContact: boolean = false;
+
+    constructor(private _profileService: ProfileService) {};
 
     public async ngOnInit() {     
         // Параллельно получает данные на ините страницы.   
         forkJoin([
-                
+            await this.getProfileItemsAsync()
         ]).subscribe();
     };    
 
     /**
-     * Функция получит данные блока преподавателя.
-     * @returns - Данные блока.
+     * Функция получит список предметов.
+     * @returns - Список предметов.
      */
-    //  private async getProfileInfoAsync() {
-    //     (await this._profileStartService.getProfileInfoAsync())
-    //     .subscribe(_ => {
-    //         console.log("Данные о профиле: ", this.userProfileInfo$.value);
-    //     });
-    // };
+     private async getProfileItemsAsync() {
+        (await this._profileService.getProfileItemsAsync())
+        .subscribe(_ => {
+            console.log("Список предметов: ", this.profileItems$.value);
+        });
+    };
 }
