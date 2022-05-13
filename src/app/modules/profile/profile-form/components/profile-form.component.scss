@@ -8,7 +8,6 @@
   border-radius: 12px;
   width: 795px;
   height: 220px;
-  padding: 20px 20px;
 }
 
 .block-contacts {
@@ -23,4 +22,33 @@
   .visible-all {
     margin-left: 10px;
   }
+}
+
+// Контрол загрузки файла профиля.
+::ng-deep .profile-photo .p-fileupload-choose {
+  color: #81D0DF;
+
+  &:hover {
+    color: #81D0DF;
+    background: none;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.profile-title {
+  color: #087592;
+  font-family: 'Gilroy-Bold';
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 10px;
+}
+
+.block-profile-dropdowns {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

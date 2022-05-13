@@ -5,29 +5,20 @@
 
   <div class="col-lg-8 text-pre-line">
     <!-- Блок информации о пользователе. -->
-    <div class="block-user-info d-flex">
+    <div class="block-user-info pt-20-pb-20 d-flex">
       <div class="col-lg-4">
-        <p-fileUpload #fubauto mode="basic" name="demo[]" accept="image/*" chooseLabel="Загрузить фото">
+        <img src="../../../../../assets/images/profile/nophoto.svg">
+
+        <p-fileUpload #fubauto mode="basic" name="demo[]" accept="image/*" chooseLabel="Загрузить фото" class="profile-photo" styleClass="p-button-link">
         </p-fileUpload>
       </div>
 
-      <div class="col-lg-4">      
+      <div class="col-lg-8">      
         <div>
             <span class="p-float-label">
                 <input id="float-input" type="text" pInputText> 
                 <label for="float-input">ФИО</label>
             </span>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div>
-            <p-dropdown [options]="profileItems$.value" 
-                        [(ngModel)]="selectedItem" 
-                        optionLabel="itemName"
-                        optionValue="itemSysName"
-                        placeholder="Выберите предмет">
-            </p-dropdown>
         </div>
       </div>
     </div>
@@ -52,6 +43,54 @@
                 <label for="float-input">Email:</label>
             </span>
         </div>        
+    </div>
+
+    <!-- Блок с выпадающих списков. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info d-flex block-profile-dropdowns">
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Предмет:</label>
+        </div>
+
+          <div>
+            <p-dropdown [options]="profileItems$.value" 
+                      [(ngModel)]="selectedItem" 
+                      optionLabel="itemName"
+                      optionValue="itemSysName" 
+                      placeholder="Ваш предмет">
+          </p-dropdown>
+          </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Цена занятий:</label>
+        </div>
+
+          <div>
+            <p-dropdown [options]="profileItems$.value" 
+                      [(ngModel)]="selectedItem" 
+                      optionLabel="itemName"
+                      optionValue="itemSysName" 
+                      placeholder="Напишите цену">
+          </p-dropdown>
+          </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Длительность:</label>
+        </div>
+
+          <div>
+            <p-dropdown [options]="profileItemsDropdown$.value" 
+                      [(ngModel)]="selectedItem" 
+                      optionLabel="fullTime"
+                      optionValue="durationId" 
+                      placeholder="Длительность урока">
+          </p-dropdown>
+          </div>
+      </div>
     </div>
   </div>
 </div>

@@ -10,6 +10,7 @@ import { API_URL } from 'src/app/core/core-urls/api-urls';
 export class ProfileService {
     public readonly userProfileMenuItems$ = new BehaviorSubject<any>({});
     public readonly profileItems$ = new BehaviorSubject<any>([]);
+    public readonly profileItemsDropdown$ = new BehaviorSubject<any>([]);
     
     constructor(private readonly http: HttpClient) {
 
@@ -35,6 +36,18 @@ export class ProfileService {
         return await this.http.get(API_URL.apiUrl + "/profile/items").pipe(
             tap((data: any) => {
                 this.profileItems$.next(data);
+            })
+        );
+    };
+
+    /**
+     * Функция получит список для выпадающего списка длительностей уроков.
+     * @returns - Список для выпадающего списка длительностей уроков.
+     */
+    public async getLessonsDurationAsync() {
+        return await this.http.get(API_URL.apiUrl + "/profile/durations").pipe(
+            tap((data: any) => {
+                this.profileItemsDropdown$.next(data);
             })
         );
     };
