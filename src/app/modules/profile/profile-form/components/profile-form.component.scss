@@ -7,7 +7,7 @@
   box-shadow: 0px 4px 20px rgb(109 141 173 / 14%);
   border-radius: 12px;
   width: 795px;
-  height: 220px;
+  // height: 220px;
 }
 
 .block-contacts {
@@ -50,5 +50,22 @@
 .block-profile-dropdowns {
   justify-content: center;
   align-items: center;
-  text-align: center;
+}
+
+.block-purposes {
+  display: flex;
+  flex-wrap: wrap;
+  
+  .purpose {
+    width: 169px;
+    height: 42px;
+    // background: #7C3AED;
+    background: #81D0DF;
+    border-radius: 6px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin: 18px 18px;
+  }
 }

@@ -15,8 +15,6 @@ export class CommonDataService {
     }
 
     public routeToStart(err: any) {
-        console.log("routeToStart", err);
-
         if (err.status === 0) {        
             sessionStorage.clear();
             

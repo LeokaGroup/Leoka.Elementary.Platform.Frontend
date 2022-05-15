@@ -21,6 +21,9 @@ import {MegaMenuModule} from 'primeng/megamenu';
 import { ProfileFormModule } from './profile-form/components/profile-form.component';
 import {FileUploadModule} from 'primeng/fileupload';
 import {InputTextModule} from 'primeng/inputtext';
+import { ProfileFormService } from './profile-form/services/profile-form.service';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {ImageModule} from 'primeng/image';
 
 @NgModule({
     declarations: [
@@ -45,7 +48,8 @@ import {InputTextModule} from 'primeng/inputtext';
         MegaMenuModule,
         FileUploadModule,
         InputTextModule,
-        
+        InputTextareaModule,
+        ImageModule
     ],
 
     exports: [],
@@ -59,7 +63,8 @@ import {InputTextModule} from 'primeng/inputtext';
             multi: true
         },
         CommonDataService,
-        ProfileService
+        ProfileService,
+        ProfileFormService
     ],
 })
 

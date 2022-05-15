@@ -1,6 +1,7 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { forkJoin } from "rxjs";
+import { catchError, forkJoin, throwError } from "rxjs";
 import { ProfileService } from "../../services/profile.service";
 import { ProfileMenuInput } from "../models/input/profile-menu-input";
 

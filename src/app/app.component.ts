@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationStart, Router, Event as NavigationEvent, ActivatedRoute } from "@angular/router";
+import { NavigationStart, Router, Event as NavigationEvent } from "@angular/router";
 import { NetworkService } from './modules/base/services/network.service';
 
 @Component({
@@ -13,8 +13,7 @@ export class AppComponent implements OnInit {
   public currentRoute: string = "";
 
   constructor(public networkService: NetworkService,
-    private _router: Router,
-    private _route: ActivatedRoute) { }
+    private _router: Router) { }
 
   public ngOnInit() {
     this.checkRouteUrl();

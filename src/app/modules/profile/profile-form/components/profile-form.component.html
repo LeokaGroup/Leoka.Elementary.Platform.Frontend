@@ -49,7 +49,7 @@
     <div class="pt-20-pb-20 mt-20 block-user-info d-flex block-profile-dropdowns">
       <div class="col-lg-4">
         <div class="profile-title">
-          <label>Предмет:</label>
+          <label>Предмет</label>
         </div>
 
           <div>
@@ -64,22 +64,17 @@
 
       <div class="col-lg-4">
         <div class="profile-title">
-          <label>Цена занятий:</label>
+          <label>Цена занятий</label>
         </div>
 
           <div>
-            <p-dropdown [options]="profileItems$.value" 
-                      [(ngModel)]="selectedItem" 
-                      optionLabel="itemName"
-                      optionValue="itemSysName" 
-                      placeholder="Напишите цену">
-          </p-dropdown>
+            <input type="text" pInputText placeholder="Напишите цену"> 
           </div>
       </div>
 
       <div class="col-lg-4">
         <div class="profile-title">
-          <label>Длительность:</label>
+          <label>Длительность</label>
         </div>
 
           <div>
@@ -92,5 +87,44 @@
           </div>
       </div>
     </div>
+
+    <!-- Блок целей подготовки. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info">
+      <div class="profile-title">
+        <label>Цель подготовки</label>
+      </div>
+
+      <div class="block-purposes">
+        <div class="purpose" *ngFor="let item of profilePurposeDropdown$.value">
+          {{item.purposeSysName}}
+        </div>  
+      </div>   
+    </div>
+
+    <!-- Блок с образованием. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info">
+      <div class="profile-title">
+        <label>Образование</label>
+      </div>
+      
+      <div>
+        <textarea rows="5" cols="100" pInputTextarea [autoResize]="true"></textarea>
+      </div>
+    </div>
+
+    <!-- Блок с опытом. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info">
+      <div class="profile-title">
+        <label>Опыт</label>
+      </div>
+      
+      <div>
+        <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image>
+      </div>
+    </div>
+
+    <button class="button-action-pur-form btn-save">
+      Сохранить
+    </button>
   </div>
 </div>

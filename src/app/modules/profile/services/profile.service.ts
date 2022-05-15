@@ -27,28 +27,4 @@ export class ProfileService {
             })
         );
     };
-
-    /**
-     * Функция получит список предметов.
-     * @returns - Список предметов.
-     */
-    public async getProfileItemsAsync() {
-        return await this.http.get(API_URL.apiUrl + "/profile/items").pipe(
-            tap((data: any) => {
-                this.profileItems$.next(data);
-            })
-        );
-    };
-
-    /**
-     * Функция получит список для выпадающего списка длительностей уроков.
-     * @returns - Список для выпадающего списка длительностей уроков.
-     */
-    public async getLessonsDurationAsync() {
-        return await this.http.get(API_URL.apiUrl + "/profile/durations").pipe(
-            tap((data: any) => {
-                this.profileItemsDropdown$.next(data);
-            })
-        );
-    };
 }

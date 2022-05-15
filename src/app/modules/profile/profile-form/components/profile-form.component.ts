@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { forkJoin } from "rxjs";
-import { ProfileService } from "../../services/profile.service";
+import { ProfileFormService } from "../services/profile-form.service";
 
 @Component({
     selector: "profile-form",
@@ -12,18 +12,20 @@ import { ProfileService } from "../../services/profile.service";
  * Класс модуля анкеты профиля пользователя.
  */
 export class ProfileFormModule implements OnInit {
-    public readonly profileItems$ = this._profileService.profileItems$;
+    public readonly profileItems$ = this._profileFormService.profileItems$;
+    public readonly profileItemsDropdown$ = this._profileFormService.profileItemsDropdown$;
+    public readonly profilePurposeDropdown$ = this._profileFormService.profilePurposeDropdown$;
+
     selectedItem: string = "";
     checkedContact: boolean = false;
-    public readonly profileItemsDropdown$ = this._profileService.profileItemsDropdown$;
 
-    constructor(private _profileService: ProfileService) {};
+    constructor(private _profileFormService: ProfileFormService) {};
 
     public async ngOnInit() {     
-        // Параллельно получает данные на ините страницы.   
         forkJoin([
             await this.getProfileItemsAsync(),
-            await this.getLessonsDurationAsync()
+            await this.getLessonsDurationAsync(),
+            await this.getPurposeTrainingsAsync(),
         ]).subscribe();
     };    
 
@@ -32,7 +34,7 @@ export class ProfileFormModule implements OnInit {
      * @returns - Список предметов.
      */
      private async getProfileItemsAsync() {
-        (await this._profileService.getProfileItemsAsync())
+        (await this._profileFormService.getProfileItemsAsync())
         .subscribe(_ => {
             console.log("Список предметов: ", this.profileItems$.value);
         });
@@ -43,9 +45,20 @@ export class ProfileFormModule implements OnInit {
      * @returns - Список предметов.
      */
      private async getLessonsDurationAsync() {
-        (await this._profileService.getLessonsDurationAsync())
+        (await this._profileFormService.getLessonsDurationAsync())
         .subscribe(_ => {
             console.log("Длительность уроков: ", this.profileItemsDropdown$.value);
+        });
+    };
+
+     /**
+     * Функция получит список целей подготовки.
+     * @returns - Список целей подготовки.
+     */
+    private async getPurposeTrainingsAsync() {
+        (await this._profileFormService.getPurposeTrainingsAsync())
+        .subscribe(_ => {
+            console.log("Список целей: ", this.profilePurposeDropdown$.value);
         });
     };
 }
