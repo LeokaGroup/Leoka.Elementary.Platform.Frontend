@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 
 @Component({
@@ -18,7 +19,8 @@ export class SignInModule implements OnInit {
     public readonly signinUser$ = this.userService.signinUser$;
 
     constructor(private http: HttpClient,
-        private readonly userService: UserService) {
+        private readonly userService: UserService,
+        private _router: Router) {
 
     };
 
@@ -32,8 +34,9 @@ export class SignInModule implements OnInit {
      */
     public async onSignInAsync() {
         (await this.userService.signinUserAsync(this.userLogin, this.userPassword))
-            .subscribe(response => {
+            .subscribe(_ => {
                 console.log(this.signinUser$.value);
+                this._router.navigate(["/profile/welcome"]);
             });
     };
 }

@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from "@angular/common/http";
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse } from "@angular/common/http";
 import { catchError, finalize, tap } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { NetworkService } from "src/app/modules/base/services/network.service";
+import { CommonDataService } from "src/app/modules/base/services/common.service";
 
 // Класс перехватчика api-запросов.
 @Injectable()
 export class NetworkInterceptor implements HttpInterceptor {
-    constructor(private loader: NetworkService) {
+    constructor(private loader: NetworkService,
+        private commonService: CommonDataService) {
 
     }
 
@@ -29,10 +31,12 @@ export class NetworkInterceptor implements HttpInterceptor {
         this.loader.setBusy(true);
 
         return next.handle(req).pipe(
-            tap(_ => { }),
+            tap(_ => {
+                
+             }),
 
-            catchError(response => {
-                // this.commonService.routeToStart(err);
+            catchError((response: HttpErrorResponse) => {
+                this.commonService.routeToStart(response);
 
                 return throwError(response.message);
             }),

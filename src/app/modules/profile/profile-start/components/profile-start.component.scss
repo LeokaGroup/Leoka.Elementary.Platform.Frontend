@@ -1,0 +1,21 @@
+@use "/src/styles/common.scss";
+@use "/src/styles/control.scss";
+@use "/src/styles/fonts.scss";
+
+.profile-info-title {
+  font-family: 'Gilroy-Bold';
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 44px;
+  color: #087592;
+}
+
+.profile-info-text {
+  font-family: 'Gilroy-Bold';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #087592;
+  width: 694px;
+  margin-top: 40px;
+}

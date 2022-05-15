@@ -9,7 +9,7 @@ import { API_URL } from 'src/app/core/core-urls/api-urls';
  */
 @Injectable()
 export class RoleService {
-    public readonly roles$ = new BehaviorSubject<any>(undefined);
+    public readonly roles$ = new BehaviorSubject<any>(null);
 
     constructor(private readonly http: HttpClient,
         private router: Router) {
@@ -29,29 +29,16 @@ export class RoleService {
      // Функция отсчитывает время бездействия юзера, по окончании простоя убивает сессию и перенаправляет на страницу авторизации.
      public deadlineSession(): void {
         var idleTime = 0;
-        document.addEventListener("DOMContentLoaded", function(event) {
-            //Increment the idle time counter every minute.
-            var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-
-            //Zero the idle timer on mouse movement.
-            // $(this).mousemove(function (e) {
-            //     idleTime = 0;
-            // });
-            document.addEventListener('mousemove', e => {
+        document.addEventListener("DOMContentLoaded", function() {
+            var _ = setInterval(timerIncrement, 60000); // 1 minute
+            document.addEventListener('mousemove', _ => {
                 idleTime = 0;
             });
 
-            document.addEventListener('keypress', e => {
+            document.addEventListener('keypress', _ => {
                 idleTime = 0;
             });
-
-            // $(this).keypress(function (e) {
-            //     idleTime = 0;
-            // });
         });
-        // $(document).ready(() => {
-            
-        // });
 
         const timerIncrement = () => {
             idleTime++;
@@ -82,8 +69,7 @@ export class RoleService {
                         },
 
                         error: (err) => {
-                            console.log(err);
-                            console.log('Ошибка обновления токена');
+                            console.log('Ошибка обновления токена', err);
                         }
                     });
             }
@@ -93,13 +79,4 @@ export class RoleService {
             }
         }, 530000); // Каждые 9 мин. 
     };  
-
-    public routeToStart(err: any) {
-        if (err.status === 401) {
-           sessionStorage.clear();
-            sessionStorage.clear();
-            
-            this.router.navigate(["/user/signin"]);
-        }
-    };
 }

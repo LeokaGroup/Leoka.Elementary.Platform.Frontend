@@ -1,3 +1,16 @@
+@mixin btnActionPurForm {
+  background: #7C3AED;
+  border-radius: 8px;
+  margin: 20px 0px;
+  color: #FFFFFF;
+  border: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+}
+
 // Кнопка регистрации.
 .btn-signup {
   background: #FFFFFF;
@@ -65,18 +78,9 @@
 
 // Кнопка на формах регистрации и тд.
 .button-action-pur-form {
-  background: #7C3AED;
-  border-radius: 8px;
   width: 396px;
   height: 56px;
-  margin: 20px 0px;
-  color: #FFFFFF;
-  border: none;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24px;
+  @include btnActionPurForm();
 }
 
 .button-request {
@@ -151,4 +155,10 @@
     border: none;
     box-shadow: none;
   }
+}
+
+.btn-save {
+  width: 168px;
+  height: 50px;
+  @include btnActionPurForm();
 }

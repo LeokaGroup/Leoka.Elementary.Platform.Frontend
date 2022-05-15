@@ -9,8 +9,8 @@ import { UserInput } from '../models/input/user-input';
  */
 @Injectable()
 export class UserService {
-    public readonly signupUser$ = new BehaviorSubject<any>(undefined);
-    public readonly signinUser$ = new BehaviorSubject<any>(undefined);
+    public readonly signupUser$ = new BehaviorSubject<any>(null);
+    public readonly signinUser$ = new BehaviorSubject<any>(null);
     
     constructor(private readonly http: HttpClient) {
 
@@ -46,6 +46,7 @@ export class UserService {
         return await this.http.get(API_URL.apiUrl + "/user/signin?userLogin=" + userLogin + "&userPassword=" + userPassword).pipe(
             tap((data: any) => {
                 sessionStorage["token"] = data.token;
+                document.cookie = "user=" + data.user;
                 this.signinUser$.next(data);
             })
         );

@@ -1,7 +1,3 @@
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "popper.js/dist/popper.min.js";
-import "bootstrap/dist/js/bootstrap.min.js";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,12 +14,16 @@ import { FooterModule } from "./modules/footer/components/footer.component";
 import { NgxLoadingModule } from "ngx-loading";
 import { NetworkService } from "./modules/base/services/network.service";
 import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
+import { CommonDataService } from "./modules/base/services/common.service";
+import { ProfileService } from "./modules/profile/services/profile.service";
+import { KnowledgeLkModule } from './modules/knowledge/knowledge-lk/knowledge-lk.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderModule,
-    FooterModule
+    FooterModule,
+    KnowledgeLkModule
   ],
 
   imports: [
@@ -37,7 +37,7 @@ import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
       secondaryColour: '#7C3AED',
       tertiaryColour: '#7C3AED',
       fullScreenBackdrop: true
-    })
+    })      
   ],
 
   providers: [
@@ -50,7 +50,9 @@ import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
       useClass: NetworkInterceptor,
       multi: true
     },
-    NetworkService
+    NetworkService,
+    CommonDataService,
+    ProfileService
   ],
 
   bootstrap: [AppComponent]

@@ -1,0 +1,130 @@
+<div class="col-lg-12 d-flex">
+  <div class="col-lg-4">
+    <profile-menu></profile-menu>
+  </div>
+
+  <div class="col-lg-8 text-pre-line">
+    <!-- Блок информации о пользователе. -->
+    <div class="block-user-info pt-20-pb-20 d-flex">
+      <div class="col-lg-4">
+        <img src="../../../../../assets/images/profile/nophoto.svg">
+
+        <p-fileUpload #fubauto mode="basic" name="demo[]" accept="image/*" chooseLabel="Загрузить фото" class="profile-photo" styleClass="p-button-link">
+        </p-fileUpload>
+      </div>
+
+      <div class="col-lg-8">      
+        <div>
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText> 
+                <label for="float-input">ФИО</label>
+            </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Блок с контактами. -->
+    <div class="block-contacts d-flex">
+        <div class="col-lg-4">
+            <p-checkbox [(ngModel)]="checkedContact" [binary]="true" inputId="binary"></p-checkbox>
+            <label for="binary" class="visible-all">Виден всем</label>
+        </div>
+
+        <div class="col-lg-4">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText> 
+                <label for="float-input">Номер телефона:</label>
+            </span>
+        </div>
+
+        <div class="col-lg-4">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText> 
+                <label for="float-input">Email:</label>
+            </span>
+        </div>        
+    </div>
+
+    <!-- Блок с выпадающих списков. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info d-flex block-profile-dropdowns">
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Предмет</label>
+        </div>
+
+          <div>
+            <p-dropdown [options]="profileItems$.value" 
+                      [(ngModel)]="selectedItem" 
+                      optionLabel="itemName"
+                      optionValue="itemSysName" 
+                      placeholder="Ваш предмет">
+          </p-dropdown>
+          </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Цена занятий</label>
+        </div>
+
+          <div>
+            <input type="text" pInputText placeholder="Напишите цену"> 
+          </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Длительность</label>
+        </div>
+
+          <div>
+            <p-dropdown [options]="profileItemsDropdown$.value" 
+                      [(ngModel)]="selectedItem" 
+                      optionLabel="fullTime"
+                      optionValue="durationId" 
+                      placeholder="Длительность урока">
+          </p-dropdown>
+          </div>
+      </div>
+    </div>
+
+    <!-- Блок целей подготовки. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info">
+      <div class="profile-title">
+        <label>Цель подготовки</label>
+      </div>
+
+      <div class="block-purposes">
+        <div class="purpose" *ngFor="let item of profilePurposeDropdown$.value">
+          {{item.purposeSysName}}
+        </div>  
+      </div>   
+    </div>
+
+    <!-- Блок с образованием. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info">
+      <div class="profile-title">
+        <label>Образование</label>
+      </div>
+      
+      <div>
+        <textarea rows="5" cols="100" pInputTextarea [autoResize]="true"></textarea>
+      </div>
+    </div>
+
+    <!-- Блок с опытом. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info">
+      <div class="profile-title">
+        <label>Опыт</label>
+      </div>
+      
+      <div>
+        <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image>
+      </div>
+    </div>
+
+    <button class="button-action-pur-form btn-save">
+      Сохранить
+    </button>
+  </div>
+</div>

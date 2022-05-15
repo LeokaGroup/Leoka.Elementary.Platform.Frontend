@@ -1,0 +1,15 @@
+<div>
+  <ul class="left-items">
+    <li class="left-item" 
+        *ngFor="let item of userProfileMenuItems$.value.profileLeftMenuItems"
+        (click)="onSelectMenuItem(item)">
+      <div class="d-flex" [ngClass]="{ firstItem: item.isSelectItem }">
+        <div>
+          <img [src]="item.iconUrl">
+        </div>
+
+        <div class="left-item-text">{{item.profileItemTitle}}</div>
+      </div>
+    </li>
+  </ul>
+</div>

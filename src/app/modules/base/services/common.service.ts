@@ -1,7 +1,6 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { API_URL } from "src/app/core/core-urls/api-urls";
+import { Router } from "@angular/router";
+import { BehaviorSubject } from "rxjs";
 
 /**
  * Сервис общих функций.
@@ -9,11 +8,17 @@ import { API_URL } from "src/app/core/core-urls/api-urls";
 @Injectable()
 export class CommonDataService {
     currentRoute: any;
+    public readonly isVisibleHeaderItems$ = new BehaviorSubject<boolean>(false);
 
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        private route: ActivatedRoute) {
-            // this.currentRoute = this.route.snapshot.queryParams;
+    constructor(private router: Router) {
+            
     }
+
+    public routeToStart(err: any) {
+        if (err.status === 0) {        
+            sessionStorage.clear();
+            
+            this.router.navigate(["/user/signin"]);
+        }
+    };
 };

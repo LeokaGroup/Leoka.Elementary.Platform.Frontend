@@ -1,0 +1,33 @@
+.lk-help-line {
+  width: 100vw;
+  // height: 50px;
+  background: #81D0DF;
+  overflow-x: hidden;
+  padding: 10px;
+  color: white;
+  margin-bottom: 50px;
+
+  .block-help-lk {
+    justify-content: center;
+    display: flex;
+
+    .help-lk-details {
+      margin-left: 10px;
+    }
+  }
+}
+
+// Кнопка подробнее.
+::ng-deep .help-lk-details .p-button.p-button-link:enabled {
+  padding: 0;
+  color: white;
+  text-decoration: underline;
+
+  &:hover {
+    color: white;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}

@@ -5,7 +5,7 @@ import { API_URL } from 'src/app/core/core-urls/api-urls';
 
 @Injectable()
 export class HeaderService {
-    public headerData$ = new BehaviorSubject<any>([]);
+    public headerData$ = new BehaviorSubject<any>(null);
 
     constructor(private readonly http: HttpClient) {
 

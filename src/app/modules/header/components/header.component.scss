@@ -2,12 +2,14 @@
 @use "/src/styles/control.scss";
 @use "/src/styles/fonts.scss";
 
-.block-menu {
-  //   margin-top: 30px;
+.blockMenuMain {
   padding-top: 20px;
   padding-bottom: 70px;
   z-index: 2;
   position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
   .header-menu {
     list-style-type: none;
@@ -56,4 +58,71 @@
     align-items: center;
     letter-spacing: 1pt;
   }
+}
+
+.blockMenuProfile {
+  // padding-top: 20px;
+  // padding-bottom: 70px;
+  z-index: 2;
+  // position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80px;
+
+  .header-menu {
+    list-style-type: none;
+    // margin: 0 auto;
+    margin: 0;
+
+    .header-menu-item {
+      margin: 0 10px;
+      font-family: 'Gilroy-Bold';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      color: #4C1D95;
+      line-height: 22px;
+      letter-spacing: 0.1px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .block-logo {
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .title {
+    margin: 0 10px;
+    color: #7C3AED;
+    font-family: 'Stolzl';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .sub-title {
+    margin: 0 10px;
+    color: #7C3AED;
+    font-family: 'Gilroy-Regular';
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1pt;
+  }
+}
+
+.img-profile {
+  margin: 0 8px;
+}
+
+.dropdown-img {
+  margin: 0 8px 0 0;
 }

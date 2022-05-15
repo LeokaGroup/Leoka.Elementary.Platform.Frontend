@@ -3,9 +3,15 @@
 <ngx-loading [show]="loading$.value"></ngx-loading>
 
 <header></header>
+<knowledge-lk class="d-flex" *ngIf="currentRoute === '/profile/welcome' 
+                    || currentRoute === '/profile/form'"></knowledge-lk>
 
 <main class="app-container">
   <router-outlet></router-outlet>
 </main>
 
-<footer [hidden]="currentRoute === '/user/signup' || currentRoute === '/user/signin'"></footer>
+<footer [hidden]="currentRoute === '/user/signup' 
+                || currentRoute === '/user/signin'
+                || currentRoute === '/profile/welcome'
+                || currentRoute === '/profile/form'">
+</footer>
