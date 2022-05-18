@@ -30,7 +30,7 @@ export class RoleService {
      public deadlineSession(): void {
         var idleTime = 0;
         document.addEventListener("DOMContentLoaded", function() {
-            var _ = setInterval(timerIncrement, 60000); // 1 minute
+            var _ = setInterval(timerIncrement, 530000); // если надо 1 minute, то 60000
             document.addEventListener('mousemove', _ => {
                 idleTime = 0;
             });
@@ -69,7 +69,7 @@ export class RoleService {
                         },
 
                         error: (err) => {
-                            console.log('Ошибка обновления токена', err);
+                            console.log("error refresh token", err);
                         }
                     });
             }

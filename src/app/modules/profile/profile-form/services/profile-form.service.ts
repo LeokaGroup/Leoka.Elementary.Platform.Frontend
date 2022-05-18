@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
+import { SaveMentorProfileUserInfoInput } from '../models/input/save-mentor-profile-user-info-input';
 
 /**
  * Сервис анкеты пользователя.
@@ -11,6 +12,7 @@ export class ProfileFormService {
     public readonly profileItems$ = new BehaviorSubject<any>([]);
     public readonly profileItemsDropdown$ = new BehaviorSubject<any>([]);
     public readonly profilePurposeDropdown$ = new BehaviorSubject<any>([]);
+    public readonly formProfile$ = new BehaviorSubject<any>([]);
     
     constructor(private readonly http: HttpClient) {
 
@@ -48,6 +50,18 @@ export class ProfileFormService {
         return await this.http.get(API_URL.apiUrl + "/profile/purposes").pipe(
             tap((data: any) => {
                 this.profilePurposeDropdown$.next(data);
+            })
+        );
+    };
+
+    /**
+     * Функция сохранит данные анкеты профиля пользователя.
+     * @returns - Сохраненные данные.
+     */
+    public async saveProfileUserInfoAsync(formProfileInput: SaveMentorProfileUserInfoInput) {
+        return await this.http.post(API_URL.apiUrl + "/profile/purposes", formProfileInput).pipe(
+            tap((response: any) => {
+                this.formProfile$.next(response);
             })
         );
     };
