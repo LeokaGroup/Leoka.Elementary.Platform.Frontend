@@ -77,8 +77,9 @@
           <label>Предмет</label>
         </div>
 
+        <!-- Добавленные предметы. -->
         <div *ngFor="let item of displaySelectedMentorProfileItems">
-          <span>{{item.itemName}}</span>
+          {{item.itemName}}
         </div>
 
           <div>
@@ -86,13 +87,14 @@
                           [(ngModel)]="selectedItem"
                           optionLabel="itemName"                          
                           placeholder="Ваш предмет"
-                          formControlName="selectedItem"
-                          (onChange)="addMentorProfileItems(selectedItem)">
+                          formControlName="selectedItem">
               </p-dropdown>
           
             <div>
-              <p-button label="Добавить" styleClass="p-button-link">
-
+              <p-button 
+                  label="Добавить" 
+                  styleClass="p-button-link"
+                  (click)="addMentorProfileItems()">
               </p-button>
             </div>
           </div>
@@ -103,13 +105,25 @@
           <label>Цена занятий</label>
         </div>
 
+        <!-- Добавленные цены. -->
+        <div *ngFor="let item of displayMentorPrices">
+          {{item.price}} {{item.unit}}
+        </div>
+
           <div>
             <input 
                 type="text" 
                 pInputText 
                 placeholder="Напишите цену"
-                formControlName="price"> 
+                formControlName="price"
+                [(ngModel)]="selectedPrice"> 
           </div>
+
+          <p-button 
+                label="Добавить" 
+                styleClass="p-button-link"
+                (click)="addMentorPrices()">
+          </p-button>
       </div>
 
       <div class="col-lg-4">
@@ -117,14 +131,24 @@
           <label>Длительность</label>
         </div>
 
+        <!-- Добавленные длительности. -->
+        <div *ngFor="let item of displayMentorDurations">
+          {{item.time}} {{item.unit}}
+        </div>
+
           <div>
             <p-dropdown [options]="profileItemsDropdown$.value"                       
                       optionLabel="fullTime"
-                      optionValue="durationId" 
                       placeholder="Длительность урока"
+                      [(ngModel)]="selectedDuration"
                       formControlName="selectedDuration">
-          </p-dropdown>
-          <!-- [(ngModel)]="selectedDuration"  -->
+            </p-dropdown>
+
+            <p-button 
+                label="Добавить" 
+                styleClass="p-button-link"
+                (click)="addMentorDurations()">
+          </p-button>
           </div>
       </div>
     </div>
@@ -137,7 +161,7 @@
 
       <div class="block-purposes">
         <div class="purpose" *ngFor="let item of profilePurposeDropdown$.value">
-          <div (click)="onSelectPurpose(item.purposeName)">
+          <div (click)="onSelectPurposes(item.purposeName)">
             {{item.purposeSysName}}
           </div>
         </div>  
@@ -184,7 +208,9 @@
         <label>Сертификаты</label>
       </div>
       
-      <div>
+      <div>        
+        <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image>
+
         <p-fileUpload 
             mode="basic" 
             name="demo[]" 
@@ -196,7 +222,6 @@
             [multiple]="true"
             (onSelect)="onUploadCerts($event)">
         </p-fileUpload>
-        <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image>
       </div>
     </div>
 

@@ -3,8 +3,10 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { forkJoin } from "rxjs";
 import { MentorProfileItem } from "../models/input/mentor-profile-item-input";
 import { SaveMentorProfileUserInfoInput } from "../models/input/save-mentor-profile-user-info-input";
+import { MentorDurations } from "../models/mentor-durations";
 import { MentorProfilePrices } from "../models/mentor-prices";
 import { MentorProfileItems } from "../models/mentor-profile-items";
+import { MentorTrainings } from "../models/mentor-trainings";
 import { ProfileFormService } from "../services/profile-form.service";
 
 @Component({
@@ -23,12 +25,16 @@ export class ProfileFormModule implements OnInit {
     public readonly formProfile$ = this._profileFormService.formProfile$;
 
     checkedContact: boolean = false;
-    selectedPurposes = new Set();
+    selectedPurposes: MentorTrainings[] = [];
     profileFormInput: SaveMentorProfileUserInfoInput = new SaveMentorProfileUserInfoInput();
     mentorProfileItems: MentorProfileItems[]  = [];
     mentorPrices: MentorProfilePrices[] = [];
     selectedItem: MentorProfileItem = new MentorProfileItem();
     displaySelectedMentorProfileItems: MentorProfileItem[] = [];
+    displayMentorPrices: MentorProfilePrices[] = [];
+    selectedPrice: any;
+    selectedDuration: any;
+    displayMentorDurations: MentorDurations[] = [];
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -102,6 +108,7 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.email = this.profileForm.controls["email"].value;
         this.profileFormInput.isVisibleAllContact = this.profileForm.controls["checkedContact"].value;
         this.profileFormInput.mentorItems = this.mentorProfileItems;
+        // this.profileFormInput.mentorPrices = 
 
         // (await this._profileFormService.saveProfileUserInfoAsync(profileFormInput))
         // .subscribe(_ => {
@@ -137,32 +144,61 @@ export class ProfileFormModule implements OnInit {
      * Функция запишет цель подготовки.
      * @param purpose - Системное название цели подготовки.
      */
-    public onSelectPurpose(purpose: string) {
+    public onSelectPurposes(purpose: string) {
         console.log("onSelectPurpose", purpose);
-        this.selectedPurposes.add(purpose);
+
+        let training = new MentorTrainings();
+        training.purposeSysName = purpose;
+        this.selectedPurposes.push(training);
+        
         console.log("selectedPurposes", this.selectedPurposes);
     };
 
     /**
      * Функция запишет список предметов.
      */
-    public addMentorProfileItems(selectedItem: MentorProfileItem) {
-        console.log("addMentorProfileItems", selectedItem);
-        
+    public addMentorProfileItems() {
+        console.log("addMentorProfileItems", this.selectedItem);
+
         let profileItem = new MentorProfileItems();
-        profileItem.itemSysName = selectedItem.itemSysName;
+        profileItem.itemSysName = this.selectedItem.itemSysName;
         this.mentorProfileItems.push(profileItem);
 
         // Добавит добавленный предмет в список для вывода пользователю.
-        this.displaySelectedMentorProfileItems.push(selectedItem);
+        this.displaySelectedMentorProfileItems.push(this.selectedItem);
 
         console.log("mentorProfileItems", this.mentorProfileItems);
         console.log("displaySelectedMentorProfileItems", this.displaySelectedMentorProfileItems);
     };
 
-    public addMentorPrices(item: any) {  
-        // let items = new MentorProfilePrices();
-        // items.price = 
-        console.log("addMentorPrices", item);
+    /**
+     * Функция запишет цены преподавателя.
+     */
+    public addMentorPrices() {  
+        console.log("addMentorPrices", this.selectedPrice);
+        let price = new MentorProfilePrices();
+        price.price = this.selectedPrice;
+        price.unit = " руб.";
+
+        // Добавит цены преподавателя для вывода пользователю.
+        this.displayMentorPrices.push(price);
+
+        console.log("displayMentorPrices", this.displayMentorPrices);
+    };
+
+    public addMentorDurations() {
+        console.log("addMentorDurations", this.selectedDuration);
+
+        // let duration = new MentorDurations();
+        // duration.time = this.selectedPrice;
+        // duration.unit = " минут";
+
+        // Добавит цены преподавателя для вывода пользователю.
+        this.displayMentorDurations.push(this.selectedDuration);
+
+        // Удалит дубликаты.
+        this.displayMentorDurations = [...new Set(this.displayMentorDurations)];
+
+        console.log("displayMentorDurations", this.displayMentorDurations);
     };
 }
