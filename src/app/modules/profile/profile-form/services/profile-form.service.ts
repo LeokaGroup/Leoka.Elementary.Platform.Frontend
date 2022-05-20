@@ -13,6 +13,7 @@ export class ProfileFormService {
     public readonly profileItemsDropdown$ = new BehaviorSubject<any>([]);
     public readonly profilePurposeDropdown$ = new BehaviorSubject<any>([]);
     public readonly formProfile$ = new BehaviorSubject<any>([]);
+    public readonly profileDaysWeek$ = new BehaviorSubject<any>([]);
     
     constructor(private readonly http: HttpClient) {
 
@@ -62,6 +63,18 @@ export class ProfileFormService {
         return await this.http.post(API_URL.apiUrl + "/profile/purposes", formProfileInput).pipe(
             tap((response: any) => {
                 this.formProfile$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция получит список дней недели.
+     * @returns - Список дней недели.
+     */
+    public async getDaysWeekAsync() {
+        return await this.http.get(API_URL.apiUrl + "/profile/days-week").pipe(
+            tap((response: any) => {
+                this.profileDaysWeek$.next(response);
             })
         );
     };

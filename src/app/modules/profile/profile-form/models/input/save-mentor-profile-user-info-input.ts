@@ -1,3 +1,4 @@
+import { MentorAboutInfo } from "../mentor-about-into";
 import { MentorDurations } from "../mentor-durations";
 import { MentorEducations } from "../mentor-educations";
 import { MentorExperience } from "../mentor-experience";
@@ -45,4 +46,7 @@ export class SaveMentorProfileUserInfoInput {
 
     // Список образований преподавателя.
     mentorEducations: MentorEducations[] = [];
+
+    // Список информации о препродавателе.
+    mentorAboutInfo: MentorAboutInfo[] = [];
 }

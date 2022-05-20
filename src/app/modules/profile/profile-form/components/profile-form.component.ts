@@ -1,11 +1,17 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { forkJoin } from "rxjs";
+import { DisplayMentorTimes } from "../models/display-mentor-times";
 import { MentorProfileItem } from "../models/input/mentor-profile-item-input";
 import { SaveMentorProfileUserInfoInput } from "../models/input/save-mentor-profile-user-info-input";
+import { MentorAboutInfo } from "../models/mentor-about-into";
+import { MentorDayWeek } from "../models/mentor-day-week";
 import { MentorDurations } from "../models/mentor-durations";
+import { MentorEducations } from "../models/mentor-educations";
+import { MentorExperience } from "../models/mentor-experience";
 import { MentorProfilePrices } from "../models/mentor-prices";
 import { MentorProfileItems } from "../models/mentor-profile-items";
+import { MentorTimes } from "../models/mentor-times";
 import { MentorTrainings } from "../models/mentor-trainings";
 import { ProfileFormService } from "../services/profile-form.service";
 
@@ -23,6 +29,7 @@ export class ProfileFormModule implements OnInit {
     public readonly profileItemsDropdown$ = this._profileFormService.profileItemsDropdown$;
     public readonly profilePurposeDropdown$ = this._profileFormService.profilePurposeDropdown$;
     public readonly formProfile$ = this._profileFormService.formProfile$;
+    public readonly profileDaysWeek$ = this._profileFormService.profileDaysWeek$;
 
     checkedContact: boolean = false;
     selectedPurposes: MentorTrainings[] = [];
@@ -35,6 +42,17 @@ export class ProfileFormModule implements OnInit {
     selectedPrice: any;
     selectedDuration: any;
     displayMentorDurations: MentorDurations[] = [];
+    mentorTimes: MentorTimes[] = [];
+    displayMentorTimes: DisplayMentorTimes[] = [];
+    selectedMentorTimeStart: string = "";
+    selectedMentorTimeEnd: string = "";
+    selectedMentorDayWeek: MentorDayWeek = new MentorDayWeek();
+    aboutInfo: string = "";
+    mentorAboutInfo: MentorAboutInfo[] = [];
+    education: string = "";
+    mentorEducations: MentorEducations[] = [];
+    experience: string = "";
+    mentorExperience: MentorExperience[] = [];
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -48,7 +66,11 @@ export class ProfileFormModule implements OnInit {
         "selectedDuration": new FormControl("", Validators.required),
         "education": new FormControl("", Validators.required),
         "experience": new FormControl("", Validators.required),
-        "certs": new FormControl(new FormData(), Validators.required)
+        "certs": new FormControl(new FormData(), Validators.required),
+        "dayWeekName": new FormControl("", Validators.required),
+        "mentorTimeStart": new FormControl("", Validators.required),
+        "mentorTimeEnd": new FormControl("", Validators.required),
+        "aboutInfo": new FormControl("", Validators.required)
     });
 
     constructor(private _profileFormService: ProfileFormService) {};
@@ -58,7 +80,8 @@ export class ProfileFormModule implements OnInit {
             await this.getProfileItemsAsync(),
             await this.getLessonsDurationAsync(),
             await this.getPurposeTrainingsAsync(),
-        ]).subscribe();
+            await this.getDaysWeekAsync()
+        ]);
     };    
 
     /**
@@ -200,5 +223,74 @@ export class ProfileFormModule implements OnInit {
         this.displayMentorDurations = [...new Set(this.displayMentorDurations)];
 
         console.log("displayMentorDurations", this.displayMentorDurations);
+    };
+
+    /**
+     * Функция получит список дней недели.
+     * @returns - Список дней недели.
+     */
+    private async getDaysWeekAsync() {
+        (await this._profileFormService.getDaysWeekAsync())
+        .subscribe(_ => {
+            console.log("Список дней недели: ", this.profileDaysWeek$.value);
+        });
+    };
+
+    /**
+     * Функция запишет время и день недели.
+     */
+    public addMentorDayTimes() {
+        console.log("selectedMentorTimeStart",this.selectedMentorTimeStart);
+        console.log("selectedMentorTimeEnd",this.selectedMentorTimeEnd);
+        console.log("selectedMentorDayWeek",this.selectedMentorDayWeek.daySysName);
+
+        let mentorTime = new MentorTimes();
+        mentorTime.timeStart = this.selectedMentorTimeStart;
+        mentorTime.timeEnd = this.selectedMentorTimeEnd;
+        mentorTime.day = this.selectedMentorDayWeek.daySysName;
+
+        let displayMentorTimes = new DisplayMentorTimes();
+        displayMentorTimes.timeStart = this.selectedMentorTimeStart;
+        displayMentorTimes.timeEnd = this.selectedMentorTimeEnd;
+        displayMentorTimes.day = this.selectedMentorDayWeek.dayName;
+
+        this.mentorTimes.push(mentorTime);
+        this.displayMentorTimes.push(displayMentorTimes);
+
+        // Удалит дубликаты.
+        this.displayMentorTimes = [...new Set(this.displayMentorTimes)];
+        this.mentorTimes = [...new Set(this.mentorTimes)];
+
+        console.log("displayMentorTimes", this.displayMentorTimes);
+    };
+
+    /**
+     * Функция запишет информацию о преподавателе.
+     */
+    public addMentorAboutInfo() {
+        let about = new MentorAboutInfo();
+        about.aboutInfoText = this.aboutInfo;
+        this.mentorAboutInfo.push(about);
+        this.mentorAboutInfo = [...new Set(this.mentorAboutInfo)];
+    };
+
+    /**
+     * Функция запишет образование преподавателя.
+     */
+    public addMentorEducation() {
+        let education = new MentorEducations();
+        education.educationText = this.education;
+        this.mentorEducations.push(education);
+        this.mentorEducations = [...new Set(this.mentorEducations)];
+    };
+
+    /**
+     * Функция запишет опыт преподавателя.
+     */
+    public addMentorExperience() {
+        let mentorExperience = new MentorExperience();
+        mentorExperience.experienceText = this.experience;
+        this.mentorExperience = [...new Set(this.mentorExperience)];
+        this.mentorExperience.push(mentorExperience);
     };
 }
