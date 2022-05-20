@@ -59,8 +59,8 @@ export class ProfileFormService {
      * Функция сохранит данные анкеты профиля пользователя.
      * @returns - Сохраненные данные.
      */
-    public async saveProfileUserInfoAsync(formProfileInput: SaveMentorProfileUserInfoInput) {
-        return await this.http.post(API_URL.apiUrl + "/profile/purposes", formProfileInput).pipe(
+    public async saveProfileUserInfoAsync(formProfileInput: any) {
+        return await this.http.post(API_URL.apiUrl + "/profile/profile-info", formProfileInput).pipe(
             tap((response: any) => {
                 this.formProfile$.next(response);
             })

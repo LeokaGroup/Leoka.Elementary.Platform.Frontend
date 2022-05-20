@@ -53,6 +53,7 @@ export class ProfileFormModule implements OnInit {
     mentorEducations: MentorEducations[] = [];
     experience: string = "";
     mentorExperience: MentorExperience[] = [];
+    mentorDurations: MentorDurations[] = [];
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -131,12 +132,42 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.email = this.profileForm.controls["email"].value;
         this.profileFormInput.isVisibleAllContact = this.profileForm.controls["checkedContact"].value;
         this.profileFormInput.mentorItems = this.mentorProfileItems;
-        // this.profileFormInput.mentorPrices = 
 
-        // (await this._profileFormService.saveProfileUserInfoAsync(profileFormInput))
-        // .subscribe(_ => {
-        //     console.log("Данные анкеты: ", this.formProfile$.value);
-        // });
+        if (!this.mentorPrices.length) {
+            this.mentorPrices.push(this.profileForm.controls["price"].value);
+        }
+
+        this.profileFormInput.mentorPrices = this.mentorPrices;
+        this.profileFormInput.mentorTimes = this.mentorTimes;
+        this.profileFormInput.mentorTrainings = this.selectedPurposes;
+
+        if (!this.mentorAboutInfo.length) {
+            this.mentorAboutInfo.push(this.profileForm.controls["aboutInfo"].value);
+        }
+
+        if (!this.mentorEducations.length) {
+            this.mentorEducations.push(this.profileForm.controls["education"].value);
+        }
+
+        if (!this.mentorExperience.length) {
+            this.mentorExperience.push(this.profileForm.controls["experience"].value);
+        }
+
+        this.profileFormInput.mentorAboutInfo = this.mentorAboutInfo;
+        this.profileFormInput.mentorEducations = this.mentorEducations;
+        this.profileFormInput.mentorExperience = this.mentorExperience;
+
+        console.log("profileFormInput",this.profileFormInput);
+
+        let formData = new FormData();
+        formData.append("profileData", JSON.stringify(this.profileFormInput));
+        formData.append("mentorCertificates", this.profileForm.controls["certs"].value.get("certs"));
+        formData.append("profileImage", this.profileForm.controls["avatar"].value.get("avatar"));        
+
+        (await this._profileFormService.saveProfileUserInfoAsync(formData))
+        .subscribe(_ => {
+            console.log("Данные анкеты: ", this.formProfile$.value);
+        });
     };
 
     /**
@@ -190,6 +221,9 @@ export class ProfileFormModule implements OnInit {
         // Добавит добавленный предмет в список для вывода пользователю.
         this.displaySelectedMentorProfileItems.push(this.selectedItem);
 
+        this.mentorProfileItems = [...new Set(this.mentorProfileItems)];
+        this.displaySelectedMentorProfileItems = [...new Set(this.displaySelectedMentorProfileItems)];
+
         console.log("mentorProfileItems", this.mentorProfileItems);
         console.log("displaySelectedMentorProfileItems", this.displaySelectedMentorProfileItems);
     };
@@ -205,8 +239,13 @@ export class ProfileFormModule implements OnInit {
 
         // Добавит цены преподавателя для вывода пользователю.
         this.displayMentorPrices.push(price);
+        this.mentorPrices.push(price);
+
+         // Удалит дубликаты.
+         this.mentorPrices = [...new Set(this.mentorPrices)];
 
         console.log("displayMentorPrices", this.displayMentorPrices);
+        console.log("mentorPrices", this.mentorPrices);
     };
 
     public addMentorDurations() {
@@ -218,11 +257,14 @@ export class ProfileFormModule implements OnInit {
 
         // Добавит цены преподавателя для вывода пользователю.
         this.displayMentorDurations.push(this.selectedDuration);
+        this.mentorDurations.push(this.selectedDuration);
 
         // Удалит дубликаты.
         this.displayMentorDurations = [...new Set(this.displayMentorDurations)];
+        this.mentorDurations = [...new Set(this.mentorDurations)];
 
         console.log("displayMentorDurations", this.displayMentorDurations);
+        console.log("mentorDurations", this.mentorDurations);
     };
 
     /**
