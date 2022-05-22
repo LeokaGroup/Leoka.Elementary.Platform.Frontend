@@ -134,7 +134,10 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.mentorItems = this.mentorProfileItems;
 
         if (!this.mentorPrices.length) {
-            this.mentorPrices.push(this.profileForm.controls["price"].value);
+            let price = new MentorProfilePrices();
+            price.price = this.profileForm.controls["price"].value;
+            price.unit = " руб.";
+            this.mentorPrices.push(price);
         }
 
         this.profileFormInput.mentorPrices = this.mentorPrices;
@@ -142,20 +145,33 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.mentorTrainings = this.selectedPurposes;
 
         if (!this.mentorAboutInfo.length) {
-            this.mentorAboutInfo.push(this.profileForm.controls["aboutInfo"].value);
+            let about = new MentorAboutInfo();
+            about.aboutInfoText = this.profileForm.controls["aboutInfo"].value;
+            this.mentorAboutInfo.push(about);
         }
 
         if (!this.mentorEducations.length) {
-            this.mentorEducations.push(this.profileForm.controls["education"].value);
+            let education = new MentorEducations();
+            education.educationText = this.profileForm.controls["education"].value;
+            this.mentorEducations.push(education);
         }
 
         if (!this.mentorExperience.length) {
-            this.mentorExperience.push(this.profileForm.controls["experience"].value);
+            let experience = new MentorExperience();
+            experience.experienceText = this.profileForm.controls["experience"].value;
+            this.mentorExperience.push(experience);
+        }
+
+        if (!this.mentorDurations.length) {
+            let duration = new MentorDurations();
+            duration.time = this.selectedDuration.time;
+            duration.unit = " минут";
         }
 
         this.profileFormInput.mentorAboutInfo = this.mentorAboutInfo;
         this.profileFormInput.mentorEducations = this.mentorEducations;
         this.profileFormInput.mentorExperience = this.mentorExperience;
+        this.profileFormInput.mentorDurations = this.mentorDurations;
 
         console.log("profileFormInput",this.profileFormInput);
 
@@ -202,7 +218,7 @@ export class ProfileFormModule implements OnInit {
         console.log("onSelectPurpose", purpose);
 
         let training = new MentorTrainings();
-        training.purposeSysName = purpose;
+        training.trainingSysName = purpose;
         this.selectedPurposes.push(training);
         
         console.log("selectedPurposes", this.selectedPurposes);
@@ -251,13 +267,14 @@ export class ProfileFormModule implements OnInit {
     public addMentorDurations() {
         console.log("addMentorDurations", this.selectedDuration);
 
-        // let duration = new MentorDurations();
-        // duration.time = this.selectedPrice;
-        // duration.unit = " минут";
-
         // Добавит цены преподавателя для вывода пользователю.
         this.displayMentorDurations.push(this.selectedDuration);
-        this.mentorDurations.push(this.selectedDuration);
+        
+        let duration = new MentorDurations();
+        duration.time = this.selectedDuration.time;
+        duration.unit = " минут";
+
+        this.mentorDurations.push(duration);
 
         // Удалит дубликаты.
         this.displayMentorDurations = [...new Set(this.displayMentorDurations)];

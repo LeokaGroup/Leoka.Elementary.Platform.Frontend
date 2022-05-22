@@ -2,6 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, forkJoin, throwError } from "rxjs";
+import { CommonDataService } from "src/app/modules/base/services/common.service";
 import { ProfileService } from "../../services/profile.service";
 import { ProfileMenuInput } from "../models/input/profile-menu-input";
 
@@ -18,7 +19,8 @@ export class ProfileMenuModule implements OnInit {
     public readonly userProfileMenuItems$ = this._profileService.userProfileMenuItems$;
 
     constructor(private _profileService: ProfileService,
-        private _router: Router) {
+        private _router: Router,
+        private _commonService: CommonDataService) {
 
     };
 
@@ -34,9 +36,16 @@ export class ProfileMenuModule implements OnInit {
      * @returns - Данные блока.
      */
     private async getProfileMenuItemsAsync() {
-        (await this._profileService.getProfileMenuItemsAsync()).subscribe(_ => {
-            console.log("profileLeftMenuItems",this.userProfileMenuItems$.value.profileLeftMenuItems);
-        });
+        (await this._profileService.getProfileMenuItemsAsync())
+        .subscribe(
+            (response) => {
+                console.log("profileLeftMenuItems",this.userProfileMenuItems$.value.profileLeftMenuItems);
+            },
+
+            (err) => {
+                this._commonService.routeToStart(err);
+            }
+        );
     };
 
     /**

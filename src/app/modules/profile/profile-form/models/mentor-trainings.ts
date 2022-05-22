@@ -3,5 +3,5 @@
  */
 export class MentorTrainings {
     // Системное название цели.
-    purposeSysName: string = "";
+    trainingSysName: string = "";
 }
