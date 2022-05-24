@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { DomSanitizer } from "@angular/platform-browser";
 import { forkJoin } from "rxjs";
 import { DisplayMentorTimes } from "../models/display-mentor-times";
 import { MentorProfileItem } from "../models/input/mentor-profile-item-input";
@@ -30,6 +31,8 @@ export class ProfileFormModule implements OnInit {
     public readonly profilePurposeDropdown$ = this._profileFormService.profilePurposeDropdown$;
     public readonly formProfile$ = this._profileFormService.formProfile$;
     public readonly profileDaysWeek$ = this._profileFormService.profileDaysWeek$;
+    public readonly profileCerts$ = this._profileFormService.profileCerts$;
+    public readonly profileAvatar$ = this._profileFormService.profileAvatar$;
 
     checkedContact: boolean = false;
     selectedPurposes: MentorTrainings[] = [];
@@ -54,6 +57,10 @@ export class ProfileFormModule implements OnInit {
     experience: string = "";
     mentorExperience: MentorExperience[] = [];
     mentorDurations: MentorDurations[] = [];
+    certsFiles: any[] = [];
+    avatarNoPhoto: string = "";
+    avatarImage: any;
+    isNoPhoto: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -74,14 +81,16 @@ export class ProfileFormModule implements OnInit {
         "aboutInfo": new FormControl("", Validators.required)
     });
 
-    constructor(private _profileFormService: ProfileFormService) {};
+    constructor(private _profileFormService: ProfileFormService, private _sanitizer: DomSanitizer) {};
 
     public async ngOnInit() {     
         forkJoin([
             await this.getProfileItemsAsync(),
             await this.getLessonsDurationAsync(),
             await this.getPurposeTrainingsAsync(),
-            await this.getDaysWeekAsync()
+            await this.getDaysWeekAsync(),
+            await this.getCertsAsync(),
+            await this.getAvatarAsync()
         ]);
     };    
 
@@ -351,5 +360,51 @@ export class ProfileFormModule implements OnInit {
         mentorExperience.experienceText = this.experience;
         this.mentorExperience = [...new Set(this.mentorExperience)];
         this.mentorExperience.push(mentorExperience);
+    };
+
+    /**
+     * Функция получит список сертификатов.
+     * @returns - Список сертификатов.
+     */
+    private async getCertsAsync() {
+        (await this._profileFormService.getCertsAsync())
+            .subscribe(response => {
+                console.log("Список сертификатов: ", this.profileCerts$.value);
+
+                // Преобразует массив байтов в изображение.
+                response.forEach((item: any) => {
+                    let img = this._sanitizer.bypassSecurityTrustResourceUrl("data:image/"
+                        + item.extension
+                        + ";base64,"
+                        + item.cert.fileContents);
+                    this.certsFiles.push(img);
+                });
+            });
+    };
+
+    /**
+     * Функция получит аватар пользователя.
+     * @returns - Аватар пользователя.
+     */
+    private async getAvatarAsync() {
+        (await this._profileFormService.getAvatarAsync())
+            .subscribe(response => {
+                console.log("Аватар: ", this.profileAvatar$.value);
+                this.isNoPhoto = response.isNoPhoto;
+
+                // Если нет аватара, то будет по дефолту.
+                if (response.isNoPhoto) {
+                    this.avatarNoPhoto = response.avatarUrl;
+                }
+
+                // Преобразует массив байтов в изображение.
+                else {
+                    let img = this._sanitizer.bypassSecurityTrustResourceUrl("data:image/"
+                        + response.extension
+                        + ";base64,"
+                        + response.avatar.fileContents);
+                    this.avatarImage = img;
+                }
+            });
     };
 }

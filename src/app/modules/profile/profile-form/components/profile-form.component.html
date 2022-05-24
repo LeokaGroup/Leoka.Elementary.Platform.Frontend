@@ -7,7 +7,7 @@
     <!-- Блок информации о пользователе. -->
     <div class="block-user-info pt-20-pb-20 d-flex">
       <div class="col-lg-4">
-        <img src="../../../../../assets/images/profile/nophoto.svg">
+        <img class="avatar rounded-circle" [src]="isNoPhoto ? avatarNoPhoto : avatarImage">
 
         <p-fileUpload 
             mode="basic" 
@@ -309,7 +309,21 @@
       </div>
       
       <div>        
-        <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image>
+        <!-- <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image> -->
+
+        <!-- Список сертификатов. -->
+        <div class="block-cert-files">
+          <div *ngFor="let item of certsFiles">
+            <div class="cert-file">
+              <p-image 
+                  [src]="item" 
+                  alt="Image" 
+                  width="170" 
+                  [preview]="true">
+              </p-image>
+            </div>
+          </div>
+        </div>       
 
         <p-fileUpload 
             mode="basic" 

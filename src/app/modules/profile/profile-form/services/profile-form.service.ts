@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
-import { SaveMentorProfileUserInfoInput } from '../models/input/save-mentor-profile-user-info-input';
 
 /**
  * Сервис анкеты пользователя.
@@ -14,6 +13,8 @@ export class ProfileFormService {
     public readonly profilePurposeDropdown$ = new BehaviorSubject<any>([]);
     public readonly formProfile$ = new BehaviorSubject<any>([]);
     public readonly profileDaysWeek$ = new BehaviorSubject<any>([]);
+    public readonly profileCerts$ = new BehaviorSubject<any>([]);
+    public readonly profileAvatar$ = new BehaviorSubject<any>([]);
     
     constructor(private readonly http: HttpClient) {
 
@@ -75,6 +76,30 @@ export class ProfileFormService {
         return await this.http.get(API_URL.apiUrl + "/profile/days-week").pipe(
             tap((response: any) => {
                 this.profileDaysWeek$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция получит список сертификатов.
+     * @returns - Список сертификатов.
+     */
+    public async getCertsAsync() {
+        return await this.http.get(API_URL.apiUrl + "/document/profile/certs").pipe(
+            tap((response: any) => {
+                this.profileCerts$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция получит аватар пользователя.
+     * @returns - Аватар пользователя.
+     */
+    public async getAvatarAsync() {
+        return await this.http.get(API_URL.apiUrl + "/profile/avatar").pipe(
+            tap((response: any) => {
+                this.profileAvatar$.next(response);
             })
         );
     };
