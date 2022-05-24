@@ -11,6 +11,10 @@ export class ProfileFormService {
     public readonly profileItems$ = new BehaviorSubject<any>([]);
     public readonly profileItemsDropdown$ = new BehaviorSubject<any>([]);
     public readonly profilePurposeDropdown$ = new BehaviorSubject<any>([]);
+    public readonly formProfile$ = new BehaviorSubject<any>([]);
+    public readonly profileDaysWeek$ = new BehaviorSubject<any>([]);
+    public readonly profileCerts$ = new BehaviorSubject<any>([]);
+    public readonly profileAvatar$ = new BehaviorSubject<any>([]);
     
     constructor(private readonly http: HttpClient) {
 
@@ -48,6 +52,54 @@ export class ProfileFormService {
         return await this.http.get(API_URL.apiUrl + "/profile/purposes").pipe(
             tap((data: any) => {
                 this.profilePurposeDropdown$.next(data);
+            })
+        );
+    };
+
+    /**
+     * Функция сохранит данные анкеты профиля пользователя.
+     * @returns - Сохраненные данные.
+     */
+    public async saveProfileUserInfoAsync(formProfileInput: any) {
+        return await this.http.post(API_URL.apiUrl + "/profile/profile-info", formProfileInput).pipe(
+            tap((response: any) => {
+                this.formProfile$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция получит список дней недели.
+     * @returns - Список дней недели.
+     */
+    public async getDaysWeekAsync() {
+        return await this.http.get(API_URL.apiUrl + "/profile/days-week").pipe(
+            tap((response: any) => {
+                this.profileDaysWeek$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция получит список сертификатов.
+     * @returns - Список сертификатов.
+     */
+    public async getCertsAsync() {
+        return await this.http.get(API_URL.apiUrl + "/document/profile/certs").pipe(
+            tap((response: any) => {
+                this.profileCerts$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция получит аватар пользователя.
+     * @returns - Аватар пользователя.
+     */
+    public async getAvatarAsync() {
+        return await this.http.get(API_URL.apiUrl + "/profile/avatar").pipe(
+            tap((response: any) => {
+                this.profileAvatar$.next(response);
             })
         );
     };
