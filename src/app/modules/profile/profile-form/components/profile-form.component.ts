@@ -64,6 +64,7 @@ export class ProfileFormModule implements OnInit {
     isNoPhoto: boolean = false;
     isEdit: boolean = false;
     userFio: string = "";
+    isEditAvatar: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -421,6 +422,30 @@ export class ProfileFormModule implements OnInit {
             .subscribe(response => {
                 console.log("Данные анкеты: ", this.profileWorksheet$.value);
                 this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
+            });
+    };
+
+    public onChangeAvatarState() {
+        this.isEditAvatar = true;
+    };
+
+    /**
+     * Функция изменит аватар пользователя.
+     */
+    public async onChangeAvatarAsync() {
+        console.log(this.profileForm.controls["avatar"].value.get("avatar"));
+        let formData = new FormData();
+        formData.append("avatar", this.profileForm.controls["avatar"].value.get("avatar"));
+
+        (await this._profileFormService.changeAvatarAsync(formData))
+            .subscribe(response => {
+                console.log("Аватар изменен ок:");
+                
+                let img = this._sanitizer.bypassSecurityTrustResourceUrl("data:image/"
+                        + response.extension
+                        + ";base64,"
+                        + response.avatar.fileContents);
+                    this.avatarImage = img;
             });
     };
 }

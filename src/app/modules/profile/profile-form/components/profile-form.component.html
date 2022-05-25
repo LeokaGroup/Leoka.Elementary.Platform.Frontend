@@ -19,14 +19,22 @@
             formControlName="avatar"
             [multiple]="true"
             (onSelect)="onUploadAvatar($event)"
-            *ngIf="isEdit">
+            [hidden]="!isEditAvatar">
         </p-fileUpload>
 
         <div>
           <p-button 
               label="Изменить" 
               styleClass="p-button-link"
-              *ngIf="!isEdit">
+              *ngIf="!isEditAvatar"
+              (click)="onChangeAvatarState()">
+          </p-button>
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="p-button-link"
+              *ngIf="isEditAvatar"
+              (click)="onChangeAvatarAsync()">
           </p-button>
         </div>
       </div>

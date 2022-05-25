@@ -116,4 +116,16 @@ export class ProfileFormService {
             })
         );
     };
+
+    /**
+     * Функция изменит аватар пользователя.
+     * @param avatar - Аватар пользователя.
+     */
+    public async changeAvatarAsync(avatar: FormData) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/avatar", avatar).pipe(
+            tap((response: any) => {  
+                this.profileAvatar$.next(response); 
+            })
+        );
+    };
 }
