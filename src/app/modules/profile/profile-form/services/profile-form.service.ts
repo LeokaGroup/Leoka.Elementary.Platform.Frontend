@@ -15,6 +15,7 @@ export class ProfileFormService {
     public readonly profileDaysWeek$ = new BehaviorSubject<any>([]);
     public readonly profileCerts$ = new BehaviorSubject<any>([]);
     public readonly profileAvatar$ = new BehaviorSubject<any>([]);
+    public readonly profileWorksheet$ = new BehaviorSubject<any>([]);
     
     constructor(private readonly http: HttpClient) {
 
@@ -100,6 +101,18 @@ export class ProfileFormService {
         return await this.http.get(API_URL.apiUrl + "/profile/avatar").pipe(
             tap((response: any) => {
                 this.profileAvatar$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция получит данные анкеты пользователя.
+     * @returns - Данные анкеты пользователя.
+     */
+    public async getProfileWorkSheetAsync() {
+        return await this.http.get(API_URL.apiUrl + "/profile/worksheet").pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
             })
         );
     };

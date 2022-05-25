@@ -18,58 +18,106 @@
             styleClass="p-button-link"
             formControlName="avatar"
             [multiple]="true"
-            (onSelect)="onUploadAvatar($event)">
+            (onSelect)="onUploadAvatar($event)"
+            *ngIf="isEdit">
         </p-fileUpload>
+
+        <div>
+          <p-button 
+              label="Изменить" 
+              styleClass="p-button-link"
+              *ngIf="!isEdit">
+          </p-button>
+        </div>
       </div>
 
       <div class="col-lg-8">      
+        <span type="text" 
+            placeholder="ФИО"            
+            *ngIf="!isEdit">
+            {{userFio}}
+        </span>
         <div>
-            <span class="p-float-label">
-                <input 
-                    id="float-input" 
-                    type="text" 
-                    pInputText
-                    formControlName="fio"
-                    placeholder="ФИО"> 
-            </span>
+
+          <input 
+              type="text" 
+              pInputText
+              formControlName="fio"
+              placeholder="ФИО"
+              *ngIf="isEdit"> 
+        </div>
+
+        <div>
+          <p-button 
+              label="Изменить" 
+              styleClass="p-button-link"
+              *ngIf="!isEdit">
+          </p-button>
         </div>
       </div>
     </div>
 
     <!-- Блок с контактами. -->
-    <div class="block-contacts d-flex">
+    <div class="block-contacts">
+       <div class="d-flex">
         <div class="col-lg-4">
+          <div class="">
             <p-checkbox 
                 formControlName="checkedContact" 
                 [binary]="true" 
-                inputId="binary">
+                inputId="binary"
+                *ngIf="!isEdit"
+                [disabled]="true"
+                [(ngModel)]="profileWorksheet$.value.isVisibleAllContact">
           </p-checkbox>
-            <label for="binary" class="visible-all">Виден всем</label>
+            <label for="binary" class="visible-all" *ngIf="!isEdit">Виден всем</label>
+
+            <p-checkbox 
+                formControlName="checkedContact" 
+                [binary]="true" 
+                inputId="binary"
+                *ngIf="isEdit">
+          </p-checkbox>
+            <label for="binary" class="visible-all" *ngIf="isEdit">Виден всем</label>
+          </div>          
         </div>
 
         <div class="col-lg-4">
-            <span class="p-float-label">
-                <input 
-                    id="float-input" 
-                    type="text" 
-                    pInputText 
-                    formControlName="phoneNumber"
-                    placeholder="Номер телефона"> 
-                <!-- <label for="float-input">Номер телефона:</label> -->
-            </span>
+          <span 
+            *ngIf="!isEdit">
+            {{profileWorksheet$.value.phoneNumber}}
+          </span>
+
+          <input 
+              type="text" 
+              pInputText 
+              formControlName="phoneNumber"
+              placeholder="Номер телефона"
+              *ngIf="isEdit"> 
         </div>
 
         <div class="col-lg-4">
-            <span class="p-float-label">
-                <input 
-                    id="float-input" 
-                    type="text" 
-                    pInputText
-                    formControlName="email"
-                    placeholder="Email"> 
-                <!-- <label for="float-input">Email:</label> -->
-            </span>
-        </div>        
+          <span 
+            *ngIf="!isEdit">
+            {{profileWorksheet$.value.email}}
+          </span>
+
+          <input 
+              type="text" 
+              pInputText
+              formControlName="email"
+              placeholder="Email"
+              *ngIf="isEdit"> 
+        </div>   
+       </div>     
+
+        <div>
+          <p-button 
+              label="Изменить" 
+              styleClass="p-button-link"
+              *ngIf="!isEdit">
+          </p-button>
+        </div>
     </div>
 
     <!-- Блок с выпадающих списков. -->
@@ -84,7 +132,7 @@
           {{item.itemName}}
         </div>
 
-          <div>
+          <div *ngIf="isEdit">
               <p-dropdown [options]="profileItems$.value"
                           [(ngModel)]="selectedItem"
                           optionLabel="itemName"                          
@@ -100,6 +148,19 @@
               </p-button>
             </div>
           </div>
+
+          <div *ngIf="!isEdit">
+            <div *ngFor="let item of profileWorksheet$.value.mentorItems">
+              <div>
+                {{item.itemName}}
+              </div>
+            </div>
+
+            <p-button 
+                label="Изменить" 
+                styleClass="p-button-link">
+            </p-button>
+          </div>
       </div>
 
       <div class="col-lg-4">
@@ -107,7 +168,8 @@
           <label>Цена занятий</label>
         </div>
 
-        <!-- Добавленные цены. -->
+        <div *ngIf="isEdit">
+          <!-- Добавленные цены. -->
         <div *ngFor="let item of displayMentorPrices">
           {{item.price}} {{item.unit}}
         </div>
@@ -126,32 +188,62 @@
                 styleClass="p-button-link"
                 (click)="addMentorPrices()">
           </p-button>
+        </div>
+
+          <div *ngIf="!isEdit">
+            <div *ngFor="let item of profileWorksheet$.value.mentorPrices">
+              <div>
+                {{item.price}} {{item.unit}}
+              </div>
+            </div>
+
+            <p-button 
+                label="Изменить" 
+                styleClass="p-button-link">
+            </p-button>
+          </div>          
       </div>
 
       <div class="col-lg-4">
         <div class="profile-title">
           <label>Длительность</label>
         </div>
-
-        <!-- Добавленные длительности. -->
-        <div *ngFor="let item of displayMentorDurations">
-          {{item.time}} {{item.unit}}
+        <div *ngIf="isEdit">
+         
+  
+          <!-- Добавленные длительности. -->
+          <div *ngFor="let item of displayMentorDurations">
+            {{item.time}} {{item.unit}}
+          </div>
+  
+            <div>
+              <p-dropdown [options]="profileItemsDropdown$.value"                       
+                        optionLabel="fullTime"
+                        placeholder="Длительность урока"
+                        [(ngModel)]="selectedDuration"
+                        formControlName="selectedDuration">
+              </p-dropdown>
+  
+              <p-button 
+                  label="Добавить" 
+                  styleClass="p-button-link"
+                  (click)="addMentorDurations()">
+            </p-button>
+            </div>
         </div>
 
-          <div>
-            <p-dropdown [options]="profileItemsDropdown$.value"                       
-                      optionLabel="fullTime"
-                      placeholder="Длительность урока"
-                      [(ngModel)]="selectedDuration"
-                      formControlName="selectedDuration">
-            </p-dropdown>
-
-            <p-button 
-                label="Добавить" 
-                styleClass="p-button-link"
-                (click)="addMentorDurations()">
-          </p-button>
+        <div *ngIf="!isEdit">
+          <div *ngFor="let item of profileWorksheet$.value.mentorDurations">
+            <div>
+              {{item.time}} {{item.unit}}
+            </div>
           </div>
+
+          <p-button 
+              label="Изменить" 
+              styleClass="p-button-link">
+          </p-button>
+        </div>  
       </div>
     </div>
 
@@ -161,19 +253,34 @@
         <label>Цель подготовки</label>
       </div>
 
-      <div class="block-purposes">
+      <div class="block-purposes" *ngIf="isEdit">
         <div class="purpose" *ngFor="let item of profilePurposeDropdown$.value">
           <div (click)="onSelectPurposes(item.purposeName)">
-            {{item.purposeSysName}}
+            {{item.purposeName}}
           </div>
         </div>  
       </div>   
+
+      <div class="block-purposes" *ngIf="!isEdit">
+        <div class="purpose" *ngFor="let item of profileWorksheet$.value.mentorTrainings">
+          <div (click)="onSelectPurposes(item.purposeName)">
+            {{item.purposeName}}
+          </div>
+        </div> 
+      </div>  
+
+      <div>
+        <p-button 
+            label="Изменить" 
+            styleClass="p-button-link">
+        </p-button>
+      </div>
     </div>
 
     <!-- Блок свободного времени. -->
     <div class="pt-20-pb-20 mt-20 block-user-info d-flex block-profile-dropdowns">
       <div class="col-lg-12 d-flex">
-       <div>
+       <div *ngIf="isEdit">
         <div class="profile-title">
           <label>Свободные дни</label>
         </div>
@@ -201,31 +308,65 @@
           </div>
        </div>
 
+       <div *ngIf="!isEdit">
+        <div class="profile-title">
+          <label>Свободные дни</label>
+        </div>
+
+        <!-- Свободные дни. -->
+        <!-- <div class="" *ngFor="let item of displayMentorTimes">
+          {{item.day}} с {{item.timeStart}} по {{item.timeEnd}}
+        </div> -->
+
+          <div>
+              <!-- <p-dropdown [options]="profileDaysWeek$.value"
+                          [(ngModel)]="selectedMentorDayWeek"
+                          optionLabel="dayName"                          
+                          placeholder="День недели"
+                          formControlName="dayWeekName">
+              </p-dropdown> mentorTimes-->
+              <div *ngFor="let item of profileWorksheet$.value.mentorTimes">
+                {{item.day}} 
+              </div>
+          
+            <div>
+              <p-button 
+                  label="Изменить" 
+                  styleClass="p-button-link">
+              </p-button>
+            </div>
+          </div>
+       </div>
+
          <div>
           <div class="profile-title">
             <label>Свободное время</label>
           </div>
 
-          <!-- Свободные дни. -->
+          <!-- Свободные дни. с {{item.timeStart}} по {{item.timeEnd}}-->
         <div class="" *ngFor="let item of displayMentorTimes">
           <div>&nbsp;</div>
         </div>
   
             <div>
-              c <input type="time" 
+              <!-- c <input type="time" 
               [(ngModel)]="selectedMentorTimeStart"
-              formControlName="mentorTimeStart">
+              formControlName="mentorTimeStart"> -->
 
-              по <input type="time" 
+              <div *ngFor="let item of profileWorksheet$.value.mentorTimes">
+                с {{item.timeStart}} по {{item.timeEnd}} 
+              </div>
+
+              <!-- по <input type="time" 
               [(ngModel)]="selectedMentorTimeEnd"
-              formControlName="mentorTimeEnd">
+              formControlName="mentorTimeEnd"> -->
             </div>
          </div>
       </div>    
     </div>
 
     <!-- Блок о себе. -->
-    <div class="pt-20-pb-20 mt-20 block-user-info">
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEdit">
       <div class="profile-title">
         <label>О себе</label>
       </div>
@@ -250,8 +391,36 @@
       </div>
     </div>
 
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEdit">
+      <div class="profile-title">
+        <label>О себе</label>
+      </div>
+      
+      <div>
+        <!-- <textarea 
+            rows="5" 
+            cols="100" 
+            pInputTextarea 
+            [autoResize]="true"
+            formControlName="aboutInfo"
+            [(ngModel)]="aboutInfo">
+      </textarea> -->
+
+      <div *ngFor="let item of profileWorksheet$.value.mentorAboutInfo">
+        {{item.aboutInfoText}}
+      </div>
+      </div>
+
+      <div>
+        <p-button 
+            label="Изменить" 
+            styleClass="p-button-link">
+        </p-button>
+      </div>
+    </div>
+
     <!-- Блок с образованием. -->
-    <div class="pt-20-pb-20 mt-20 block-user-info">
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEdit">
       <div class="profile-title">
         <label>Образование</label>
       </div>
@@ -276,8 +445,40 @@
       </div>
     </div>
 
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEdit">
+      <div class="profile-title">
+        <label>Образование</label>
+      </div>
+      
+      <div>
+        <!-- <textarea 
+            rows="5" 
+            cols="100" 
+            pInputTextarea 
+            [autoResize]="true"
+            formControlName="education"
+            [(ngModel)]="education">
+      </textarea> -->
+
+      <div *ngFor="let item of profileWorksheet$.value.mentorEducations">
+        {{item.educationText}}
+      </div>
+
+      <div>
+
+      </div>
+      </div>
+
+      <div>
+        <p-button 
+            label="Изменить" 
+            styleClass="p-button-link">
+        </p-button>
+      </div>
+    </div>
+
     <!-- Блок с опытом. -->
-    <div class="pt-20-pb-20 mt-20 block-user-info">
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEdit">
       <div class="profile-title">
         <label>Опыт</label>
       </div>
@@ -302,8 +503,36 @@
       </div>
     </div>
 
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEdit">
+      <div class="profile-title">
+        <label>Опыт</label>
+      </div>
+      
+      <div>
+        <!-- <textarea 
+            rows="5" 
+            cols="100" 
+            pInputTextarea 
+            [autoResize]="true"
+            formControlName="experience"
+            [(ngModel)]="experience">
+      </textarea> -->
+      
+      <div *ngFor="let item of profileWorksheet$.value.mentorExperience">
+        {{item.experienceText}}
+      </div>
+      </div>
+
+      <div>
+        <p-button 
+            label="Изменить" 
+            styleClass="p-button-link">
+        </p-button>
+      </div>
+    </div>
+
     <!-- Блок с сертификатами. -->
-    <div class="pt-20-pb-20 mt-20 block-user-info">
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEdit">
       <div class="profile-title">
         <label>Сертификаты</label>
       </div>
@@ -336,6 +565,49 @@
             [multiple]="true"
             (onSelect)="onUploadCerts($event)">
         </p-fileUpload>
+      </div>
+    </div>
+
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEdit">
+      <div class="profile-title">
+        <label>Сертификаты</label>
+      </div>
+      
+      <div>        
+        <!-- <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image> -->
+
+        <!-- Список сертификатов. -->
+        <div class="block-cert-files">
+          <div *ngFor="let item of certsFiles">
+            <div class="cert-file">
+              <p-image 
+                  [src]="item" 
+                  alt="Image" 
+                  width="170" 
+                  [preview]="true">
+              </p-image>
+            </div>
+          </div>
+        </div>       
+
+        <!-- <p-fileUpload 
+            mode="basic" 
+            name="demo[]" 
+            accept="image/*" 
+            chooseLabel="Загрузить" 
+            class="profile-photo" 
+            styleClass="p-button-link"
+            formControlName="certs"
+            [multiple]="true"
+            (onSelect)="onUploadCerts($event)">
+        </p-fileUpload> -->
+
+        <div>
+          <p-button 
+              label="Изменить" 
+              styleClass="p-button-link">
+          </p-button>
+        </div>
       </div>
     </div>
 

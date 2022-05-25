@@ -33,6 +33,7 @@ export class ProfileFormModule implements OnInit {
     public readonly profileDaysWeek$ = this._profileFormService.profileDaysWeek$;
     public readonly profileCerts$ = this._profileFormService.profileCerts$;
     public readonly profileAvatar$ = this._profileFormService.profileAvatar$;
+    public readonly profileWorksheet$ = this._profileFormService.profileWorksheet$;
 
     checkedContact: boolean = false;
     selectedPurposes: MentorTrainings[] = [];
@@ -61,6 +62,8 @@ export class ProfileFormModule implements OnInit {
     avatarNoPhoto: string = "";
     avatarImage: any;
     isNoPhoto: boolean = false;
+    isEdit: boolean = false;
+    userFio: string = "";
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -90,7 +93,8 @@ export class ProfileFormModule implements OnInit {
             await this.getPurposeTrainingsAsync(),
             await this.getDaysWeekAsync(),
             await this.getCertsAsync(),
-            await this.getAvatarAsync()
+            await this.getAvatarAsync(),
+            await this.getProfileWorkSheetAsync()
         ]);
     };    
 
@@ -405,6 +409,18 @@ export class ProfileFormModule implements OnInit {
                         + response.avatar.fileContents);
                     this.avatarImage = img;
                 }
+            });
+    };
+
+    /**
+     * Функция получит данные анкеты пользователя.
+     * @returns - Данные анкеты пользователя.
+     */
+    private async getProfileWorkSheetAsync() {
+        (await this._profileFormService.getProfileWorkSheetAsync())
+            .subscribe(response => {
+                console.log("Данные анкеты: ", this.profileWorksheet$.value);
+                this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
             });
     };
 }
