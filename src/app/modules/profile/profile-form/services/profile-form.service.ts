@@ -141,4 +141,17 @@ export class ProfileFormService {
             })
         );
     };
+
+    /**
+     * Функция обновит контакты пользователя.
+     * @param profileInput - Входная модель.
+     * @returns Измененные данные.
+     */
+    public async saveContactsAsync(profileInput: SaveMentorProfileUserInfoInput) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/contacts", profileInput).pipe(
+            tap((response: any) => {  
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
 }

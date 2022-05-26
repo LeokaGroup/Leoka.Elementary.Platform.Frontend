@@ -66,6 +66,7 @@ export class ProfileFormModule implements OnInit {
     userFio: string = "";
     isEditAvatar: boolean = false;
     isEditFio: boolean = false;
+    isEditContact: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -448,6 +449,7 @@ export class ProfileFormModule implements OnInit {
                         + ";base64,"
                         + response.avatar.fileContents);
                     this.avatarImage = img;
+                    this.isEditFio = false;
             });
     };
 
@@ -469,6 +471,30 @@ export class ProfileFormModule implements OnInit {
                 console.log("Новые фио: ", response);   
                 this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
                 this.isEditFio = false;
+            });
+    };
+
+    public onChangeStateContacts() {
+        this.isEditContact = true;
+    };
+
+    /**
+     * Функция обновит контакты пользователя.
+     * @param profileInput - Входная модель.
+     * @returns Измененные данные.
+     */
+    public async onSaveContactsAsync() {
+        this.profileFormInput.phoneNumber = this.profileForm.controls["phoneNumber"].value;
+        this.profileFormInput.email = this.profileForm.controls["email"].value;
+        this.profileFormInput.isVisibleAllContact = this.profileForm.controls["checkedContact"].value;
+
+        (await this._profileFormService.saveContactsAsync(this.profileFormInput))
+            .subscribe(response => {
+                console.log("Новые контакты: ", response);
+                this.profileWorksheet$.value.email = response.email;
+                this.profileWorksheet$.value.phoneNumber = response.phoneNumber;
+                this.profileWorksheet$.value.isVisibleAllContact = response.isVisibleAllContact;
+                this.isEditContact = false;
             });
     };
 }

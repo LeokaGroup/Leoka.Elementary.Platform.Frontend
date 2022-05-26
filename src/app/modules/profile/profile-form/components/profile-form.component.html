@@ -82,25 +82,26 @@
                 formControlName="checkedContact" 
                 [binary]="true" 
                 inputId="binary"
-                *ngIf="!isEdit"
+                *ngIf="!isEditContact"
                 [disabled]="true"
                 [(ngModel)]="profileWorksheet$.value.isVisibleAllContact">
           </p-checkbox>
-            <label for="binary" class="visible-all" *ngIf="!isEdit">Виден всем</label>
+            <label for="binary" class="visible-all" *ngIf="!isEditContact">Виден всем</label>
 
             <p-checkbox 
                 formControlName="checkedContact" 
                 [binary]="true" 
                 inputId="binary"
-                *ngIf="isEdit">
+                *ngIf="isEditContact"
+                [(ngModel)]="profileWorksheet$.value.isVisibleAllContact">
           </p-checkbox>
-            <label for="binary" class="visible-all" *ngIf="isEdit">Виден всем</label>
+            <label for="binary" class="visible-all" *ngIf="isEditContact">Виден всем</label>
           </div>          
         </div>
 
         <div class="col-lg-4">
           <span 
-            *ngIf="!isEdit">
+            *ngIf="!isEditContact">
             {{profileWorksheet$.value.phoneNumber}}
           </span>
 
@@ -109,12 +110,13 @@
               pInputText 
               formControlName="phoneNumber"
               placeholder="Номер телефона"
-              *ngIf="isEdit"> 
+              *ngIf="isEditContact"
+              [(ngModel)]="profileWorksheet$.value.phoneNumber"> 
         </div>
 
         <div class="col-lg-4">
           <span 
-            *ngIf="!isEdit">
+            *ngIf="!isEditContact">
             {{profileWorksheet$.value.email}}
           </span>
 
@@ -123,7 +125,8 @@
               pInputText
               formControlName="email"
               placeholder="Email"
-              *ngIf="isEdit"> 
+              *ngIf="isEditContact"
+              [(ngModel)]="profileWorksheet$.value.email"> 
         </div>   
        </div>     
 
@@ -131,7 +134,15 @@
           <p-button 
               label="Изменить" 
               styleClass="p-button-link"
-              *ngIf="!isEdit">
+              *ngIf="!isEditContact"
+              (click)="onChangeStateContacts()">
+          </p-button>
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="p-button-link"
+              *ngIf="isEditContact"
+              (click)="onSaveContactsAsync()">
           </p-button>
         </div>
     </div>
