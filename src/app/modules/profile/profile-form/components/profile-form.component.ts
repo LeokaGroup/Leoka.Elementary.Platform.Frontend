@@ -65,6 +65,7 @@ export class ProfileFormModule implements OnInit {
     isEdit: boolean = false;
     userFio: string = "";
     isEditAvatar: boolean = false;
+    isEditFio: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -431,6 +432,7 @@ export class ProfileFormModule implements OnInit {
 
     /**
      * Функция изменит аватар пользователя.
+     * @returns - Новый аватар.
      */
     public async onChangeAvatarAsync() {
         console.log(this.profileForm.controls["avatar"].value.get("avatar"));
@@ -446,6 +448,27 @@ export class ProfileFormModule implements OnInit {
                         + ";base64,"
                         + response.avatar.fileContents);
                     this.avatarImage = img;
+            });
+    };
+
+    public onChangeFioState() {
+        this.isEditFio = true;
+    };
+
+    /**
+     * Функция изменит фио пользователя.
+     * @returns - Новые фио.
+     */
+    public async onChangeFioAsync() {
+        this.profileFormInput.firstName = this.profileForm.controls["fio"].value.split(" ")[0];       
+        this.profileFormInput.lastName = this.profileForm.controls["fio"].value.split(" ")[1];    
+        this.profileFormInput.secondName = this.profileForm.controls["fio"].value.split(" ")[2];  
+
+        (await this._profileFormService.changeFioAsync(this.profileFormInput))
+            .subscribe(response => {
+                console.log("Новые фио: ", response);   
+                this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
+                this.isEditFio = false;
             });
     };
 }

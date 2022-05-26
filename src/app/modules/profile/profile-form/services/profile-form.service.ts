@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
+import { SaveMentorProfileUserInfoInput } from '../models/input/save-mentor-profile-user-info-input';
 
 /**
  * Сервис анкеты пользователя.
@@ -125,6 +126,18 @@ export class ProfileFormService {
         return await this.http.patch(API_URL.apiUrl + "/profile/avatar", avatar).pipe(
             tap((response: any) => {  
                 this.profileAvatar$.next(response); 
+            })
+        );
+    };
+
+    /**
+     * Функция изменит фио пользователя.
+     * @returns - Новые фио.
+     */
+    public async changeFioAsync(formProfileInput: SaveMentorProfileUserInfoInput) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/fio", formProfileInput).pipe(
+            tap((response: any) => {  
+                this.formProfile$.next(response);
             })
         );
     };

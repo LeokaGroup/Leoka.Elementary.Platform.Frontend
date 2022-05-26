@@ -42,7 +42,7 @@
       <div class="col-lg-8">      
         <span type="text" 
             placeholder="ФИО"            
-            *ngIf="!isEdit">
+            *ngIf="!isEditFio">
             {{userFio}}
         </span>
         <div>
@@ -52,15 +52,23 @@
               pInputText
               formControlName="fio"
               placeholder="ФИО"
-              *ngIf="isEdit"> 
+              *ngIf="isEditFio"> 
         </div>
 
         <div>
           <p-button 
               label="Изменить" 
               styleClass="p-button-link"
-              *ngIf="!isEdit">
+              *ngIf="!isEditFio"
+              (click)="onChangeFioState()">
           </p-button>
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="p-button-link"
+              *ngIf="isEditFio"
+              (click)="onChangeFioAsync()">
+      </p-button>
         </div>
       </div>
     </div>
