@@ -154,4 +154,15 @@ export class ProfileFormService {
             })
         );
     };
+
+    public async updateMentorItemsAsync(mentorItems: any) {
+        let arr = new SaveMentorProfileUserInfoInput();
+        arr.mentorItems = mentorItems;
+
+        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-items", arr).pipe(
+            tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
 }

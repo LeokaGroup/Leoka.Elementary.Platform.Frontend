@@ -156,10 +156,12 @@
 
         <!-- Добавленные предметы. -->
         <div *ngFor="let item of displaySelectedMentorProfileItems">
-          {{item.itemName}}
+          <div class="item-row">
+            {{item.itemName}}
+          </div>
         </div>
 
-          <div *ngIf="isEdit">
+          <div *ngIf="isEditItem">
               <p-dropdown [options]="profileItems$.value"
                           [(ngModel)]="selectedItem"
                           optionLabel="itemName"                          
@@ -176,16 +178,39 @@
             </div>
           </div>
 
-          <div *ngIf="!isEdit">
+          <div *ngIf="!isEditItem">
             <div *ngFor="let item of profileWorksheet$.value.mentorItems">
-              <div>
-                {{item.itemName}}
-              </div>
+              <input 
+                  type="text"               
+                  pInputText 
+                  [disabled]="!isEditItemRow" 
+                  [(ngModel)]="item.itemName"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="!isEditItemRow" />
+
+                  <p-dropdown [options]="profileItems$.value"
+                      [(ngModel)]="item.itemName"
+                      optionLabel="itemName"                          
+                      placeholder="Ваш предмет"
+                      dataKey="item.itemName"
+                      formControlName="selectedItem"
+                      [disabled]="!isEditItemRow"
+                      *ngIf="isEditItemRow">
+                  </p-dropdown>
             </div>
 
             <p-button 
                 label="Изменить" 
-                styleClass="p-button-link">
+                styleClass="p-button-link"
+                *ngIf="!isEditItemRow"
+                (click)="onEditItems()">                
+            </p-button>
+
+            <p-button 
+                label="Сохранить" 
+                styleClass="p-button-link"
+                *ngIf="isEditItemRow"
+                (click)="onUpdateItemsAsync(profileWorksheet$.value.mentorItems)">
             </p-button>
           </div>
       </div>

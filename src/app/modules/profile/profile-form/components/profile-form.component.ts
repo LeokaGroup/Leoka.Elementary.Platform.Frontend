@@ -67,6 +67,8 @@ export class ProfileFormModule implements OnInit {
     isEditAvatar: boolean = false;
     isEditFio: boolean = false;
     isEditContact: boolean = false;
+    isEditItemRow: boolean = false;
+    isEditItem: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -495,6 +497,37 @@ export class ProfileFormModule implements OnInit {
                 this.profileWorksheet$.value.phoneNumber = response.phoneNumber;
                 this.profileWorksheet$.value.isVisibleAllContact = response.isVisibleAllContact;
                 this.isEditContact = false;
+            });
+    };
+
+    public onEditItems() {
+        this.isEditItemRow = true;
+    };
+
+    public async onUpdateItemsAsync(mentorItems: any) {
+        this.isEditItemRow = true;
+        let items: any = [];
+
+        mentorItems.forEach((item: any) => {
+            if (typeof(item.itemName) === "object") {
+                items.push({
+                    itemName: item.itemName.itemName,
+                    itemNumber: item.itemName.itemNumber,
+                    itemSysName: item.itemName.itemSysName,
+                    profileItemId: item.itemName.profileItemId,
+                    position: item.itemName.position
+                });
+            }
+
+            else if (typeof(item.itemName) === "string") {
+                items.push(item);
+            }
+        });
+
+        (await this._profileFormService.updateMentorItemsAsync(items))
+            .subscribe(response => {
+                console.log("Обновленные предметы: ", response);     
+                this.isEditItemRow = false; 
             });
     };
 }
