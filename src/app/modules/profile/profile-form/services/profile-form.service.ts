@@ -155,11 +155,32 @@ export class ProfileFormService {
         );
     };
 
+    /**
+     * Функция обновит список предметов преподавателя.
+     * @param mentorItems - Список предметов для обновления.
+     * @returns - Обновленные предметы.
+     */
     public async updateMentorItemsAsync(mentorItems: any) {
-        let arr = new SaveMentorProfileUserInfoInput();
-        arr.mentorItems = mentorItems;
+        let inputModel = new SaveMentorProfileUserInfoInput();
+        inputModel.mentorItems = mentorItems;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-items", arr).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-items", inputModel).pipe(
+            tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция обновит список цен преподавателя.
+     * @param mentorPrices - Список цен для обновления.
+     * @returns - Обновленные цены.
+     */
+    public async updateMentorPricesAsync(mentorPrices: any) {
+        let inputModel = new SaveMentorProfileUserInfoInput();
+        inputModel.mentorPrices = mentorPrices;
+
+        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-prices", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })

@@ -69,6 +69,7 @@ export class ProfileFormModule implements OnInit {
     isEditContact: boolean = false;
     isEditItemRow: boolean = false;
     isEditItem: boolean = false;
+    isEditPriceRow: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -504,6 +505,11 @@ export class ProfileFormModule implements OnInit {
         this.isEditItemRow = true;
     };
 
+    /**
+     * Функция обновит список предметов преподавателя.
+     * @param mentorItems - Список предметов для обновления.
+     * @returns - Обновленные предметы.
+     */
     public async onUpdateItemsAsync(mentorItems: any) {
         this.isEditItemRow = true;
         let items: any = [];
@@ -528,6 +534,23 @@ export class ProfileFormModule implements OnInit {
             .subscribe(response => {
                 console.log("Обновленные предметы: ", response);     
                 this.isEditItemRow = false; 
+            });
+    };
+
+    public onEditPrice() {
+        this.isEditPriceRow = true;
+    };
+
+    /**
+     * Функция обновит список цен преподавателя.
+     * @param mentorPrices - Список цен для обновления.
+     * @returns - Обновленные цены.
+     */
+    public async onUpdateMentorPricesAsync(prices: any) {
+        (await this._profileFormService.updateMentorPricesAsync(prices))
+            .subscribe(response => {
+                console.log("Обновленные цены: ", response);     
+                this.isEditPriceRow = false; 
             });
     };
 }

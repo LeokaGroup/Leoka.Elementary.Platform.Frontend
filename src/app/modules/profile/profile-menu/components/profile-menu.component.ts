@@ -57,7 +57,7 @@ export class ProfileMenuModule implements OnInit {
         switch (selectedItem.profileItemSysName) {
             // Вкладка анкеты.
             case "MyProfile":
-                this._router.navigate(["/profile/form"], { queryParams: { mode: "view" }});
+                this._router.navigate(["/profile/form"]);
                 break;
         }
     };

@@ -232,8 +232,27 @@
                 pInputText 
                 placeholder="Напишите цену"
                 formControlName="price"
-                [(ngModel)]="selectedPrice"> 
-          </div>
+                [(ngModel)]="selectedPrice"
+                *ngIf="!isEditPriceRow"> 
+
+              <!-- <input 
+                type="text"               
+                pInputText 
+                [disabled]="!isEditPriceRow" 
+                [(ngModel)]="item.itemName"
+                [ngModelOptions]="{standalone: true}"
+                *ngIf="!isEditPriceRow" /> -->
+          </div>         
+
+          <!-- <p-dropdown [options]="profileItems$.value"
+              [(ngModel)]="item.itemName"
+              optionLabel="itemName"                          
+              placeholder="Ваш предмет"
+              dataKey="item.itemName"
+              formControlName="selectedItem"
+              [disabled]="!isEditItemRow"
+              *ngIf="isEditItemRow">
+          </p-dropdown> -->
 
           <p-button 
                 label="Добавить" 
@@ -242,16 +261,28 @@
           </p-button>
         </div>
 
-          <div *ngIf="!isEdit">
+          <div>
             <div *ngFor="let item of profileWorksheet$.value.mentorPrices">
-              <div>
-                {{item.price}} {{item.unit}}
-              </div>
+              <input 
+                type="number"               
+                pInputText 
+                [disabled]="!isEditPriceRow" 
+                [(ngModel)]="item.price"
+                [ngModelOptions]="{standalone: true}"/>
             </div>
 
             <p-button 
                 label="Изменить" 
-                styleClass="p-button-link">
+                styleClass="p-button-link"
+                *ngIf="!isEditPriceRow"
+                (click)="onEditPrice()">                
+            </p-button>
+
+            <p-button 
+                label="Сохранить" 
+                styleClass="p-button-link"
+                *ngIf="isEditPriceRow"
+                (click)="onUpdateMentorPricesAsync(profileWorksheet$.value.mentorPrices)">
             </p-button>
           </div>          
       </div>
