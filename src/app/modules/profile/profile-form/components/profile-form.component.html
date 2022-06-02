@@ -234,25 +234,7 @@
                 formControlName="price"
                 [(ngModel)]="selectedPrice"
                 *ngIf="!isEditPriceRow"> 
-
-              <!-- <input 
-                type="text"               
-                pInputText 
-                [disabled]="!isEditPriceRow" 
-                [(ngModel)]="item.itemName"
-                [ngModelOptions]="{standalone: true}"
-                *ngIf="!isEditPriceRow" /> -->
           </div>         
-
-          <!-- <p-dropdown [options]="profileItems$.value"
-              [(ngModel)]="item.itemName"
-              optionLabel="itemName"                          
-              placeholder="Ваш предмет"
-              dataKey="item.itemName"
-              formControlName="selectedItem"
-              [disabled]="!isEditItemRow"
-              *ngIf="isEditItemRow">
-          </p-dropdown> -->
 
           <p-button 
                 label="Добавить" 
@@ -291,42 +273,51 @@
         <div class="profile-title">
           <label>Длительность</label>
         </div>
-        <div *ngIf="isEdit">
-         
-  
+
+        <div>      
           <!-- Добавленные длительности. -->
-          <div *ngFor="let item of displayMentorDurations">
-            {{item.time}} {{item.unit}}
+          <div *ngFor="let item of profileWorksheet$.value.mentorDurations">
+            <input 
+              type="text"               
+              pInputText 
+              [disabled]="!isEditDuration" 
+              [(ngModel)]="item.time"
+              [ngModelOptions]="{standalone: true}"
+              *ngIf="!isEditDuration" />
+
+              <p-dropdown [options]="profileItemsDropdown$.value"
+                  [(ngModel)]="item.time"
+                  optionLabel="time"                          
+                  placeholder="Длительность урока"
+                  
+                  formControlName="selectedDuration"
+                  [disabled]="!isEditDuration"
+                  *ngIf="isEditDuration">
+              </p-dropdown>
           </div>
   
             <div>
-              <p-dropdown [options]="profileItemsDropdown$.value"                       
-                        optionLabel="fullTime"
-                        placeholder="Длительность урока"
-                        [(ngModel)]="selectedDuration"
-                        formControlName="selectedDuration">
-              </p-dropdown>
-  
-              <p-button 
+            <p-button 
+              label="Изменить" 
+              styleClass="p-button-link"
+              *ngIf="!isEditDuration"
+              (click)="onEditDuration()">                
+            </p-button>
+
+            <p-button 
+                label="Сохранить" 
+                styleClass="p-button-link"
+                *ngIf="isEditDuration"
+                (click)="onUpdateMentorDurationsAsync(profileWorksheet$.value.mentorDurations)">
+            </p-button>
+              
+              <!-- <p-button 
                   label="Добавить" 
                   styleClass="p-button-link"
                   (click)="addMentorDurations()">
-            </p-button>
+            </p-button> -->
             </div>
         </div>
-
-        <div *ngIf="!isEdit">
-          <div *ngFor="let item of profileWorksheet$.value.mentorDurations">
-            <div>
-              {{item.time}} {{item.unit}}
-            </div>
-          </div>
-
-          <p-button 
-              label="Изменить" 
-              styleClass="p-button-link">
-          </p-button>
-        </div>  
       </div>
     </div>
 

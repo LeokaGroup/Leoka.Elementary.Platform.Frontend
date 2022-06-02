@@ -186,4 +186,15 @@ export class ProfileFormService {
             })
         );
     };
+
+    public async updateMentorDurationsAsync(mentorDurations: any) {
+        let inputModel = new SaveMentorProfileUserInfoInput();
+        inputModel.mentorDurations = mentorDurations;
+
+        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-durations", inputModel).pipe(
+            tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
 }

@@ -70,6 +70,7 @@ export class ProfileFormModule implements OnInit {
     isEditItemRow: boolean = false;
     isEditItem: boolean = false;
     isEditPriceRow: boolean = false;
+    isEditDuration: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -552,5 +553,37 @@ export class ProfileFormModule implements OnInit {
                 console.log("Обновленные цены: ", response);     
                 this.isEditPriceRow = false; 
             });
+    };
+
+    public onEditDuration() {
+        this.isEditDuration = true;
+    };
+
+    public async onUpdateMentorDurationsAsync(durations: any) {
+        console.log("profileItemsDropdown$.value",this.profileItemsDropdown$.value);
+        console.log("profileWorksheet$.value.mentorDurations",this.profileWorksheet$.value.mentorDurations);
+        let items: MentorDurations[] = [];
+
+        durations.forEach((item: any) => {
+            if (typeof(item.time) === "object") {
+                let duration = new MentorDurations();
+                duration.time = item.time.time;
+                duration.unit = item.unit;
+                items.push(duration);
+            }
+
+            else {
+                let duration = new MentorDurations();
+                duration.time = item.time;
+                duration.unit = item.unit;
+                items.push(item);
+            }
+        });
+        
+        (await this._profileFormService.updateMentorDurationsAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные длительности: ", response);     
+            this.isEditDuration = false; 
+        });
     };
 }
