@@ -162,3 +162,11 @@
   height: 50px;
   @include btnActionPurForm();
 }
+
+::ng-deep .btn-link-form .p-button-label {
+  font-family: 'Gilroy-Bold';
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: #81D0DF;
+}

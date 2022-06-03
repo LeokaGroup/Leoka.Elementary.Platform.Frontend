@@ -71,6 +71,7 @@ export class ProfileFormModule implements OnInit {
     isEditItem: boolean = false;
     isEditPriceRow: boolean = false;
     isEditDuration: boolean = false;
+    isSelectedTrainings: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -560,8 +561,6 @@ export class ProfileFormModule implements OnInit {
     };
 
     public async onUpdateMentorDurationsAsync(durations: any) {
-        console.log("profileItemsDropdown$.value",this.profileItemsDropdown$.value);
-        console.log("profileWorksheet$.value.mentorDurations",this.profileWorksheet$.value.mentorDurations);
         let items: MentorDurations[] = [];
 
         durations.forEach((item: any) => {

@@ -15,7 +15,7 @@
             accept="image/*" 
             chooseLabel="Загрузить" 
             class="profile-photo" 
-            styleClass="p-button-link"
+            styleClass="btn-link-form p-button-link"
             formControlName="avatar"
             [multiple]="true"
             (onSelect)="onUploadAvatar($event)"
@@ -25,14 +25,14 @@
         <div>
           <p-button 
               label="Изменить" 
-              styleClass="p-button-link"
+              styleClass="btn-link-form p-button-link"
               *ngIf="!isEditAvatar"
               (click)="onChangeAvatarState()">
           </p-button>
 
           <p-button 
               label="Сохранить" 
-              styleClass="p-button-link"
+              styleClass="btn-link-form p-button-link"
               *ngIf="isEditAvatar"
               (click)="onChangeAvatarAsync()">
           </p-button>
@@ -58,14 +58,14 @@
         <div>
           <p-button 
               label="Изменить" 
-              styleClass="p-button-link"
+              styleClass="btn-link-form p-button-link"
               *ngIf="!isEditFio"
               (click)="onChangeFioState()">
           </p-button>
 
           <p-button 
               label="Сохранить" 
-              styleClass="p-button-link"
+              styleClass="btn-link-form p-button-link"
               *ngIf="isEditFio"
               (click)="onChangeFioAsync()">
       </p-button>
@@ -133,14 +133,14 @@
         <div>
           <p-button 
               label="Изменить" 
-              styleClass="p-button-link"
+              styleClass="btn-link-form p-button-link"
               *ngIf="!isEditContact"
               (click)="onChangeStateContacts()">
           </p-button>
 
           <p-button 
               label="Сохранить" 
-              styleClass="p-button-link"
+              styleClass="btn-link-form p-button-link"
               *ngIf="isEditContact"
               (click)="onSaveContactsAsync()">
           </p-button>
@@ -172,7 +172,7 @@
             <div>
               <p-button 
                   label="Добавить" 
-                  styleClass="p-button-link"
+                  styleClass="btn-link-form p-button-link"
                   (click)="addMentorProfileItems()">
               </p-button>
             </div>
@@ -201,14 +201,14 @@
 
             <p-button 
                 label="Изменить" 
-                styleClass="p-button-link"
+                styleClass="btn-link-form p-button-link"
                 *ngIf="!isEditItemRow"
                 (click)="onEditItems()">                
             </p-button>
 
             <p-button 
                 label="Сохранить" 
-                styleClass="p-button-link"
+                styleClass="btn-link-form p-button-link"
                 *ngIf="isEditItemRow"
                 (click)="onUpdateItemsAsync(profileWorksheet$.value.mentorItems)">
             </p-button>
@@ -238,7 +238,7 @@
 
           <p-button 
                 label="Добавить" 
-                styleClass="p-button-link"
+                styleClass="btn-link-form p-button-link"
                 (click)="addMentorPrices()">
           </p-button>
         </div>
@@ -255,14 +255,14 @@
 
             <p-button 
                 label="Изменить" 
-                styleClass="p-button-link"
+                styleClass="btn-link-form p-button-link"
                 *ngIf="!isEditPriceRow"
                 (click)="onEditPrice()">                
             </p-button>
 
             <p-button 
                 label="Сохранить" 
-                styleClass="p-button-link"
+                styleClass="btn-link-form p-button-link"
                 *ngIf="isEditPriceRow"
                 (click)="onUpdateMentorPricesAsync(profileWorksheet$.value.mentorPrices)">
             </p-button>
@@ -299,21 +299,21 @@
             <div>
             <p-button 
               label="Изменить" 
-              styleClass="p-button-link"
+              styleClass="btn-link-form p-button-link"
               *ngIf="!isEditDuration"
               (click)="onEditDuration()">                
             </p-button>
 
             <p-button 
                 label="Сохранить" 
-                styleClass="p-button-link"
+                styleClass="btn-link-form p-button-link"
                 *ngIf="isEditDuration"
                 (click)="onUpdateMentorDurationsAsync(profileWorksheet$.value.mentorDurations)">
             </p-button>
               
               <!-- <p-button 
                   label="Добавить" 
-                  styleClass="p-button-link"
+                  styleClass="btn-link-form p-button-link"
                   (click)="addMentorDurations()">
             </p-button> -->
             </div>
@@ -329,15 +329,19 @@
 
       <div class="block-purposes" *ngIf="isEdit">
         <div class="purpose" *ngFor="let item of profilePurposeDropdown$.value">
-          <div (click)="onSelectPurposes(item.purposeName)">
+          <div             
+            (click)="onSelectPurposes(item.purposeName)">
             {{item.purposeName}}
           </div>
         </div>  
       </div>   
 
       <div class="block-purposes" *ngIf="!isEdit">
-        <div class="purpose" *ngFor="let item of profileWorksheet$.value.mentorTrainings">
-          <div (click)="onSelectPurposes(item.purposeName)">
+        <div 
+            [ngClass]="{ selectedTrainings: item.isSelected, notSelectedTrainings: !item.isSelected }"  
+            *ngFor="let item of profileWorksheet$.value.mentorTrainings">
+          <div            
+            (click)="onSelectPurposes(item.purposeName)">
             {{item.purposeName}}
           </div>
         </div> 
@@ -346,7 +350,7 @@
       <div>
         <p-button 
             label="Изменить" 
-            styleClass="p-button-link">
+            styleClass="btn-link-form p-button-link">
         </p-button>
       </div>
     </div>
@@ -375,7 +379,7 @@
             <div>
               <p-button 
                   label="Добавить дату и время" 
-                  styleClass="p-button-link"
+                  styleClass="btn-link-form p-button-link"
                   (click)="addMentorDayTimes()">
               </p-button>
             </div>
@@ -406,7 +410,7 @@
             <div>
               <p-button 
                   label="Изменить" 
-                  styleClass="p-button-link">
+                  styleClass="btn-link-form p-button-link">
               </p-button>
             </div>
           </div>
@@ -459,7 +463,7 @@
       <div>
         <p-button 
             label="Добавить" 
-            styleClass="p-button-link"
+            styleClass="btn-link-form p-button-link"
             (click)="addMentorAboutInfo()">
         </p-button>
       </div>
@@ -488,7 +492,7 @@
       <div>
         <p-button 
             label="Изменить" 
-            styleClass="p-button-link">
+            styleClass="btn-link-form p-button-link">
         </p-button>
       </div>
     </div>
@@ -513,7 +517,7 @@
       <div>
         <p-button 
             label="Добавить" 
-            styleClass="p-button-link"
+            styleClass="btn-link-form p-button-link"
             (click)="addMentorEducation()">
         </p-button>
       </div>
@@ -546,7 +550,7 @@
       <div>
         <p-button 
             label="Изменить" 
-            styleClass="p-button-link">
+            styleClass="btn-link-form p-button-link">
         </p-button>
       </div>
     </div>
@@ -571,7 +575,7 @@
       <div>
         <p-button 
             label="Добавить" 
-            styleClass="p-button-link"
+            styleClass="btn-link-form p-button-link"
             (click)="addMentorExperience()">
         </p-button>
       </div>
@@ -600,7 +604,7 @@
       <div>
         <p-button 
             label="Изменить" 
-            styleClass="p-button-link">
+            styleClass="btn-link-form p-button-link">
         </p-button>
       </div>
     </div>
@@ -634,7 +638,7 @@
             accept="image/*" 
             chooseLabel="Загрузить" 
             class="profile-photo" 
-            styleClass="p-button-link"
+            styleClass="btn-link-form p-button-link"
             formControlName="certs"
             [multiple]="true"
             (onSelect)="onUploadCerts($event)">
@@ -670,7 +674,7 @@
             accept="image/*" 
             chooseLabel="Загрузить" 
             class="profile-photo" 
-            styleClass="p-button-link"
+            styleClass="btn-link-form p-button-link"
             formControlName="certs"
             [multiple]="true"
             (onSelect)="onUploadCerts($event)">
@@ -679,7 +683,7 @@
         <div>
           <p-button 
               label="Изменить" 
-              styleClass="p-button-link">
+              styleClass="btn-link-form p-button-link">
           </p-button>
         </div>
       </div>
