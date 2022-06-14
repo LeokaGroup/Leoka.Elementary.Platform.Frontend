@@ -72,6 +72,8 @@ export class ProfileFormModule implements OnInit {
     isEditPriceRow: boolean = false;
     isEditDuration: boolean = false;
     isSelectedTrainings: boolean = false;
+    isEditTime: boolean = false;
+    isEditAboutInfo: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -327,7 +329,7 @@ export class ProfileFormModule implements OnInit {
         let mentorTime = new MentorTimes();
         mentorTime.timeStart = this.selectedMentorTimeStart;
         mentorTime.timeEnd = this.selectedMentorTimeEnd;
-        mentorTime.day = this.selectedMentorDayWeek.daySysName;
+        mentorTime.daySysName = this.selectedMentorDayWeek.daySysName;
 
         let displayMentorTimes = new DisplayMentorTimes();
         displayMentorTimes.timeStart = this.selectedMentorTimeStart;
@@ -516,6 +518,7 @@ export class ProfileFormModule implements OnInit {
         this.isEditItemRow = true;
         let items: any = [];
 
+        // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
         mentorItems.forEach((item: any) => {
             if (typeof(item.itemName) === "object") {
                 items.push({
@@ -560,10 +563,15 @@ export class ProfileFormModule implements OnInit {
         this.isEditDuration = true;
     };
 
-    public async onUpdateMentorDurationsAsync(durations: any) {
+    /**
+     * Функция изменит длительности преподавателя.
+     * @param durations - Длительности преподавателя.
+     */
+    public async onUpdateMentorDurationsAsync(mentorDurations: any) {
         let items: MentorDurations[] = [];
 
-        durations.forEach((item: any) => {
+        // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
+        mentorDurations.forEach((item: any) => {
             if (typeof(item.time) === "object") {
                 let duration = new MentorDurations();
                 duration.time = item.time.time;
@@ -584,5 +592,68 @@ export class ProfileFormModule implements OnInit {
             console.log("Обновленные длительности: ", response);     
             this.isEditDuration = false; 
         });
+    };
+
+    public onChangeStateTime() {
+        this.isEditTime = true;
+    };
+
+    /**
+     * Функция изменит время преподавателя.
+     * @param durations - Время преподавателя.
+     */
+     public async onUpdateMentorTimesAsync(mentorTimes: any) {
+        let items: MentorTimes[] = [];
+
+        // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
+        mentorTimes.forEach((item: any) => {
+            if (typeof(item.dayName) === "object") {
+                let time = new MentorTimes();
+                time.dayId = item.position;
+                time.daySysName = item.dayName.daySysName;
+                time.timeStart = item.timeStart;
+                time.timeEnd = item.timeEnd;
+                items.push(time);
+            }
+
+            else {
+                let time = new MentorTimes();
+                time.dayId = item.position;
+                time.daySysName = item.daySysName;
+                time.timeStart = item.timeStart;
+                time.timeEnd = item.timeEnd;
+                items.push(time);
+            }
+        });
+        
+        (await this._profileFormService.updateMentorTimesAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные длительности: ", response);     
+            this.isEditDuration = false; 
+        });
+    };
+
+    /**
+     * Функция изменит данные о преподавателе.
+     * @param aboutInfos - Данные о преподавателе.
+     */
+     public async onUpdateMentorAboutInfoAsync(aboutInfos: any) {
+        let items: MentorAboutInfo[] = [];
+
+        aboutInfos.forEach((item: any) => {
+            let about = new MentorAboutInfo();
+            about.aboutInfoText = item.aboutInfoText;
+            items.push(about);
+        });
+        
+        (await this._profileFormService.updateMentorAboutInfosAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные данные о себе: ", response);     
+            this.isEditAboutInfo = false; 
+        });
+    };
+
+    public onChangeStateAboutInfo() {
+        this.isEditAboutInfo = true;
     };
 }

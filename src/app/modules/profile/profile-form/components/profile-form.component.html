@@ -288,8 +288,7 @@
               <p-dropdown [options]="profileItemsDropdown$.value"
                   [(ngModel)]="item.time"
                   optionLabel="time"                          
-                  placeholder="Длительность урока"
-                  
+                  placeholder="Длительность урока"                  
                   formControlName="selectedDuration"
                   [disabled]="!isEditDuration"
                   *ngIf="isEditDuration">
@@ -392,26 +391,40 @@
         </div>
 
         <!-- Свободные дни. -->
-        <!-- <div class="" *ngFor="let item of displayMentorTimes">
-          {{item.day}} с {{item.timeStart}} по {{item.timeEnd}}
-        </div> -->
-
-          <div>
-              <!-- <p-dropdown [options]="profileDaysWeek$.value"
-                          [(ngModel)]="selectedMentorDayWeek"
-                          optionLabel="dayName"                          
-                          placeholder="День недели"
-                          formControlName="dayWeekName">
-              </p-dropdown> mentorTimes-->
+          <div>              
               <div *ngFor="let item of profileWorksheet$.value.mentorTimes">
-                {{item.dayName}} 
+                <input 
+                  type="text"               
+                  pInputText 
+                  [disabled]="!isEditTime" 
+                  [(ngModel)]="item.dayName"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="!isEditTime" />
+
+              <p-dropdown [options]="profileDaysWeek$.value"
+                  [(ngModel)]="item.dayName"
+                  optionLabel="dayName"                          
+                  placeholder="День недели"                  
+                  formControlName="dayWeekName"
+                  [disabled]="!isEditTime"
+                  *ngIf="isEditTime">
+              </p-dropdown>
               </div>
           
             <div>
               <p-button 
                   label="Изменить" 
-                  styleClass="btn-link-form p-button-link">
+                  styleClass="btn-link-form p-button-link"
+                  (click)="onChangeStateTime()"
+                  *ngIf="!isEditTime">
               </p-button>
+
+            <p-button 
+                label="Сохранить" 
+                styleClass="btn-link-form p-button-link"
+                *ngIf="isEditTime"
+                (click)="onUpdateMentorTimesAsync(profileWorksheet$.value.mentorTimes)">
+            </p-button>
             </div>
           </div>
        </div>
@@ -421,55 +434,100 @@
             <label>Свободное время</label>
           </div>
 
-          <!-- Свободные дни. с {{item.timeStart}} по {{item.timeEnd}}-->
-        <div class="" *ngFor="let item of displayMentorTimes">
+          <!-- Свободные дни.-->
+        <div *ngFor="let item of displayMentorTimes">
           <div>&nbsp;</div>
         </div>
   
             <div>
-              <!-- c <input type="time" 
-              [(ngModel)]="selectedMentorTimeStart"
-              formControlName="mentorTimeStart"> -->
-
               <div *ngFor="let item of profileWorksheet$.value.mentorTimes">
-                с {{item.timeStart}} по {{item.timeEnd}} 
-              </div>
+                <div class="d-flex">
+                  с 
+                  <div>&nbsp;</div>
+                  
+                <div>
+                  <span *ngIf="!isEditTime">
+                    {{item.timeStart}}
+                  </span>
 
-              <!-- по <input type="time" 
-              [(ngModel)]="selectedMentorTimeEnd"
-              formControlName="mentorTimeEnd"> -->
+                <input 
+                    type="time" 
+                    pInputText
+                    formControlName="email"
+                    placeholder="Email"
+                    *ngIf="isEditTime"
+                    [(ngModel)]="item.timeStart">                   
+                </div>       
+
+                <div>&nbsp;</div>
+                
+                по 
+
+                <div>&nbsp;</div>
+
+                <div>
+                  <span *ngIf="!isEditTime">
+                    {{item.timeEnd}}
+                  </span>
+
+                <input 
+                    type="time" 
+                    pInputText
+                    formControlName="email"
+                    placeholder="Email"
+                    *ngIf="isEditTime"
+                    [(ngModel)]="item.timeEnd">     
+                </div>  
+                </div>              
+              </div>
             </div>
          </div>
       </div>    
     </div>
 
     <!-- Блок о себе. -->
-    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEdit">
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEditAboutInfo">
       <div class="profile-title">
         <label>О себе</label>
       </div>
       
       <div>
-        <textarea 
+        <div *ngFor="let item of profileWorksheet$.value.mentorAboutInfo">
+          <textarea 
             rows="5" 
             cols="100" 
             pInputTextarea 
             [autoResize]="true"
             formControlName="aboutInfo"
-            [(ngModel)]="aboutInfo">
-      </textarea>
+            [(ngModel)]="item.aboutInfoText">
+          </textarea>
+        </div>        
       </div>
 
       <div>
-        <p-button 
+        <!-- <p-button 
             label="Добавить" 
             styleClass="btn-link-form p-button-link"
             (click)="addMentorAboutInfo()">
+        </p-button> -->
+
+        <p-button 
+          label="Изменить" 
+          styleClass="btn-link-form p-button-link"
+          (click)="onChangeStateAboutInfo()"
+          *ngIf="!isEditAboutInfo">
+        </p-button>
+
+        <p-button 
+            label="Сохранить" 
+            styleClass="btn-link-form p-button-link"
+            *ngIf="isEditAboutInfo"
+            (click)="onUpdateMentorAboutInfoAsync(profileWorksheet$.value.mentorAboutInfo)">
         </p-button>
       </div>
     </div>
 
-    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEdit">
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEditAboutInfo">
       <div class="profile-title">
         <label>О себе</label>
       </div>
@@ -492,7 +550,8 @@
       <div>
         <p-button 
             label="Изменить" 
-            styleClass="btn-link-form p-button-link">
+            styleClass="btn-link-form p-button-link"
+            (click)="onChangeStateAboutInfo()">
         </p-button>
       </div>
     </div>

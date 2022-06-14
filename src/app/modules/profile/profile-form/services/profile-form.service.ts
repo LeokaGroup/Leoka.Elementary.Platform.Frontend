@@ -187,11 +187,45 @@ export class ProfileFormService {
         );
     };
 
+    /**
+     * Функция изменит длительности преподавателя.
+     * @param durations - Длительности преподавателя.
+     */
     public async updateMentorDurationsAsync(mentorDurations: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
         inputModel.mentorDurations = mentorDurations;
 
         return await this.http.patch(API_URL.apiUrl + "/profile/mentor-durations", inputModel).pipe(
+            tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция изменит время преподавателя.
+     * @param durations - Время преподавателя.
+     */
+    public async updateMentorTimesAsync(mentorTimes: any) {
+        let inputModel = new SaveMentorProfileUserInfoInput();
+        inputModel.mentorTimes = mentorTimes;
+
+        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-times", inputModel).pipe(
+            tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция изменит данные о преподавателе.
+     * @param aboutInfos - Данные о преподавателе.
+     */
+     public async updateMentorAboutInfosAsync(mentorAboutInfos: any) {
+        let inputModel = new SaveMentorProfileUserInfoInput();
+        inputModel.mentorAboutInfo = mentorAboutInfos;
+
+        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-about", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
