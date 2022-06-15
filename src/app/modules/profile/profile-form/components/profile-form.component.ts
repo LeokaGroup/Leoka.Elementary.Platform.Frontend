@@ -74,6 +74,7 @@ export class ProfileFormModule implements OnInit {
     isSelectedTrainings: boolean = false;
     isEditTime: boolean = false;
     isEditAboutInfo: boolean = false;
+    isEditEducations: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -655,5 +656,28 @@ export class ProfileFormModule implements OnInit {
 
     public onChangeStateAboutInfo() {
         this.isEditAboutInfo = true;
+    };
+
+    public onChangeStateEducations() {
+        this.isEditEducations = true;
+    };
+
+    /**
+     * Функция изменит данные об образовании преподавателе.
+     */
+    public async onUpdateMentorEducationsAsync(mentorEducations: any) {
+        let items: MentorEducations[] = [];
+
+        mentorEducations.forEach((item: any) => {
+            let education = new MentorEducations();
+            education.educationText = item.educationText;
+            items.push(education);
+        });
+        
+        (await this._profileFormService.updateMentorEducationsAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные данные об образовании: ", response);     
+            this.isEditEducations = false; 
+        });
     };
 }
