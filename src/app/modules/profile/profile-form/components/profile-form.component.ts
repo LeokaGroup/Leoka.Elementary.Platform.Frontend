@@ -75,6 +75,7 @@ export class ProfileFormModule implements OnInit {
     isEditTime: boolean = false;
     isEditAboutInfo: boolean = false;
     isEditEducations: boolean = false;
+    isEditExperience: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -678,6 +679,29 @@ export class ProfileFormModule implements OnInit {
         .subscribe(response => {
             console.log("Обновленные данные об образовании: ", response);     
             this.isEditEducations = false; 
+        });
+    };
+
+    public onChangeStateExperience() {
+        this.isEditExperience = true;
+    };
+
+     /**
+     * Функция изменит данные об опыте преподавателе.
+     */
+      public async onUpdateMentorExperienceAsync(mentorExperience: any) {
+        let items: MentorExperience[] = [];
+
+        mentorExperience.forEach((item: any) => {
+            let experience = new MentorExperience();
+            experience.experienceText = item.experienceText;
+            items.push(experience);
+        });
+        
+        (await this._profileFormService.updateMentorExperienceAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные данные об опыте: ", response);     
+            this.isEditExperience = false; 
         });
     };
 }

@@ -245,4 +245,18 @@ export class ProfileFormService {
             })
         );
     };
+
+    /**
+     * Функция изменит данные об опыте преподавателе.
+     */
+     public async updateMentorExperienceAsync(mentorExperience: any) {
+        let inputModel = new SaveMentorProfileUserInfoInput();
+        inputModel.mentorExperience = mentorExperience;
+
+        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-experience", inputModel).pipe(
+            tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
 }
