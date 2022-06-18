@@ -87,7 +87,7 @@ export class ProfileFormService {
      * @returns - Список сертификатов.
      */
     public async getCertsAsync() {
-        return await this.http.get(API_URL.apiUrl + "/document/profile/certs").pipe(
+        return await this.http.get(API_URL.apiUrl + "/profile/certs").pipe(
             tap((response: any) => {
                 this.profileCerts$.next(response);
             })
@@ -254,6 +254,18 @@ export class ProfileFormService {
         inputModel.mentorExperience = mentorExperience;
 
         return await this.http.patch(API_URL.apiUrl + "/profile/mentor-experience", inputModel).pipe(
+            tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+     /**
+     * Функция добавляет новые изображения сертификатов пользователя.
+     * @param formData - Файлы.
+     */
+      public async updateMentorCertsAsync(formData: FormData) {
+        return await this.http.post(API_URL.apiUrl + "/profile/certs", formData).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })

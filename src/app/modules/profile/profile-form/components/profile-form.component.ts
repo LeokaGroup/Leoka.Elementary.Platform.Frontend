@@ -76,6 +76,7 @@ export class ProfileFormModule implements OnInit {
     isEditAboutInfo: boolean = false;
     isEditEducations: boolean = false;
     isEditExperience: boolean = false;
+    isEditCerts: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -702,6 +703,25 @@ export class ProfileFormModule implements OnInit {
         .subscribe(response => {
             console.log("Обновленные данные об опыте: ", response);     
             this.isEditExperience = false; 
+        });
+    };
+
+    public onChangeStateCerts() {
+        this.isEditCerts = true;
+    };
+
+    /**
+     * Функция изменит изображения сертификатов пользователя.
+     */
+    public async onCreateCertsAsync() {
+        console.log("new certs",this.profileForm.controls["certs"].value.get("certs"));
+        let formData = new FormData();
+        formData.append("mentorCertificates", this.profileForm.controls["certs"].value.get("certs"));
+
+        (await this._profileFormService.updateMentorCertsAsync(formData))
+        .subscribe(response => {
+            console.log("Добавленные сертификаты: ", response);     
+            this.isEditCerts = false; 
         });
     };
 }

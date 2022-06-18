@@ -671,43 +671,9 @@
     </div>
 
     <!-- Блок с сертификатами. -->
-    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEdit">
-      <div class="profile-title">
-        <label>Сертификаты</label>
-      </div>
-      
-      <div>        
-        <!-- <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image> -->
+    
 
-        <!-- Список сертификатов. -->
-        <div class="block-cert-files">
-          <div *ngFor="let item of certsFiles">
-            <div class="cert-file">
-              <p-image 
-                  [src]="item" 
-                  alt="Image" 
-                  width="170" 
-                  [preview]="true">
-              </p-image>
-            </div>
-          </div>
-        </div>       
-
-        <p-fileUpload 
-            mode="basic" 
-            name="demo[]" 
-            accept="image/*" 
-            chooseLabel="Загрузить" 
-            class="profile-photo" 
-            styleClass="btn-link-form p-button-link"
-            formControlName="certs"
-            [multiple]="true"
-            (onSelect)="onUploadCerts($event)">
-        </p-fileUpload>
-      </div>
-    </div>
-
-    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEdit">
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="!isEditCerts">
       <div class="profile-title">
         <label>Сертификаты</label>
       </div>
@@ -744,7 +710,60 @@
         <div>
           <p-button 
               label="Изменить" 
-              styleClass="btn-link-form p-button-link">
+              styleClass="btn-link-form p-button-link"
+              (click)="onChangeStateCerts()"
+              *ngIf="!isEditCerts">
+          </p-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEditCerts">
+      <div class="profile-title">
+        <label>Сертификаты</label>
+      </div>
+      
+      <div>        
+        <!-- <p-image src="../../../../../assets/images/profile/nophoto.svg" alt="Image" width="250" [preview]="true"></p-image> -->
+
+        <!-- Список сертификатов. -->
+        <div class="block-cert-files">
+          <!-- <div *ngFor="let item of certsFiles">
+            <div class="cert-file">
+              <p-image 
+                  [src]="item" 
+                  alt="Image" 
+                  width="170" 
+                  [preview]="true">
+              </p-image>
+            </div>
+          </div> -->
+
+          <p-fileUpload 
+              mode="basic" 
+              name="demo[]" 
+              accept="image/*" 
+              chooseLabel="Загрузить" 
+              class="profile-photo" 
+              styleClass="btn-link-form p-button-link"
+              [multiple]="true"
+              (onSelect)="onUploadCerts($event)">
+          </p-fileUpload>
+        </div>              
+
+        <div>
+          <p-button 
+              label="Изменить" 
+              styleClass="btn-link-form p-button-link"
+              (click)="onChangeStateCerts()"
+              *ngIf="!isEditCerts">
+          </p-button>
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="isEditCerts"
+              (click)="onCreateCertsAsync()">
           </p-button>
         </div>
       </div>
