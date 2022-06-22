@@ -27,29 +27,29 @@ export class RoleService {
     };
 
      // Функция отсчитывает время бездействия юзера, по окончании простоя убивает сессию и перенаправляет на страницу авторизации.
-     public deadlineSession(): void {
-        var idleTime = 0;
-        document.addEventListener("DOMContentLoaded", function() {
-            var _ = setInterval(timerIncrement, 530000); // если надо 1 minute, то 60000
-            document.addEventListener('mousemove', _ => {
-                idleTime = 0;
-            });
+    //  public deadlineSession(): void {
+    //     var idleTime = 0;
+    //     document.addEventListener("DOMContentLoaded", function() {
+    //         var _ = setInterval(timerIncrement, 530000); // если надо 1 minute, то 60000
+    //         document.addEventListener('mousemove', _ => {
+    //             idleTime = 0;
+    //         });
 
-            document.addEventListener('keypress', _ => {
-                idleTime = 0;
-            });
-        });
+    //         document.addEventListener('keypress', _ => {
+    //             idleTime = 0;
+    //         });
+    //     });
 
-        const timerIncrement = () => {
-            idleTime++;
+    //     const timerIncrement = () => {
+    //         idleTime++;
 
-            if (idleTime > 19) { // 20 minutes
-                sessionStorage.clear();
-                localStorage.clear();
-                this.router.navigate(["/user/signin"]);
-            }
-        }
-    };
+    //         if (idleTime > 19) { // 20 minutes
+    //             sessionStorage.clear();
+    //             localStorage.clear();
+    //             this.router.navigate(["/user/signin"]);
+    //         }
+    //     }
+    // };
 
     // Функция обновит токена пользователя.
     public async refreshToken(): Promise<void> {

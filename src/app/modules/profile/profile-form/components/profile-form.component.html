@@ -61,14 +61,14 @@
               styleClass="btn-link-form p-button-link"
               *ngIf="!isEditFio"
               (click)="onChangeFioState()">
-          </p-button>
+          </p-button>         
 
           <p-button 
               label="Сохранить" 
               styleClass="btn-link-form p-button-link"
               *ngIf="isEditFio"
               (click)="onChangeFioAsync()">
-      </p-button>
+          </p-button>
         </div>
       </div>
     </div>
@@ -167,15 +167,7 @@
                           optionLabel="itemName"                          
                           placeholder="Ваш предмет"
                           formControlName="selectedItem">
-              </p-dropdown>
-          
-            <div>
-              <p-button 
-                  label="Добавить" 
-                  styleClass="btn-link-form p-button-link"
-                  (click)="addMentorProfileItems()">
-              </p-button>
-            </div>
+              </p-dropdown>        
           </div>
 
           <div *ngIf="!isEditItem">
@@ -205,6 +197,12 @@
                 *ngIf="!isEditItemRow"
                 (click)="onEditItems()">                
             </p-button>
+
+              <p-button 
+                  label="Добавить" 
+                  styleClass="btn-link-form p-button-link"
+                  (click)="onAddMentorItems()">
+              </p-button>
 
             <p-button 
                 label="Сохранить" 
@@ -236,11 +234,11 @@
                 *ngIf="!isEditPriceRow"> 
           </div>         
 
-          <p-button 
+          <!-- <p-button 
                 label="Добавить" 
                 styleClass="btn-link-form p-button-link"
                 (click)="addMentorPrices()">
-          </p-button>
+          </p-button> -->
         </div>
 
           <div>
@@ -259,6 +257,12 @@
                 *ngIf="!isEditPriceRow"
                 (click)="onEditPrice()">                
             </p-button>
+
+              <p-button 
+                  label="Добавить" 
+                  styleClass="btn-link-form p-button-link"
+                  (click)="onAddMentorPrices()">
+              </p-button>
 
             <p-button 
                 label="Сохранить" 
@@ -302,6 +306,12 @@
               *ngIf="!isEditDuration"
               (click)="onEditDuration()">                
             </p-button>
+
+              <p-button 
+                  label="Добавить" 
+                  styleClass="btn-link-form p-button-link"
+                  (click)="onAddMentorDurations()">
+              </p-button>
 
             <p-button 
                 label="Сохранить" 
@@ -419,6 +429,12 @@
                   *ngIf="!isEditTime">
               </p-button>
 
+              <p-button 
+                  label="Добавить" 
+                  styleClass="btn-link-form p-button-link"
+                  (click)="onAddMentorTimes()">
+              </p-button>
+
             <p-button 
                 label="Сохранить" 
                 styleClass="btn-link-form p-button-link"
@@ -498,7 +514,7 @@
             cols="100" 
             pInputTextarea 
             [autoResize]="true"
-            formControlName="aboutInfo"
+            [ngModelOptions]="{standalone: true}"
             [(ngModel)]="item.aboutInfoText">
           </textarea>
         </div>        
@@ -510,7 +526,7 @@
           styleClass="btn-link-form p-button-link"
           (click)="onChangeStateAboutInfo()"
           *ngIf="!isEditAboutInfo">
-        </p-button>
+        </p-button>       
 
         <p-button 
             label="Сохранить" 
@@ -538,8 +554,40 @@
             styleClass="btn-link-form p-button-link"
             (click)="onChangeStateAboutInfo()">
         </p-button>
+
+        <p-button 
+            label="Добавить" 
+            styleClass="btn-link-form p-button-link"
+            (click)="onAddDefaultMentorAboutInfoAsync()">
+      </p-button>
       </div>
     </div>
+
+    <!-- <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="profileWorksheet$.value.isEditModeAboutInfo">
+      <div class="profile-title">
+        <label>О себе</label>
+      </div>
+      
+      <div>
+        <div *ngFor="let item of profileWorksheet$.value.mentorAboutInfo">
+          {{item.aboutInfoText}}
+        </div>
+      </div>
+
+      <div>
+        <p-button 
+            label="Изменить" 
+            styleClass="btn-link-form p-button-link"
+            (click)="onChangeStateAboutInfo()">
+        </p-button>
+
+        <p-button 
+            label="Добавить" 
+            styleClass="btn-link-form p-button-link"
+            (click)="onAddDefaultMentorAboutInfoAsync()">
+      </p-button>
+      </div>
+    </div> -->
 
     <!-- Блок с образованием. -->
     <div class="pt-20-pb-20 mt-20 block-user-info" *ngIf="isEditEducations">
@@ -561,6 +609,12 @@
       </div>
 
       <div>      
+        <p-button 
+            label="Добавить" 
+            styleClass="btn-link-form p-button-link"
+            (click)="onAddMentorEducations()">
+        </p-button>
+    
         <p-button 
             label="Сохранить" 
             styleClass="btn-link-form p-button-link"
@@ -587,6 +641,19 @@
             styleClass="btn-link-form p-button-link"
             (click)="onChangeStateEducations()"
             *ngIf="!isEditEducations">
+      </p-button>
+
+      <!-- <p-button 
+          label="Добавить" 
+          styleClass="btn-link-form p-button-link"
+          (click)="onAddMentorEducations()">
+      </p-button> -->
+
+      <p-button 
+          label="Сохранить" 
+          styleClass="btn-link-form p-button-link"
+          *ngIf="isEditAboutInfo"
+          (click)="onUpdateMentorEducationsAsync(profileWorksheet$.value.mentorEducations)">
       </p-button>
       </div>
     </div>

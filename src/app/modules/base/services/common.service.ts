@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { NavigationStart, Router, Event as NavigationEvent } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 
 /**
@@ -10,15 +10,25 @@ export class CommonDataService {
     currentRoute: any;
     public readonly isVisibleHeaderItems$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private router: Router) {
+    constructor(private _router: Router) {
             
     }
 
     public routeToStart(err: any) {
-        if (err.status === 403) {        
-            sessionStorage.clear();
+        this._router.events
+            .subscribe((event: NavigationEvent) => {
+                if (event instanceof NavigationStart) {
+                    console.log(event.url);    
+                    if (event.url !== '/profile/signup') {
+                        return;
+                    }                      
+                }
+            });    
             
-            this.router.navigate(["/user/signin"]);
-        }
+            if (err.status === 403) {        
+                sessionStorage.clear();
+                
+                this._router.navigate(["/user/signin"]);
+            }
     };
 };

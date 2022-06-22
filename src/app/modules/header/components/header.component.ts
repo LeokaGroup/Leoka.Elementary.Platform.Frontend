@@ -3,7 +3,6 @@ import { RoleService } from "../../user/services/role.service";
 import { HeaderService } from "../services/header.service";
 import { ProfileService } from "../../profile/services/profile.service";
 import { NavigationStart, Router, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { CommonDataService } from "../../base/services/common.service";
 
 @Component({
     selector: "header",
@@ -31,8 +30,7 @@ export class HeaderModule implements OnInit {
         private headerService: HeaderService,
         private _route: ActivatedRoute,
         private _profileService: ProfileService,
-        private _router: Router,
-        private _commonService: CommonDataService) {
+        private _router: Router) {
             
     };
 

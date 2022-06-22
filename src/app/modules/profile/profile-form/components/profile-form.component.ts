@@ -23,7 +23,7 @@ import { ProfileFormService } from "../services/profile-form.service";
 })
 
 /**
- * Класс модуля анкеты профиля пользователя.
+ * Класс модуля профиля пользователя.
  */
 export class ProfileFormModule implements OnInit {
     public readonly profileItems$ = this._profileFormService.profileItems$;
@@ -33,7 +33,7 @@ export class ProfileFormModule implements OnInit {
     public readonly profileDaysWeek$ = this._profileFormService.profileDaysWeek$;
     public readonly profileCerts$ = this._profileFormService.profileCerts$;
     public readonly profileAvatar$ = this._profileFormService.profileAvatar$;
-    public readonly profileWorksheet$ = this._profileFormService.profileWorksheet$;
+    public readonly profileWorksheet$ = this._profileFormService.profileWorksheet$; 
 
     checkedContact: boolean = false;
     selectedPurposes: MentorTrainings[] = [];
@@ -545,6 +545,8 @@ export class ProfileFormModule implements OnInit {
             });
     };
 
+
+
     public onEditPrice() {
         this.isEditPriceRow = true;
     };
@@ -723,5 +725,65 @@ export class ProfileFormModule implements OnInit {
             console.log("Добавленные сертификаты: ", response);     
             this.isEditCerts = false; 
         });
+    };
+
+    public onAddMentorItems() {    
+        this.profileWorksheet$.value.mentorItems.push({
+            itemName: "",
+            itemNumber: 0,
+            itemSysName: "",
+            profileItemId: 0,
+            position: 0
+        });
+    };
+
+      public onAddMentorPrices() {    
+        this.profileWorksheet$.value.mentorPrices.push({
+            fullPrice: "",
+            price: 0,
+            profileItemId: " руб."
+        });
+    };
+
+    public onAddMentorDurations() {    
+        this.profileWorksheet$.value.mentorPrices.push({
+            educationText: ""
+        });
+    };
+
+    public onAddMentorTimes() {    
+        this.profileWorksheet$.value.mentorTimes.push({
+            dayName: "",
+            daySysName: "",
+            timeEnd: "",
+            timeStart: ""
+        });
+    };
+
+    // public onAddMentorAboutInfo() {    
+    //     this.profileWorksheet$.value.mentorAboutInfo.push({
+    //         aboutInfoText: ""
+    //     });
+    //     this.isEditAboutInfo = true;
+    //     console.log("this.profileWorksheet$.value.mentorAboutInfo",this.profileWorksheet$.value.mentorAboutInfo);
+    // };
+
+    public async onAddDefaultMentorAboutInfoAsync() {    
+        (await this._profileFormService.addDefaultMentorAboutInfoAsync())
+        .subscribe(_ => {
+            this.isEditAboutInfo = true; 
+        });
+    };
+
+    public onAddMentorEducations() {   
+        this.profileWorksheet$.value.mentorEducations.push({
+            educationText: ""
+        });
+        // this.profileWorksheet$.next(this.profileWorksheet$.value.mentorEducations.push({
+        //     educationText: ""
+        // }));
+        // this.profileWorksheet$.next(this.profileWorksheet$.value.mentorEducations.concat([{
+        //     educationText: ""
+        // }]));
     };
 }

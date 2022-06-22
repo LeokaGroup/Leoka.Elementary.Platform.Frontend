@@ -5,7 +5,7 @@ import { API_URL } from 'src/app/core/core-urls/api-urls';
 import { SaveMentorProfileUserInfoInput } from '../models/input/save-mentor-profile-user-info-input';
 
 /**
- * Сервис анкеты пользователя.
+ * Сервис профиля пользователя.
  */
 @Injectable()
 export class ProfileFormService {
@@ -267,6 +267,17 @@ export class ProfileFormService {
       public async updateMentorCertsAsync(formData: FormData) {
         return await this.http.post(API_URL.apiUrl + "/profile/certs", formData).pipe(
             tap((response: any) => {              
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция добавляет пустую запись предмета.
+     */
+    public async addDefaultMentorAboutInfoAsync() {
+        return await this.http.post(API_URL.apiUrl + "/profile/mentor-about", {}).pipe(
+            tap((response: any) => {
                 this.profileWorksheet$.next(response);
             })
         );
