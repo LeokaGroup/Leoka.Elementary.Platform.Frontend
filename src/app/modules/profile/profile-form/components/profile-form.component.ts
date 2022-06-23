@@ -775,15 +775,17 @@ export class ProfileFormModule implements OnInit {
         });
     };
 
-    public onAddMentorEducations() {   
-        this.profileWorksheet$.value.mentorEducations.push({
-            educationText: ""
+    public async onAddDefaultMentorEducationAsync() {    
+        (await this._profileFormService.addDefaultMentorEducationAsync())
+        .subscribe(_ => {
+            this.isEditEducations = true; 
         });
-        // this.profileWorksheet$.next(this.profileWorksheet$.value.mentorEducations.push({
-        //     educationText: ""
-        // }));
-        // this.profileWorksheet$.next(this.profileWorksheet$.value.mentorEducations.concat([{
-        //     educationText: ""
-        // }]));
+    };
+
+    public async onAddDefaultMentorExperienceAsync() {    
+        (await this._profileFormService.addDefaultMentorExperienceAsync())
+        .subscribe(_ => {
+            this.isEditExperience = true; 
+        });
     };
 }

@@ -602,7 +602,7 @@
             cols="100" 
             pInputTextarea 
             [autoResize]="true"
-            formControlName="education"
+            [ngModelOptions]="{standalone: true}"
             [(ngModel)]="item.educationText">
           </textarea>
         </div>        
@@ -612,7 +612,7 @@
         <p-button 
             label="Добавить" 
             styleClass="btn-link-form p-button-link"
-            (click)="onAddMentorEducations()">
+            (click)="onAddDefaultMentorEducationAsync()">
         </p-button>
     
         <p-button 
@@ -643,11 +643,11 @@
             *ngIf="!isEditEducations">
       </p-button>
 
-      <!-- <p-button 
+      <p-button 
           label="Добавить" 
           styleClass="btn-link-form p-button-link"
-          (click)="onAddMentorEducations()">
-      </p-button> -->
+          (click)="onAddDefaultMentorEducationAsync()">
+      </p-button>
 
       <p-button 
           label="Сохранить" 
@@ -696,6 +696,12 @@
             (click)="onChangeStateExperience()"
             *ngIf="!isEditExperience">
       </p-button>
+
+      <p-button 
+          label="Добавить" 
+          styleClass="btn-link-form p-button-link"
+          (click)="onAddDefaultMentorExperienceAsync()">
+      </p-button>
       </div>
     </div>
 
@@ -721,7 +727,7 @@
             cols="100" 
             pInputTextarea 
             [autoResize]="true"
-            formControlName="experience"
+            [ngModelOptions]="{standalone: true}"
             [(ngModel)]="item.experienceText">
           </textarea>
         </div>        

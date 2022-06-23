@@ -276,7 +276,29 @@ export class ProfileFormService {
      * Функция добавляет пустую запись предмета.
      */
     public async addDefaultMentorAboutInfoAsync() {
-        return await this.http.post(API_URL.apiUrl + "/profile/mentor-about", {}).pipe(
+        return await this.http.post(API_URL.apiUrl + "/profile/default-about", {}).pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция добавляет пустую запись обучения.
+     */
+     public async addDefaultMentorEducationAsync() {
+        return await this.http.post(API_URL.apiUrl + "/profile/default-education", {}).pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+     /**
+     * Функция добавляет пустую запись опыта.
+     */
+      public async addDefaultMentorExperienceAsync() {
+        return await this.http.post(API_URL.apiUrl + "/profile/default-experience", {}).pipe(
             tap((response: any) => {
                 this.profileWorksheet$.next(response);
             })
