@@ -37,7 +37,7 @@ export class ProfileMenuModule implements OnInit {
     private async getProfileMenuItemsAsync() {
         (await this._profileService.getProfileMenuItemsAsync())
         .subscribe(
-            (response) => {
+            (_) => {
                 console.log("profileLeftMenuItems",this.userProfileMenuItems$.value.profileLeftMenuItems);
             },
 

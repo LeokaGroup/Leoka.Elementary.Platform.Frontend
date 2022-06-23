@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { NavigationStart, Router, Event as NavigationEvent } from "@angular/router";
+import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 
 /**
@@ -15,20 +15,10 @@ export class CommonDataService {
     }
 
     public routeToStart(err: any) {
-        this._router.events
-            .subscribe((event: NavigationEvent) => {
-                if (event instanceof NavigationStart) {
-                    console.log(event.url);    
-                    if (event.url !== '/profile/signup') {
-                        return;
-                    }                      
-                }
-            });    
-            
-            if (err.status === 403) {        
-                sessionStorage.clear();
-                
-                this._router.navigate(["/user/signin"]);
-            }
+        if (err.status === 403) {
+            sessionStorage.clear();
+
+            this._router.navigate(["/user/signin"]);
+        }
     };
 };
