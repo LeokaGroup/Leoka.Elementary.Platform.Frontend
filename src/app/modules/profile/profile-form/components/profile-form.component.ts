@@ -77,6 +77,7 @@ export class ProfileFormModule implements OnInit {
     isEditEducations: boolean = false;
     isEditExperience: boolean = false;
     isEditCerts: boolean = false;
+    userRole: number = -2;  // -2, потому что есть -1 и 0. И по дефолту ставим то, чего нет.
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -434,6 +435,7 @@ export class ProfileFormModule implements OnInit {
             .subscribe(response => {
                 console.log("Данные анкеты: ", this.profileWorksheet$.value);
                 this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
+                this.userRole = response.userRole;
             });
     };
 
