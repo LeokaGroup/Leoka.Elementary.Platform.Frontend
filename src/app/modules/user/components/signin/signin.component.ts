@@ -18,8 +18,7 @@ export class SignInModule implements OnInit {
 
     public readonly signinUser$ = this.userService.signinUser$;
 
-    constructor(private http: HttpClient,
-        private readonly userService: UserService,
+    constructor(private readonly userService: UserService,
         private _router: Router) {
 
     };

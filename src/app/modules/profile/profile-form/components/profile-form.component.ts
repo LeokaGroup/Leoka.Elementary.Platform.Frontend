@@ -23,7 +23,7 @@ import { ProfileFormService } from "../services/profile-form.service";
 })
 
 /**
- * Класс модуля анкеты профиля пользователя.
+ * Класс модуля профиля пользователя.
  */
 export class ProfileFormModule implements OnInit {
     public readonly profileItems$ = this._profileFormService.profileItems$;
@@ -33,6 +33,7 @@ export class ProfileFormModule implements OnInit {
     public readonly profileDaysWeek$ = this._profileFormService.profileDaysWeek$;
     public readonly profileCerts$ = this._profileFormService.profileCerts$;
     public readonly profileAvatar$ = this._profileFormService.profileAvatar$;
+    public readonly profileWorksheet$ = this._profileFormService.profileWorksheet$; 
 
     checkedContact: boolean = false;
     selectedPurposes: MentorTrainings[] = [];
@@ -61,6 +62,22 @@ export class ProfileFormModule implements OnInit {
     avatarNoPhoto: string = "";
     avatarImage: any;
     isNoPhoto: boolean = false;
+    isEdit: boolean = false;
+    userFio: string = "";
+    isEditAvatar: boolean = false;
+    isEditFio: boolean = false;
+    isEditContact: boolean = false;
+    isEditItemRow: boolean = false;
+    isEditItem: boolean = false;
+    isEditPriceRow: boolean = false;
+    isEditDuration: boolean = false;
+    isSelectedTrainings: boolean = false;
+    isEditTime: boolean = false;
+    isEditAboutInfo: boolean = false;
+    isEditEducations: boolean = false;
+    isEditExperience: boolean = false;
+    isEditCerts: boolean = false;
+    userRole: number = -2;  // -2, потому что есть -1 и 0. И по дефолту ставим то, чего нет.
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -90,7 +107,8 @@ export class ProfileFormModule implements OnInit {
             await this.getPurposeTrainingsAsync(),
             await this.getDaysWeekAsync(),
             await this.getCertsAsync(),
-            await this.getAvatarAsync()
+            await this.getAvatarAsync(),
+            await this.getProfileWorkSheetAsync()
         ]);
     };    
 
@@ -315,7 +333,7 @@ export class ProfileFormModule implements OnInit {
         let mentorTime = new MentorTimes();
         mentorTime.timeStart = this.selectedMentorTimeStart;
         mentorTime.timeEnd = this.selectedMentorTimeEnd;
-        mentorTime.day = this.selectedMentorDayWeek.daySysName;
+        mentorTime.daySysName = this.selectedMentorDayWeek.daySysName;
 
         let displayMentorTimes = new DisplayMentorTimes();
         displayMentorTimes.timeStart = this.selectedMentorTimeStart;
@@ -406,5 +424,370 @@ export class ProfileFormModule implements OnInit {
                     this.avatarImage = img;
                 }
             });
+    };
+
+    /**
+     * Функция получит данные анкеты пользователя.
+     * @returns - Данные анкеты пользователя.
+     */
+    private async getProfileWorkSheetAsync() {
+        (await this._profileFormService.getProfileWorkSheetAsync())
+            .subscribe(response => {
+                console.log("Данные анкеты: ", this.profileWorksheet$.value);
+                this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
+                this.userRole = response.userRole;
+            });
+    };
+
+    public onChangeAvatarState() {
+        this.isEditAvatar = true;
+    };
+
+    /**
+     * Функция изменит аватар пользователя.
+     * @returns - Новый аватар.
+     */
+    public async onChangeAvatarAsync() {
+        console.log(this.profileForm.controls["avatar"].value.get("avatar"));
+        let formData = new FormData();
+        formData.append("avatar", this.profileForm.controls["avatar"].value.get("avatar"));
+
+        (await this._profileFormService.changeAvatarAsync(formData))
+            .subscribe(response => {
+                console.log("Аватар изменен ок:");
+                
+                let img = this._sanitizer.bypassSecurityTrustResourceUrl("data:image/"
+                        + response.extension
+                        + ";base64,"
+                        + response.avatar.fileContents);
+                    this.avatarImage = img;
+                    this.isEditFio = false;
+            });
+    };
+
+    public onChangeFioState() {
+        this.isEditFio = true;
+    };
+
+    /**
+     * Функция изменит фио пользователя.
+     * @returns - Новые фио.
+     */
+    public async onChangeFioAsync() {
+        this.profileFormInput.firstName = this.profileForm.controls["fio"].value.split(" ")[0];       
+        this.profileFormInput.lastName = this.profileForm.controls["fio"].value.split(" ")[1];    
+        this.profileFormInput.secondName = this.profileForm.controls["fio"].value.split(" ")[2];  
+
+        (await this._profileFormService.changeFioAsync(this.profileFormInput))
+            .subscribe(response => {
+                console.log("Новые фио: ", response);   
+                this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
+                this.isEditFio = false;
+            });
+    };
+
+    public onChangeStateContacts() {
+        this.isEditContact = true;
+    };
+
+    /**
+     * Функция обновит контакты пользователя.
+     * @param profileInput - Входная модель.
+     * @returns Измененные данные.
+     */
+    public async onSaveContactsAsync() {
+        this.profileFormInput.phoneNumber = this.profileForm.controls["phoneNumber"].value;
+        this.profileFormInput.email = this.profileForm.controls["email"].value;
+        this.profileFormInput.isVisibleAllContact = this.profileForm.controls["checkedContact"].value;
+
+        (await this._profileFormService.saveContactsAsync(this.profileFormInput))
+            .subscribe(response => {
+                console.log("Новые контакты: ", response);
+                this.profileWorksheet$.value.email = response.email;
+                this.profileWorksheet$.value.phoneNumber = response.phoneNumber;
+                this.profileWorksheet$.value.isVisibleAllContact = response.isVisibleAllContact;
+                this.isEditContact = false;
+            });
+    };
+
+    public onEditItems() {
+        this.isEditItemRow = true;
+    };
+
+    /**
+     * Функция обновит список предметов преподавателя.
+     * @param mentorItems - Список предметов для обновления.
+     * @returns - Обновленные предметы.
+     */
+    public async onUpdateItemsAsync(mentorItems: any) {
+        this.isEditItemRow = true;
+        let items: any = [];
+
+        // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
+        mentorItems.forEach((item: any) => {
+            if (typeof(item.itemName) === "object") {
+                items.push({
+                    itemName: item.itemName.itemName,
+                    itemNumber: item.itemName.itemNumber,
+                    itemSysName: item.itemName.itemSysName,
+                    profileItemId: item.itemName.profileItemId,
+                    position: item.itemName.position
+                });
+            }
+
+            else if (typeof(item.itemName) === "string") {
+                items.push(item);
+            }
+        });
+
+        (await this._profileFormService.updateMentorItemsAsync(items))
+            .subscribe(response => {
+                console.log("Обновленные предметы: ", response);     
+                this.isEditItemRow = false; 
+            });
+    };
+
+
+
+    public onEditPrice() {
+        this.isEditPriceRow = true;
+    };
+
+    /**
+     * Функция обновит список цен преподавателя.
+     * @param mentorPrices - Список цен для обновления.
+     * @returns - Обновленные цены.
+     */
+    public async onUpdateMentorPricesAsync(prices: any) {
+        (await this._profileFormService.updateMentorPricesAsync(prices))
+            .subscribe(response => {
+                console.log("Обновленные цены: ", response);     
+                this.isEditPriceRow = false; 
+            });
+    };
+
+    public onEditDuration() {
+        this.isEditDuration = true;
+    };
+
+    /**
+     * Функция изменит длительности преподавателя.
+     * @param durations - Длительности преподавателя.
+     */
+    public async onUpdateMentorDurationsAsync(mentorDurations: any) {
+        let items: MentorDurations[] = [];
+
+        // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
+        mentorDurations.forEach((item: any) => {
+            if (typeof(item.time) === "object") {
+                let duration = new MentorDurations();
+                duration.time = item.time.time;
+                duration.unit = item.unit;
+                items.push(duration);
+            }
+
+            else {
+                let duration = new MentorDurations();
+                duration.time = item.time;
+                duration.unit = item.unit;
+                items.push(item);
+            }
+        });
+        
+        (await this._profileFormService.updateMentorDurationsAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные длительности: ", response);     
+            this.isEditDuration = false; 
+        });
+    };
+
+    public onChangeStateTime() {
+        this.isEditTime = true;
+    };
+
+    /**
+     * Функция изменит время преподавателя.
+     * @param durations - Время преподавателя.
+     */
+     public async onUpdateMentorTimesAsync(mentorTimes: any) {
+        let items: MentorTimes[] = [];
+
+        // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
+        mentorTimes.forEach((item: any) => {
+            if (typeof(item.dayName) === "object") {
+                let time = new MentorTimes();
+                time.dayId = item.position;
+                time.daySysName = item.dayName.daySysName;
+                time.timeStart = item.timeStart;
+                time.timeEnd = item.timeEnd;
+                items.push(time);
+            }
+
+            else {
+                let time = new MentorTimes();
+                time.dayId = item.position;
+                time.daySysName = item.daySysName;
+                time.timeStart = item.timeStart;
+                time.timeEnd = item.timeEnd;
+                items.push(time);
+            }
+        });
+        
+        (await this._profileFormService.updateMentorTimesAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные длительности: ", response);     
+            this.isEditDuration = false; 
+        });
+    };
+
+    /**
+     * Функция изменит данные о преподавателе.
+     * @param aboutInfos - Данные о преподавателе.
+     */
+     public async onUpdateMentorAboutInfoAsync(aboutInfos: any) {
+        let items: MentorAboutInfo[] = [];
+
+        aboutInfos.forEach((item: any) => {
+            let about = new MentorAboutInfo();
+            about.aboutInfoText = item.aboutInfoText;
+            items.push(about);
+        });
+        
+        (await this._profileFormService.updateMentorAboutInfosAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные данные о себе: ", response);     
+            this.isEditAboutInfo = false; 
+        });
+    };
+
+    public onChangeStateAboutInfo() {
+        this.isEditAboutInfo = true;
+    };
+
+    public onChangeStateEducations() {
+        this.isEditEducations = true;
+    };
+
+    /**
+     * Функция изменит данные об образовании преподавателе.
+     */
+    public async onUpdateMentorEducationsAsync(mentorEducations: any) {
+        let items: MentorEducations[] = [];
+
+        mentorEducations.forEach((item: any) => {
+            let education = new MentorEducations();
+            education.educationText = item.educationText;
+            items.push(education);
+        });
+        
+        (await this._profileFormService.updateMentorEducationsAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные данные об образовании: ", response);     
+            this.isEditEducations = false; 
+        });
+    };
+
+    public onChangeStateExperience() {
+        this.isEditExperience = true;
+    };
+
+     /**
+     * Функция изменит данные об опыте преподавателе.
+     */
+      public async onUpdateMentorExperienceAsync(mentorExperience: any) {
+        let items: MentorExperience[] = [];
+
+        mentorExperience.forEach((item: any) => {
+            let experience = new MentorExperience();
+            experience.experienceText = item.experienceText;
+            items.push(experience);
+        });
+        
+        (await this._profileFormService.updateMentorExperienceAsync(items))
+        .subscribe(response => {
+            console.log("Обновленные данные об опыте: ", response);     
+            this.isEditExperience = false; 
+        });
+    };
+
+    public onChangeStateCerts() {
+        this.isEditCerts = true;
+    };
+
+    /**
+     * Функция изменит изображения сертификатов пользователя.
+     */
+    public async onCreateCertsAsync() {
+        console.log("new certs",this.profileForm.controls["certs"].value.get("certs"));
+        let formData = new FormData();
+        formData.append("mentorCertificates", this.profileForm.controls["certs"].value.get("certs"));
+
+        (await this._profileFormService.updateMentorCertsAsync(formData))
+        .subscribe(response => {
+            console.log("Добавленные сертификаты: ", response);     
+            this.isEditCerts = false; 
+        });
+    };
+
+    public onAddMentorItems() {    
+        this.profileWorksheet$.value.mentorItems.push({
+            itemName: "",
+            itemNumber: 0,
+            itemSysName: "",
+            profileItemId: 0,
+            position: 0
+        });
+    };
+
+      public onAddMentorPrices() {    
+        this.profileWorksheet$.value.mentorPrices.push({
+            fullPrice: "",
+            price: 0,
+            profileItemId: " руб."
+        });
+    };
+
+    public onAddMentorDurations() {    
+        this.profileWorksheet$.value.mentorPrices.push({
+            educationText: ""
+        });
+    };
+
+    public onAddMentorTimes() {    
+        this.profileWorksheet$.value.mentorTimes.push({
+            dayName: "",
+            daySysName: "",
+            timeEnd: "",
+            timeStart: ""
+        });
+    };
+
+    // public onAddMentorAboutInfo() {    
+    //     this.profileWorksheet$.value.mentorAboutInfo.push({
+    //         aboutInfoText: ""
+    //     });
+    //     this.isEditAboutInfo = true;
+    //     console.log("this.profileWorksheet$.value.mentorAboutInfo",this.profileWorksheet$.value.mentorAboutInfo);
+    // };
+
+    public async onAddDefaultMentorAboutInfoAsync() {    
+        (await this._profileFormService.addDefaultMentorAboutInfoAsync())
+        .subscribe(_ => {
+            this.isEditAboutInfo = true; 
+        });
+    };
+
+    public async onAddDefaultMentorEducationAsync() {    
+        (await this._profileFormService.addDefaultMentorEducationAsync())
+        .subscribe(_ => {
+            this.isEditEducations = true; 
+        });
+    };
+
+    public async onAddDefaultMentorExperienceAsync() {    
+        (await this._profileFormService.addDefaultMentorExperienceAsync())
+        .subscribe(_ => {
+            this.isEditExperience = true; 
+        });
     };
 }

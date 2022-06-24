@@ -8,6 +8,9 @@ export class MentorTimes {
     // Время окончания.
     timeEnd: string = "";
 
-    // День недели.
-    day: string = "";
+    // Id дня.
+    dayId: number = 0;
+
+    // Системное название дня.
+    daySysName: string = "";
 }

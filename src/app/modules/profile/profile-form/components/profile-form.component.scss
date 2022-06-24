@@ -89,3 +89,31 @@
   width: 135px;
   height: 135px;
 }
+
+.selectedTrainings {
+  background: #7C3AED;
+  border-radius: 6px;
+  width: 169px;
+  height: 42px;
+  border-radius: 6px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin: 18px 18px;
+  cursor: pointer;
+}
+
+.notSelectedTrainings {
+  background: #81D0DF;
+  border-radius: 6px;
+  width: 169px;
+  height: 42px;
+  border-radius: 6px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin: 18px 18px;
+  cursor: pointer;
+}

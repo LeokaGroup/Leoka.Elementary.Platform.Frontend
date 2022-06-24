@@ -10,15 +10,15 @@ export class CommonDataService {
     currentRoute: any;
     public readonly isVisibleHeaderItems$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private router: Router) {
+    constructor(private _router: Router) {
             
     }
 
     public routeToStart(err: any) {
-        if (err.status === 403) {        
+        if (err.status === 403) {
             sessionStorage.clear();
-            
-            this.router.navigate(["/user/signin"]);
+
+            this._router.navigate(["/user/signin"]);
         }
     };
 };
