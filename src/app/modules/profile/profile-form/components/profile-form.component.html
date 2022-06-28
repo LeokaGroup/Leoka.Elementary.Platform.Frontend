@@ -171,7 +171,7 @@
           </div>
 
           <div *ngIf="!isEditItem">
-            <div *ngFor="let item of profileWorksheet$.value.mentorItems">
+            <div *ngFor="let item of profileWorksheet$.value.userItems">
               <input 
                   type="text"               
                   pInputText 
@@ -208,7 +208,7 @@
                 label="Сохранить" 
                 styleClass="btn-link-form p-button-link"
                 *ngIf="isEditItemRow"
-                (click)="onUpdateItemsAsync(profileWorksheet$.value.mentorItems)">
+                (click)="onUpdateItemsAsync(profileWorksheet$.value.userItems)">
             </p-button>
           </div>
       </div>
@@ -242,7 +242,7 @@
         </div>
 
           <div>
-            <div *ngFor="let item of profileWorksheet$.value.mentorPrices">
+            <div *ngFor="let item of profileWorksheet$.value.userPrices">
               <input 
                 type="number"               
                 pInputText 
@@ -261,14 +261,14 @@
               <p-button 
                   label="Добавить" 
                   styleClass="btn-link-form p-button-link"
-                  (click)="onAddMentorPrices()">
+                  (click)="onAddUserPrices()">
               </p-button>
 
             <p-button 
                 label="Сохранить" 
                 styleClass="btn-link-form p-button-link"
                 *ngIf="isEditPriceRow"
-                (click)="onUpdateMentorPricesAsync(profileWorksheet$.value.mentorPrices)">
+                (click)="onUpdateMentorPricesAsync(profileWorksheet$.value.userPrices)">
             </p-button>
           </div>          
       </div>
@@ -280,7 +280,7 @@
 
         <div>      
           <!-- Добавленные длительности. -->
-          <div *ngFor="let item of profileWorksheet$.value.mentorDurations">
+          <div *ngFor="let item of profileWorksheet$.value.userDurations">
             <input 
               type="text"               
               pInputText 
@@ -317,7 +317,7 @@
                 label="Сохранить" 
                 styleClass="btn-link-form p-button-link"
                 *ngIf="isEditDuration"
-                (click)="onUpdateMentorDurationsAsync(profileWorksheet$.value.mentorDurations)">
+                (click)="onUpdateMentorDurationsAsync(profileWorksheet$.value.userDurations)">
             </p-button>
               
               <!-- <p-button 
@@ -782,6 +782,60 @@
               (click)="onCreateCertsAsync()">
           </p-button>
         </div>
+      </div>
+    </div>
+
+    <!-- Желаемый возраст преподавателя. -->
+    <div class="pt-20-pb-20 mt-20 block-user-info">
+      <div class="profile-title">
+        <label>Желаемый возраст преподавателя</label>
+      </div>
+
+      <div class="block-purposes">
+        <div>
+          <!-- <input 
+              type="text"               
+              pInputText 
+              [disabled]="!isEditAge" 
+              [(ngModel)]="item.fullAge"
+              [ngModelOptions]="{standalone: true}"
+              *ngIf="!isEditAge" /> -->
+
+              <!-- <input 
+                  type="text"               
+                  pInputText 
+                  [disabled]="!isEditAge" 
+                  [(ngModel)]="item.fullAge"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="isEditAge" /> -->
+
+              <p-dropdown [options]="profileItems$.value.mentorAge"
+                  optionLabel="fullAge"                          
+                  placeholder="Выберите возраст"
+                  dataKey="fullAge"
+                  formControlName="selectedItem"
+                  
+                  *ngIf="!isEditAge">
+              </p-dropdown>
+        </div>
+      </div>   
+
+      <!-- <div class="block-purposes" *ngIf="!isEdit">
+        <div 
+            [ngClass]="{ selectedTrainings: item.isSelected, notSelectedTrainings: !item.isSelected }"  
+            *ngFor="let item of profileWorksheet$.value.mentorTrainings">
+          <div            
+            (click)="onSelectPurposes(item.purposeName)">
+            {{item.purposeName}}
+          </div>
+        </div> 
+      </div>   -->
+
+      <div>
+        <p-button 
+            label="Изменить" 
+            styleClass="btn-link-form p-button-link">
+        </p-button>
       </div>
     </div>
 

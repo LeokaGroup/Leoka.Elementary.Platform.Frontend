@@ -160,11 +160,11 @@ export class ProfileFormService {
      * @param mentorItems - Список предметов для обновления.
      * @returns - Обновленные предметы.
      */
-    public async updateMentorItemsAsync(mentorItems: any) {
+    public async updateMentorItemsAsync(userItems: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorItems = mentorItems;
+        inputModel.userItems = userItems;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-items", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/items", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
@@ -172,15 +172,15 @@ export class ProfileFormService {
     };
 
     /**
-     * Функция обновит список цен преподавателя.
+     * Функция обновит список цен пользователя.
      * @param mentorPrices - Список цен для обновления.
      * @returns - Обновленные цены.
      */
-    public async updateMentorPricesAsync(mentorPrices: any) {
+    public async updateMentorPricesAsync(userPrices: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorPrices = mentorPrices;
+        inputModel.userPrices = userPrices;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-prices", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/user-prices", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
@@ -191,11 +191,11 @@ export class ProfileFormService {
      * Функция изменит длительности преподавателя.
      * @param durations - Длительности преподавателя.
      */
-    public async updateMentorDurationsAsync(mentorDurations: any) {
+    public async updateMentorDurationsAsync(userDurations: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorDurations = mentorDurations;
+        inputModel.userDurations = userDurations;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-durations", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/user-durations", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
@@ -210,7 +210,7 @@ export class ProfileFormService {
         let inputModel = new SaveMentorProfileUserInfoInput();
         inputModel.mentorTimes = mentorTimes;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-times", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/user-times", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })

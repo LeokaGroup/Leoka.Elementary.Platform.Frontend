@@ -78,6 +78,7 @@ export class ProfileFormModule implements OnInit {
     isEditExperience: boolean = false;
     isEditCerts: boolean = false;
     userRole: number = -2;  // -2, потому что есть -1 и 0. И по дефолту ставим то, чего нет.
+    isEditAge: boolean = false;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -158,7 +159,7 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.phoneNumber = this.profileForm.controls["phoneNumber"].value;
         this.profileFormInput.email = this.profileForm.controls["email"].value;
         this.profileFormInput.isVisibleAllContact = this.profileForm.controls["checkedContact"].value;
-        this.profileFormInput.mentorItems = this.mentorProfileItems;
+        this.profileFormInput.userItems = this.mentorProfileItems;
 
         if (!this.mentorPrices.length) {
             let price = new MentorProfilePrices();
@@ -167,7 +168,7 @@ export class ProfileFormModule implements OnInit {
             this.mentorPrices.push(price);
         }
 
-        this.profileFormInput.mentorPrices = this.mentorPrices;
+        this.profileFormInput.userPrices = this.mentorPrices;
         this.profileFormInput.mentorTimes = this.mentorTimes;
         this.profileFormInput.mentorTrainings = this.selectedPurposes;
 
@@ -198,7 +199,7 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.mentorAboutInfo = this.mentorAboutInfo;
         this.profileFormInput.mentorEducations = this.mentorEducations;
         this.profileFormInput.mentorExperience = this.mentorExperience;
-        this.profileFormInput.mentorDurations = this.mentorDurations;
+        this.profileFormInput.userDurations = this.mentorDurations;
 
         console.log("profileFormInput",this.profileFormInput);
 
@@ -519,12 +520,12 @@ export class ProfileFormModule implements OnInit {
      * @param mentorItems - Список предметов для обновления.
      * @returns - Обновленные предметы.
      */
-    public async onUpdateItemsAsync(mentorItems: any) {
+    public async onUpdateItemsAsync(userItems: any) {
         this.isEditItemRow = true;
         let items: any = [];
 
         // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
-        mentorItems.forEach((item: any) => {
+        userItems.forEach((item: any) => {
             if (typeof(item.itemName) === "object") {
                 items.push({
                     itemName: item.itemName.itemName,
@@ -730,7 +731,7 @@ export class ProfileFormModule implements OnInit {
     };
 
     public onAddMentorItems() {    
-        this.profileWorksheet$.value.mentorItems.push({
+        this.profileWorksheet$.value.userItems.push({
             itemName: "",
             itemNumber: 0,
             itemSysName: "",
@@ -739,8 +740,8 @@ export class ProfileFormModule implements OnInit {
         });
     };
 
-      public onAddMentorPrices() {    
-        this.profileWorksheet$.value.mentorPrices.push({
+      public onAddUserPrices() {    
+        this.profileWorksheet$.value.userPrices.push({
             fullPrice: "",
             price: 0,
             profileItemId: " руб."
@@ -748,8 +749,8 @@ export class ProfileFormModule implements OnInit {
     };
 
     public onAddMentorDurations() {    
-        this.profileWorksheet$.value.mentorPrices.push({
-            educationText: ""
+        this.profileWorksheet$.value.userDurations.push({
+            durationText: ""
         });
     };
 

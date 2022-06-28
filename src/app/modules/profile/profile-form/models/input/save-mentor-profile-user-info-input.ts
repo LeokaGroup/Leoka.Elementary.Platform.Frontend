@@ -27,13 +27,13 @@ export class SaveMentorProfileUserInfoInput {
     isVisibleAllContact: boolean = false;
 
     // Список предметов.
-    mentorItems: MentorProfileItems[]  = [];
+    userItems: MentorProfileItems[]  = [];
 
-    // Список цен преподавателя.
-    mentorPrices: MentorProfilePrices[] = [];
+    // Список цен пользователя.
+    userPrices: MentorProfilePrices[] = [];
 
     // Список длительностей преподавателя.
-    mentorDurations: MentorDurations[] = [];
+    userDurations: MentorDurations[] = [];
 
     // Список свободного времени преподавателя.
     mentorTimes: MentorTimes[] = [];
