@@ -36,7 +36,7 @@ export class SaveMentorProfileUserInfoInput {
     userDurations: MentorDurations[] = [];
 
     // Список свободного времени преподавателя.
-    mentorTimes: MentorTimes[] = [];
+    userTimes: MentorTimes[] = [];
 
     // Список целей подготовки преподавателя.
     mentorTrainings: MentorTrainings[] = [];

@@ -169,7 +169,7 @@ export class ProfileFormModule implements OnInit {
         }
 
         this.profileFormInput.userPrices = this.mentorPrices;
-        this.profileFormInput.mentorTimes = this.mentorTimes;
+        this.profileFormInput.userTimes = this.mentorTimes;
         this.profileFormInput.mentorTrainings = this.selectedPurposes;
 
         if (!this.mentorAboutInfo.length) {
@@ -619,8 +619,8 @@ export class ProfileFormModule implements OnInit {
                 let time = new MentorTimes();
                 time.dayId = item.position;
                 time.daySysName = item.dayName.daySysName;
-                time.timeStart = item.timeStart;
-                time.timeEnd = item.timeEnd;
+                time.timeStart = item.timeStart.concat(":00");
+                time.timeEnd = item.timeEnd.concat(":00");
                 items.push(time);
             }
 
@@ -755,7 +755,7 @@ export class ProfileFormModule implements OnInit {
     };
 
     public onAddMentorTimes() {    
-        this.profileWorksheet$.value.mentorTimes.push({
+        this.profileWorksheet$.value.userTimes.push({
             dayName: "",
             daySysName: "",
             timeEnd: "",

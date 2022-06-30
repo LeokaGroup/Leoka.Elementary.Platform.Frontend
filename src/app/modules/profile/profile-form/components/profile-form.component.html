@@ -318,13 +318,7 @@
                 styleClass="btn-link-form p-button-link"
                 *ngIf="isEditDuration"
                 (click)="onUpdateMentorDurationsAsync(profileWorksheet$.value.userDurations)">
-            </p-button>
-              
-              <!-- <p-button 
-                  label="Добавить" 
-                  styleClass="btn-link-form p-button-link"
-                  (click)="addMentorDurations()">
-            </p-button> -->
+            </p-button>            
             </div>
         </div>
       </div>
@@ -348,7 +342,7 @@
       <div class="block-purposes" *ngIf="!isEdit">
         <div 
             [ngClass]="{ selectedTrainings: item.isSelected, notSelectedTrainings: !item.isSelected }"  
-            *ngFor="let item of profileWorksheet$.value.mentorTrainings">
+            *ngFor="let item of profileWorksheet$.value.userTrainings">
           <div            
             (click)="onSelectPurposes(item.purposeName)">
             {{item.purposeName}}
@@ -357,10 +351,25 @@
       </div>  
 
       <div>
-        <p-button 
+        <!-- <p-button 
             label="Изменить" 
-            styleClass="btn-link-form p-button-link">
+            styleClass="btn-link-form p-button-link"
+            *ngIf="!isEditDuration"
+            (click)="onEditDuration()">                
         </p-button>
+
+        <p-button 
+            label="Добавить" 
+            styleClass="btn-link-form p-button-link"
+            (click)="onAddMentorDurations()">
+        </p-button> -->
+
+      <p-button 
+          label="Сохранить" 
+          styleClass="btn-link-form p-button-link"
+          *ngIf="isEditDuration"
+          (click)="onUpdateMentorDurationsAsync(profileWorksheet$.value.userDurations)">
+      </p-button>
       </div>
     </div>
 
@@ -402,7 +411,7 @@
 
         <!-- Свободные дни. -->
           <div>              
-              <div *ngFor="let item of profileWorksheet$.value.mentorTimes">
+              <div *ngFor="let item of profileWorksheet$.value.userTimes">
                 <input 
                   type="text"               
                   pInputText 
@@ -439,7 +448,7 @@
                 label="Сохранить" 
                 styleClass="btn-link-form p-button-link"
                 *ngIf="isEditTime"
-                (click)="onUpdateMentorTimesAsync(profileWorksheet$.value.mentorTimes)">
+                (click)="onUpdateMentorTimesAsync(profileWorksheet$.value.userTimes)">
             </p-button>
             </div>
           </div>
@@ -456,7 +465,7 @@
         </div>
   
             <div>
-              <div *ngFor="let item of profileWorksheet$.value.mentorTimes">
+              <div *ngFor="let item of profileWorksheet$.value.userTimes">
                 <div class="d-flex">
                   с 
                   <div>&nbsp;</div>
@@ -809,12 +818,11 @@
                   [ngModelOptions]="{standalone: true}"
                   *ngIf="isEditAge" /> -->
 
-              <p-dropdown [options]="profileItems$.value.mentorAge"
+              <p-dropdown [options]="profileWorksheet$.value.mentorAge"
                   optionLabel="fullAge"                          
                   placeholder="Выберите возраст"
                   dataKey="fullAge"
-                  formControlName="selectedItem"
-                  
+                  formControlName="selectedItem"                  
                   *ngIf="!isEditAge">
               </p-dropdown>
         </div>
@@ -833,11 +841,130 @@
 
       <div>
         <p-button 
-            label="Изменить" 
-            styleClass="btn-link-form p-button-link">
-        </p-button>
+              label="Сохранить" 
+              styleClass="btn-link-form p-button-link">
+          </p-button>
       </div>
     </div>
+
+      <!-- Желаемый пол преподавателя. -->
+      <div class="pt-20-pb-20 mt-20 block-user-info">
+        <div class="profile-title">
+          <label>Желаемый пол преподавателя</label>
+        </div>
+  
+        <div class="block-purposes">
+          <div>
+            <!-- <input 
+                type="text"               
+                pInputText 
+                [disabled]="!isEditAge" 
+                [(ngModel)]="item.fullAge"
+                [ngModelOptions]="{standalone: true}"
+                *ngIf="!isEditAge" /> -->
+  
+                <!-- <input 
+                    type="text"               
+                    pInputText 
+                    [disabled]="!isEditAge" 
+                    [(ngModel)]="item.fullAge"
+                    [ngModelOptions]="{standalone: true}"
+                    *ngIf="isEditAge" /> -->
+  
+                <p-dropdown [options]="profileWorksheet$.value.mentorGenders"
+                    optionLabel="genderName"                          
+                    placeholder="Выберите пол"
+                    dataKey="genderName"
+                    formControlName="selectedItem">
+                </p-dropdown>
+          </div>
+        </div>   
+  
+        <!-- <div class="block-purposes" *ngIf="!isEdit">
+          <div 
+              [ngClass]="{ selectedTrainings: item.isSelected, notSelectedTrainings: !item.isSelected }"  
+              *ngFor="let item of profileWorksheet$.value.mentorTrainings">
+            <div            
+              (click)="onSelectPurposes(item.purposeName)">
+              {{item.purposeName}}
+            </div>
+          </div> 
+        </div>   -->
+            <p-button 
+                label="Сохранить" 
+                styleClass="btn-link-form p-button-link"
+                *ngIf="isEditCerts"
+                (click)="onCreateCertsAsync()">
+            </p-button>
+  
+        <div>
+          <p-button 
+              label="Сохранить" 
+              styleClass="btn-link-form p-button-link">
+          </p-button>
+        </div>
+      </div>
+
+         <!-- Комментарий ученика. -->
+         <div class="pt-20-pb-20 mt-20 block-user-info">
+          <div class="profile-title">
+            <label>Комментарий</label>
+          </div>
+    
+          <div class="block-purposes">
+            <div>
+              <!-- <input 
+                  type="text"               
+                  pInputText 
+                  [disabled]="!isEditAge" 
+                  [(ngModel)]="item.fullAge"
+                  [ngModelOptions]="{standalone: true}"
+                  *ngIf="!isEditAge" /> -->
+    
+                  <!-- <input 
+                      type="text"               
+                      pInputText 
+                      [disabled]="!isEditAge" 
+                      [(ngModel)]="item.fullAge"
+                      [ngModelOptions]="{standalone: true}"
+                      *ngIf="isEditAge" /> -->
+                
+                  <textarea 
+                      rows="5" 
+                      cols="100" 
+                      pInputTextarea 
+                      [autoResize]="true"
+                      [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="profileWorksheet$.value.studentComments"
+                      placeholder="Укажите комментарий (по желанию)">
+                </textarea>
+            </div>
+          </div>   
+    
+          <!-- <div class="block-purposes" *ngIf="!isEdit">
+            <div 
+                [ngClass]="{ selectedTrainings: item.isSelected, notSelectedTrainings: !item.isSelected }"  
+                *ngFor="let item of profileWorksheet$.value.mentorTrainings">
+              <div            
+                (click)="onSelectPurposes(item.purposeName)">
+                {{item.purposeName}}
+              </div>
+            </div> 
+          </div>   -->
+              <p-button 
+                  label="Сохранить" 
+                  styleClass="btn-link-form p-button-link"
+                  *ngIf="isEditCerts"
+                  (click)="onCreateCertsAsync()">
+              </p-button>
+    
+          <div>
+            <p-button 
+                label="Сохранить" 
+                styleClass="btn-link-form p-button-link">
+            </p-button>
+          </div>
+        </div>
 
     <button 
         class="btn-save"

@@ -206,9 +206,9 @@ export class ProfileFormService {
      * Функция изменит время преподавателя.
      * @param durations - Время преподавателя.
      */
-    public async updateMentorTimesAsync(mentorTimes: any) {
+    public async updateMentorTimesAsync(userTimes: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorTimes = mentorTimes;
+        inputModel.userTimes = userTimes;
 
         return await this.http.patch(API_URL.apiUrl + "/profile/user-times", inputModel).pipe(
             tap((response: any) => {              
