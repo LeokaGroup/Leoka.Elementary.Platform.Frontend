@@ -822,7 +822,8 @@
                   optionLabel="fullAge"                          
                   placeholder="Выберите возраст"
                   dataKey="fullAge"
-                  formControlName="selectedItem"                  
+                  [(ngModel)]="selectedAge"
+                  formControlName="selectedAge"                  
                   *ngIf="!isEditAge">
               </p-dropdown>
         </div>
@@ -842,7 +843,8 @@
       <div>
         <p-button 
               label="Сохранить" 
-              styleClass="btn-link-form p-button-link">
+              styleClass="btn-link-form p-button-link"
+              (click)="onSaveStudententorAgeAsync()">
           </p-button>
       </div>
     </div>

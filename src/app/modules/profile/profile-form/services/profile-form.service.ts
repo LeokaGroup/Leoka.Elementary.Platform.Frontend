@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
 import { SaveMentorProfileUserInfoInput } from '../models/input/save-mentor-profile-user-info-input';
+import { StudentMentorAgeInput } from '../models/input/student-mentor-age-input';
 
 /**
  * Сервис профиля пользователя.
@@ -299,6 +300,17 @@ export class ProfileFormService {
      */
       public async addDefaultMentorExperienceAsync() {
         return await this.http.post(API_URL.apiUrl + "/profile/default-experience", {}).pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция сохранит желаемый возраст преподавателя.
+     */
+    public async saveStudententorAgeAsync(inputModel: StudentMentorAgeInput) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/student-mentor-age", inputModel).pipe(
             tap((response: any) => {
                 this.profileWorksheet$.next(response);
             })
