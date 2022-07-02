@@ -931,8 +931,7 @@
                       cols="100" 
                       pInputTextarea 
                       [autoResize]="true"
-                      [ngModelOptions]="{standalone: true}"
-                      [(ngModel)]="profileWorksheet$.value.studentComments"
+                      formControlName="selectedComment"  
                       placeholder="Укажите комментарий (по желанию)">
                 </textarea>
             </div>
@@ -951,8 +950,7 @@
               <p-button 
                   label="Сохранить" 
                   styleClass="btn-link-form p-button-link"
-                  *ngIf="isEditCerts"
-                  (click)="onCreateCertsAsync()">
+                  (click)="onSaveStudentCommentAsync()">
               </p-button>
         </div>
 

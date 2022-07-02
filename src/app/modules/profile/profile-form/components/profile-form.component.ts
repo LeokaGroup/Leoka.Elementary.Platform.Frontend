@@ -5,6 +5,7 @@ import { forkJoin } from "rxjs";
 import { DisplayMentorTimes } from "../models/display-mentor-times";
 import { MentorProfileItem } from "../models/input/mentor-profile-item-input";
 import { SaveMentorProfileUserInfoInput } from "../models/input/save-mentor-profile-user-info-input";
+import { StudentCommentInput } from "../models/input/student-comment-input";
 import { StudentMentorAgeInput } from "../models/input/student-mentor-age-input";
 import { StudentMentorGenderInput } from "../models/input/student-mentor-gender-input";
 import { MentorAboutInfo } from "../models/mentor-about-into";
@@ -102,7 +103,8 @@ export class ProfileFormModule implements OnInit {
         "mentorTimeEnd": new FormControl("", Validators.required),
         "aboutInfo": new FormControl("", Validators.required),
         "selectedAge": new FormControl("", Validators.required),
-        "selectedGender": new FormControl("", Validators.required)
+        "selectedGender": new FormControl("", Validators.required),
+        "selectedComment": new FormControl("", Validators.required)
     });
 
     constructor(private _profileFormService: ProfileFormService, private _sanitizer: DomSanitizer) {};
@@ -821,6 +823,19 @@ export class ProfileFormModule implements OnInit {
         (await this._profileFormService.saveStudentMentorGenderAsync(modelInput))
         .subscribe(response => {
             console.log("Сохранили желаемый пол: ", response);     
+        });
+    };
+
+    /**
+     * Функция сохранит комментарий студента.
+     */
+     public async onSaveStudentCommentAsync() {        
+        let modelInput = new StudentCommentInput();
+        modelInput.comment = this.profileForm.controls["selectedComment"].value;
+
+        (await this._profileFormService.saveStudentCommentAsync(modelInput))
+        .subscribe(response => {
+            console.log("Сохранили комментарий: ", response);     
         });
     };
 }
