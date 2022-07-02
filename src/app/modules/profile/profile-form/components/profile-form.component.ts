@@ -5,6 +5,9 @@ import { forkJoin } from "rxjs";
 import { DisplayMentorTimes } from "../models/display-mentor-times";
 import { MentorProfileItem } from "../models/input/mentor-profile-item-input";
 import { SaveMentorProfileUserInfoInput } from "../models/input/save-mentor-profile-user-info-input";
+import { StudentCommentInput } from "../models/input/student-comment-input";
+import { StudentMentorAgeInput } from "../models/input/student-mentor-age-input";
+import { StudentMentorGenderInput } from "../models/input/student-mentor-gender-input";
 import { MentorAboutInfo } from "../models/mentor-about-into";
 import { MentorDayWeek } from "../models/mentor-day-week";
 import { MentorDurations } from "../models/mentor-durations";
@@ -78,6 +81,9 @@ export class ProfileFormModule implements OnInit {
     isEditExperience: boolean = false;
     isEditCerts: boolean = false;
     userRole: number = -2;  // -2, потому что есть -1 и 0. И по дефолту ставим то, чего нет.
+    isEditAge: boolean = false;
+    selectedAge: any;
+    selectedGender: any;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -95,7 +101,10 @@ export class ProfileFormModule implements OnInit {
         "dayWeekName": new FormControl("", Validators.required),
         "mentorTimeStart": new FormControl("", Validators.required),
         "mentorTimeEnd": new FormControl("", Validators.required),
-        "aboutInfo": new FormControl("", Validators.required)
+        "aboutInfo": new FormControl("", Validators.required),
+        "selectedAge": new FormControl("", Validators.required),
+        "selectedGender": new FormControl("", Validators.required),
+        "selectedComment": new FormControl("", Validators.required)
     });
 
     constructor(private _profileFormService: ProfileFormService, private _sanitizer: DomSanitizer) {};
@@ -158,7 +167,7 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.phoneNumber = this.profileForm.controls["phoneNumber"].value;
         this.profileFormInput.email = this.profileForm.controls["email"].value;
         this.profileFormInput.isVisibleAllContact = this.profileForm.controls["checkedContact"].value;
-        this.profileFormInput.mentorItems = this.mentorProfileItems;
+        this.profileFormInput.userItems = this.mentorProfileItems;
 
         if (!this.mentorPrices.length) {
             let price = new MentorProfilePrices();
@@ -167,8 +176,8 @@ export class ProfileFormModule implements OnInit {
             this.mentorPrices.push(price);
         }
 
-        this.profileFormInput.mentorPrices = this.mentorPrices;
-        this.profileFormInput.mentorTimes = this.mentorTimes;
+        this.profileFormInput.userPrices = this.mentorPrices;
+        this.profileFormInput.userTimes = this.mentorTimes;
         this.profileFormInput.mentorTrainings = this.selectedPurposes;
 
         if (!this.mentorAboutInfo.length) {
@@ -198,7 +207,7 @@ export class ProfileFormModule implements OnInit {
         this.profileFormInput.mentorAboutInfo = this.mentorAboutInfo;
         this.profileFormInput.mentorEducations = this.mentorEducations;
         this.profileFormInput.mentorExperience = this.mentorExperience;
-        this.profileFormInput.mentorDurations = this.mentorDurations;
+        this.profileFormInput.userDurations = this.mentorDurations;
 
         console.log("profileFormInput",this.profileFormInput);
 
@@ -519,12 +528,12 @@ export class ProfileFormModule implements OnInit {
      * @param mentorItems - Список предметов для обновления.
      * @returns - Обновленные предметы.
      */
-    public async onUpdateItemsAsync(mentorItems: any) {
+    public async onUpdateItemsAsync(userItems: any) {
         this.isEditItemRow = true;
         let items: any = [];
 
         // TODO: хорошо бы это отрефакторить, чтобы убрать такое поведение с object.
-        mentorItems.forEach((item: any) => {
+        userItems.forEach((item: any) => {
             if (typeof(item.itemName) === "object") {
                 items.push({
                     itemName: item.itemName.itemName,
@@ -618,8 +627,8 @@ export class ProfileFormModule implements OnInit {
                 let time = new MentorTimes();
                 time.dayId = item.position;
                 time.daySysName = item.dayName.daySysName;
-                time.timeStart = item.timeStart;
-                time.timeEnd = item.timeEnd;
+                time.timeStart = item.timeStart.concat(":00");
+                time.timeEnd = item.timeEnd.concat(":00");
                 items.push(time);
             }
 
@@ -730,7 +739,7 @@ export class ProfileFormModule implements OnInit {
     };
 
     public onAddMentorItems() {    
-        this.profileWorksheet$.value.mentorItems.push({
+        this.profileWorksheet$.value.userItems.push({
             itemName: "",
             itemNumber: 0,
             itemSysName: "",
@@ -739,8 +748,8 @@ export class ProfileFormModule implements OnInit {
         });
     };
 
-      public onAddMentorPrices() {    
-        this.profileWorksheet$.value.mentorPrices.push({
+      public onAddUserPrices() {    
+        this.profileWorksheet$.value.userPrices.push({
             fullPrice: "",
             price: 0,
             profileItemId: " руб."
@@ -748,13 +757,13 @@ export class ProfileFormModule implements OnInit {
     };
 
     public onAddMentorDurations() {    
-        this.profileWorksheet$.value.mentorPrices.push({
-            educationText: ""
+        this.profileWorksheet$.value.userDurations.push({
+            durationText: ""
         });
     };
 
     public onAddMentorTimes() {    
-        this.profileWorksheet$.value.mentorTimes.push({
+        this.profileWorksheet$.value.userTimes.push({
             dayName: "",
             daySysName: "",
             timeEnd: "",
@@ -788,6 +797,45 @@ export class ProfileFormModule implements OnInit {
         (await this._profileFormService.addDefaultMentorExperienceAsync())
         .subscribe(_ => {
             this.isEditExperience = true; 
+        });
+    };
+
+    /**
+     * Функция сохранит желаемый возраст преподавателя.
+     */
+    public async onSaveStudententorAgeAsync() {
+        let modelInput = new StudentMentorAgeInput();
+        modelInput.ageId = this.selectedAge.ageId;
+
+        (await this._profileFormService.saveStudententorAgeAsync(modelInput))
+        .subscribe(response => {
+            console.log("Сохранили желаемый возраст: ", response);     
+        });
+    };
+
+    /**
+     * Функция сохранит желаемый пол преподавателя.
+     */
+     public async onSaveStudentMentorGenderAsync() {        
+        let modelInput = new StudentMentorGenderInput();
+        modelInput.genderId = this.profileForm.controls["selectedGender"].value.genderId;
+
+        (await this._profileFormService.saveStudentMentorGenderAsync(modelInput))
+        .subscribe(response => {
+            console.log("Сохранили желаемый пол: ", response);     
+        });
+    };
+
+    /**
+     * Функция сохранит комментарий студента.
+     */
+     public async onSaveStudentCommentAsync() {        
+        let modelInput = new StudentCommentInput();
+        modelInput.comment = this.profileForm.controls["selectedComment"].value;
+
+        (await this._profileFormService.saveStudentCommentAsync(modelInput))
+        .subscribe(response => {
+            console.log("Сохранили комментарий: ", response);     
         });
     };
 }

@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
 import { SaveMentorProfileUserInfoInput } from '../models/input/save-mentor-profile-user-info-input';
+import { StudentCommentInput } from '../models/input/student-comment-input';
+import { StudentMentorAgeInput } from '../models/input/student-mentor-age-input';
+import { StudentMentorGenderInput } from '../models/input/student-mentor-gender-input';
 
 /**
  * Сервис профиля пользователя.
@@ -160,11 +163,11 @@ export class ProfileFormService {
      * @param mentorItems - Список предметов для обновления.
      * @returns - Обновленные предметы.
      */
-    public async updateMentorItemsAsync(mentorItems: any) {
+    public async updateMentorItemsAsync(userItems: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorItems = mentorItems;
+        inputModel.userItems = userItems;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-items", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/items", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
@@ -172,15 +175,15 @@ export class ProfileFormService {
     };
 
     /**
-     * Функция обновит список цен преподавателя.
+     * Функция обновит список цен пользователя.
      * @param mentorPrices - Список цен для обновления.
      * @returns - Обновленные цены.
      */
-    public async updateMentorPricesAsync(mentorPrices: any) {
+    public async updateMentorPricesAsync(userPrices: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorPrices = mentorPrices;
+        inputModel.userPrices = userPrices;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-prices", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/user-prices", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
@@ -191,11 +194,11 @@ export class ProfileFormService {
      * Функция изменит длительности преподавателя.
      * @param durations - Длительности преподавателя.
      */
-    public async updateMentorDurationsAsync(mentorDurations: any) {
+    public async updateMentorDurationsAsync(userDurations: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorDurations = mentorDurations;
+        inputModel.userDurations = userDurations;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-durations", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/user-durations", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
@@ -206,11 +209,11 @@ export class ProfileFormService {
      * Функция изменит время преподавателя.
      * @param durations - Время преподавателя.
      */
-    public async updateMentorTimesAsync(mentorTimes: any) {
+    public async updateMentorTimesAsync(userTimes: any) {
         let inputModel = new SaveMentorProfileUserInfoInput();
-        inputModel.mentorTimes = mentorTimes;
+        inputModel.userTimes = userTimes;
 
-        return await this.http.patch(API_URL.apiUrl + "/profile/mentor-times", inputModel).pipe(
+        return await this.http.patch(API_URL.apiUrl + "/profile/user-times", inputModel).pipe(
             tap((response: any) => {              
                 this.profileWorksheet$.next(response);
             })
@@ -299,6 +302,39 @@ export class ProfileFormService {
      */
       public async addDefaultMentorExperienceAsync() {
         return await this.http.post(API_URL.apiUrl + "/profile/default-experience", {}).pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция сохранит желаемый возраст преподавателя.
+     */
+    public async saveStudententorAgeAsync(inputModel: StudentMentorAgeInput) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/student-mentor-age", inputModel).pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция сохранит желаемый пол преподавателя.
+     */
+     public async saveStudentMentorGenderAsync(inputModel: StudentMentorGenderInput) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/student-mentor-gender", inputModel).pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция сохранит комментарий студента.
+     */
+     public async saveStudentCommentAsync(inputModel: StudentCommentInput) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/student-comment", inputModel).pipe(
             tap((response: any) => {
                 this.profileWorksheet$.next(response);
             })
