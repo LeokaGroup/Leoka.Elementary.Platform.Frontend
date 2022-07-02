@@ -875,9 +875,10 @@
   
                 <p-dropdown [options]="profileWorksheet$.value.mentorGenders"
                     optionLabel="genderName"                          
-                    placeholder="Выберите пол"
+                    placeholder="Выберите пол преподавателя"
                     dataKey="genderName"
-                    formControlName="selectedItem">
+                    formControlName="selectedGender"  
+                    [(ngModel)]="selectedGender">
                 </p-dropdown>
           </div>
         </div>   
@@ -892,17 +893,11 @@
             </div>
           </div> 
         </div>   -->
-            <p-button 
-                label="Сохранить" 
-                styleClass="btn-link-form p-button-link"
-                *ngIf="isEditCerts"
-                (click)="onCreateCertsAsync()">
-            </p-button>
-  
         <div>
           <p-button 
               label="Сохранить" 
-              styleClass="btn-link-form p-button-link">
+              styleClass="btn-link-form p-button-link"
+              (click)="onSaveStudentMentorGenderAsync()">
           </p-button>
         </div>
       </div>
@@ -959,19 +954,12 @@
                   *ngIf="isEditCerts"
                   (click)="onCreateCertsAsync()">
               </p-button>
-    
-          <div>
-            <p-button 
-                label="Сохранить" 
-                styleClass="btn-link-form p-button-link">
-            </p-button>
-          </div>
         </div>
 
-    <button 
+    <!-- <button 
         class="btn-save"
         (click)="onSaveProfileUserInfoAsync()">
       Сохранить
-    </button>
+    </button> -->
   </form>
 </div>

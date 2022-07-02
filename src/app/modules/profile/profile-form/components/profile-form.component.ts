@@ -6,6 +6,7 @@ import { DisplayMentorTimes } from "../models/display-mentor-times";
 import { MentorProfileItem } from "../models/input/mentor-profile-item-input";
 import { SaveMentorProfileUserInfoInput } from "../models/input/save-mentor-profile-user-info-input";
 import { StudentMentorAgeInput } from "../models/input/student-mentor-age-input";
+import { StudentMentorGenderInput } from "../models/input/student-mentor-gender-input";
 import { MentorAboutInfo } from "../models/mentor-about-into";
 import { MentorDayWeek } from "../models/mentor-day-week";
 import { MentorDurations } from "../models/mentor-durations";
@@ -81,6 +82,7 @@ export class ProfileFormModule implements OnInit {
     userRole: number = -2;  // -2, потому что есть -1 и 0. И по дефолту ставим то, чего нет.
     isEditAge: boolean = false;
     selectedAge: any;
+    selectedGender: any;
 
     // Форма анкеты.
     profileForm: FormGroup = new FormGroup({
@@ -99,7 +101,8 @@ export class ProfileFormModule implements OnInit {
         "mentorTimeStart": new FormControl("", Validators.required),
         "mentorTimeEnd": new FormControl("", Validators.required),
         "aboutInfo": new FormControl("", Validators.required),
-        "selectedAge": new FormControl("", Validators.required)
+        "selectedAge": new FormControl("", Validators.required),
+        "selectedGender": new FormControl("", Validators.required)
     });
 
     constructor(private _profileFormService: ProfileFormService, private _sanitizer: DomSanitizer) {};
@@ -806,5 +809,18 @@ export class ProfileFormModule implements OnInit {
         .subscribe(response => {
             console.log("Сохранили желаемый возраст: ", response);     
         });
-    }
+    };
+
+    /**
+     * Функция сохранит желаемый пол преподавателя.
+     */
+     public async onSaveStudentMentorGenderAsync() {        
+        let modelInput = new StudentMentorGenderInput();
+        modelInput.genderId = this.profileForm.controls["selectedGender"].value.genderId;
+
+        (await this._profileFormService.saveStudentMentorGenderAsync(modelInput))
+        .subscribe(response => {
+            console.log("Сохранили желаемый пол: ", response);     
+        });
+    };
 }

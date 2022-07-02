@@ -4,6 +4,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
 import { SaveMentorProfileUserInfoInput } from '../models/input/save-mentor-profile-user-info-input';
 import { StudentMentorAgeInput } from '../models/input/student-mentor-age-input';
+import { StudentMentorGenderInput } from '../models/input/student-mentor-gender-input';
 
 /**
  * Сервис профиля пользователя.
@@ -311,6 +312,17 @@ export class ProfileFormService {
      */
     public async saveStudententorAgeAsync(inputModel: StudentMentorAgeInput) {
         return await this.http.patch(API_URL.apiUrl + "/profile/student-mentor-age", inputModel).pipe(
+            tap((response: any) => {
+                this.profileWorksheet$.next(response);
+            })
+        );
+    };
+
+    /**
+     * Функция сохранит желаемый пол преподавателя.
+     */
+     public async saveStudentMentorGenderAsync(inputModel: StudentMentorGenderInput) {
+        return await this.http.patch(API_URL.apiUrl + "/profile/student-mentor-gender", inputModel).pipe(
             tap((response: any) => {
                 this.profileWorksheet$.next(response);
             })
