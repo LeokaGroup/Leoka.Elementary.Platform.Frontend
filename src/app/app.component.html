@@ -4,7 +4,9 @@
 
 <header></header>
 <knowledge-lk class="d-flex" *ngIf="currentRoute === '/profile/welcome' 
-                    || currentRoute === '/profile/form'"></knowledge-lk>
+                    || currentRoute === '/profile/form'
+                    || currentRoute === '/profile/template'">
+</knowledge-lk>
 
 <main class="app-container">
   <router-outlet></router-outlet>
@@ -13,5 +15,6 @@
 <footer [hidden]="currentRoute === '/user/signup' 
                 || currentRoute === '/user/signin'
                 || currentRoute === '/profile/welcome'
-                || currentRoute === '/profile/form'">
+                || currentRoute === '/profile/form'
+                || currentRoute === '/profile/template'">
 </footer>

@@ -59,6 +59,11 @@ export class ProfileMenuModule implements OnInit {
             case "MyProfile":
                 this._router.navigate(["/profile/form"]);
                 break;
+
+            // Вкладка создания шаблона урока.
+            case "CreatePlanLesson":
+                this._router.navigate(["/profile/template"]);
+                break;
         }
     };
 }
