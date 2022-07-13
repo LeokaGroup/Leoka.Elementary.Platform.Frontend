@@ -3,6 +3,7 @@ import { RoleService } from "../../user/services/role.service";
 import { HeaderService } from "../services/header.service";
 import { ProfileService } from "../../profile/services/profile.service";
 import { NavigationStart, Router, Event as NavigationEvent, ActivatedRoute, NavigationEnd } from "@angular/router";
+import {UserService} from "../../user/services/user.service";
 
 @Component({
     selector: "header",
@@ -22,7 +23,7 @@ export class HeaderModule implements OnInit {
     isBlockMenuMain: boolean = true;
     isBlockMenuProfile: boolean = false;
     isProfile: boolean = false;
-    isVisibleButtonsAuth: boolean = false;
+    isVisibleButtonsAuth: boolean = true;
     public currentRoute: string = "";
     isVisibleHeaderItems: boolean = false;
 
@@ -31,17 +32,17 @@ export class HeaderModule implements OnInit {
         private _route: ActivatedRoute,
         private _profileService: ProfileService,
         private _router: Router) {
-            
     };
 
     public async ngOnInit() {
         await this.roleService.refreshToken();
         await this.getHeaderItemsAsync();
         this.configureHeaderStyles();
-        await this.getProfileMenuItemsAsync();              
+        await this.getProfileMenuItemsAsync();
+        this.checkAuth();
     };
 
-    public ngAfterViewInit() {               
+    public ngAfterViewInit() {
         this.checkRouteUrl();
         this.refreshHeaderMenuItems();
     };
@@ -79,7 +80,7 @@ export class HeaderModule implements OnInit {
             });
     };
 
-    
+
     // /**
     //  * Функция получит данные списка меню хидера.
     //  * @returns - Данные блока.
@@ -87,7 +88,7 @@ export class HeaderModule implements OnInit {
     private async getProfileMenuItemsAsync() {
         this.profileHeaderMenuItems = [];
         this.profileDropdownMenuItems = [];
-        
+
         (await this._profileService.getProfileMenuItemsAsync())
             .subscribe(_ => {
                 // Наполнит массив элементами меню.
@@ -100,8 +101,8 @@ export class HeaderModule implements OnInit {
                     this.userProfileMenuItems$.value.profileDropdownMenuItems.forEach((item: any) => {
                         this.profileDropdownMenuItems.push(item);
                     });
-                }               
-            
+                }
+
                 console.log("profileHeaderMenuItems", this.profileHeaderMenuItems);
                 console.log("profileDropdownMenuItems", this.profileDropdownMenuItems);
             });
@@ -111,12 +112,12 @@ export class HeaderModule implements OnInit {
         this._router.events
             .subscribe((event: NavigationEvent) => {
                 if (event instanceof NavigationStart) {
-                    console.log(event.url);               
+                    console.log(event.url);
                     if (event.url == '/profile/welcome'
                         || event.url == "/profile/form") {
                         this.isVisibleHeaderItems = true;
-                    }      
-                    
+                    }
+
                     else {
                         this.isVisibleHeaderItems = false;
                     }
@@ -135,5 +136,14 @@ export class HeaderModule implements OnInit {
                 }
             }
         );
-    };   
+    };
+
+    public checkAuth(): void {
+      console.log('Авторизован - ', this.isVisibleButtonsAuth);
+      if (sessionStorage.getItem('token')) {
+        this.isVisibleButtonsAuth = false;
+      }
+      else
+        this.isVisibleButtonsAuth = true;
+    }
 }

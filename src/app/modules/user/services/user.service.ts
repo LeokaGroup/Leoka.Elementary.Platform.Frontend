@@ -11,7 +11,7 @@ import { UserInput } from '../models/input/user-input';
 export class UserService {
     public readonly signupUser$ = new BehaviorSubject<any>(null);
     public readonly signinUser$ = new BehaviorSubject<any>(null);
-    
+
     constructor(private readonly http: HttpClient) {
 
     }
