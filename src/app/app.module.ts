@@ -17,6 +17,7 @@ import { NetworkInterceptor } from "./core/interceptors/network-interceptor";
 import { CommonDataService } from "./modules/base/services/common.service";
 import { ProfileService } from "./modules/profile/services/profile.service";
 import { KnowledgeLkModule } from './modules/knowledge/knowledge-lk/knowledge-lk.component';
+import {UserMainModule} from "./modules/user/user.module";
 
 @NgModule({
   declarations: [
@@ -26,19 +27,20 @@ import { KnowledgeLkModule } from './modules/knowledge/knowledge-lk/knowledge-lk
     KnowledgeLkModule
   ],
 
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    NgxLoadingModule.forRoot({
-      primaryColour: '#7C3AED',
-      secondaryColour: '#7C3AED',
-      tertiaryColour: '#7C3AED',
-      fullScreenBackdrop: true
-    })      
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ButtonModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        NgxLoadingModule.forRoot({
+            primaryColour: '#7C3AED',
+            secondaryColour: '#7C3AED',
+            tertiaryColour: '#7C3AED',
+            fullScreenBackdrop: true
+        }),
+        UserMainModule
+    ],
 
   providers: [
     RoleService,

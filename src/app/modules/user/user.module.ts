@@ -17,7 +17,9 @@ import { RoleService } from './services/role.service';
 @NgModule({
     declarations: [SignUpModule, SignInModule],
     imports: [ CommonModule, CheckboxModule, DropdownModule, FormsModule, ReactiveFormsModule, UserRoutingModule, ButtonModule, TabViewModule, ToastModule, DialogModule, HttpClientModule ],
-    exports: [],
+  exports: [
+    SignInModule
+  ],
     providers: [UserService, RoleService ],
 })
 

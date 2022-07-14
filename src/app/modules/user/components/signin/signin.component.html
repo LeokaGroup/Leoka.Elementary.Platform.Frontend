@@ -9,9 +9,9 @@
       <div>
         <label>Логин</label>
         <br>
-        <input 
-          class="input-pur-form" 
-          type="text" 
+        <input
+          class="input-pur-form"
+          type="text"
           placeholder="Ваш e-mail или номер телефона"
           name="login"
           [(ngModel)]="userLogin">
@@ -20,17 +20,17 @@
       <div>
         <label>Пароль</label>
         <br>
-        <input 
-          class="input-pur-form" 
-          type="text" 
+        <input
+          class="input-pur-form"
+          type="text"
           placeholder="Ввведите пароль"
           name="password"
           [(ngModel)]="userPassword">
       </div>
 
       <span class="input-group-btn">
-        <button 
-          class="button-action-pur-form" 
+        <button
+          class="button-action-pur-form"
           (click)="onSignInAsync()">
           Войти
         </button>
