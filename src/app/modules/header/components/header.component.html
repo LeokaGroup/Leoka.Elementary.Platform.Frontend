@@ -17,22 +17,22 @@
             <li class="header-menu-item">
               {{item.headerItem}}
             </li>
-          </div>          
+          </div>
         </ul>
-        
+
         <div>
-          <button *ngIf="isVisibleButtonsAuth"
-              pButton pRipple 
-              type="button" 
-              label="Регистрация" 
+          <button *ngIf="userService.isUserAuth()"
+              pButton pRipple
+              type="button"
+              label="Регистрация"
               class="p-button-raised p-button-help btn-signup"
               [routerLink]="['/user/signup']">
           </button>
-          
-          <button *ngIf="isVisibleButtonsAuth"
-              pButton pRipple 
-              type="button" 
-              label="Вход" 
+
+          <button *ngIf="userService.isUserAuth()"
+              pButton pRipple
+              type="button"
+              label="Вход"
               class="p-button-raised p-button-help btn-signin"
               [routerLink]="['/user/signin']">
           </button>
@@ -59,3 +59,6 @@
         </div>
     </div>
 </div>
+
+
+

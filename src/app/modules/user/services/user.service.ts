@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import {BehaviorSubject, Subject, tap} from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
 import { UserInput } from '../models/input/user-input';
 
@@ -11,6 +11,7 @@ import { UserInput } from '../models/input/user-input';
 export class UserService {
     public readonly signupUser$ = new BehaviorSubject<any>(null);
     public readonly signinUser$ = new BehaviorSubject<any>(null);
+    public isUserSignIn = new BehaviorSubject<boolean>(true);
 
     constructor(private readonly http: HttpClient) {
 
@@ -51,4 +52,8 @@ export class UserService {
             })
         );
     };
+
+    public isUserAuth(): boolean {
+      return !sessionStorage.getItem('token');
+    }
 }

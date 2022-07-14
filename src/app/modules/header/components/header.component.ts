@@ -31,7 +31,9 @@ export class HeaderModule implements OnInit {
         private headerService: HeaderService,
         private _route: ActivatedRoute,
         private _profileService: ProfileService,
-        private _router: Router) {
+        private _router: Router,
+        public userService: UserService,
+                ) {
     };
 
     public async ngOnInit() {
@@ -39,12 +41,12 @@ export class HeaderModule implements OnInit {
         await this.getHeaderItemsAsync();
         this.configureHeaderStyles();
         await this.getProfileMenuItemsAsync();
-        this.checkAuth();
     };
 
     public ngAfterViewInit() {
         this.checkRouteUrl();
         this.refreshHeaderMenuItems();
+
     };
 
     /**
@@ -137,13 +139,4 @@ export class HeaderModule implements OnInit {
             }
         );
     };
-
-    public checkAuth(): void {
-      console.log('Авторизован - ', this.isVisibleButtonsAuth);
-      if (sessionStorage.getItem('token')) {
-        this.isVisibleButtonsAuth = false;
-      }
-      else
-        this.isVisibleButtonsAuth = true;
-    }
 }
