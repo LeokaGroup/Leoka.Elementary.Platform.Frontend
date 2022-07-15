@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { forkJoin } from "rxjs";
 import { ProfileTemplatesService } from "../../services/template.service";
+import { ItemTemplate } from "../models/shared/item-template";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: "lesson-template",
@@ -12,12 +14,16 @@ import { ProfileTemplatesService } from "../../services/template.service";
  * Класс модуля создания шаблона урока.
  */
 export class TemplateModule implements OnInit {
-    constructor(private profileTemplateService: ProfileTemplatesService) { };
+    constructor(private _profileTemplateService: ProfileTemplatesService,
+        private _sanitizer: DomSanitizer) { };
 
-    public readonly profileItemTemplates$ = this.profileTemplateService.profileItemTemplates$; 
-    public readonly profileTemplates$ = this.profileTemplateService.profileTemplates$; 
+    public readonly profileItemTemplates$ = this._profileTemplateService.profileItemTemplates$;
+    public readonly profileTemplates$ = this._profileTemplateService.profileTemplates$;
+    public readonly profileGeneratedTemplate$ = this._profileTemplateService.profileGeneratedTemplate$;
 
-    selectedTemplate: any;
+    selectedItemTemplates = new ItemTemplate();
+    selectedTemplate: string = "";
+    htmlData: any;
 
     public async ngOnInit() {
         forkJoin([
@@ -30,20 +36,39 @@ export class TemplateModule implements OnInit {
      * @returns - Список шаблонов.
      */
     private async getProfileItemsAsync() {
-        (await this.profileTemplateService.getProfileTemplatesAsync())
-        .subscribe(_ => {
-            console.log("Список шаблонов: ", this.profileTemplates$.value);
-        });
+        (await this._profileTemplateService.getProfileTemplatesAsync())
+            .subscribe(_ => {
+                console.log("Список шаблонов: ", this.profileTemplates$.value);
+            });
     };
 
-    public async onSelectItemTemplatesAsync() {    
-        (await this.profileTemplateService.getSelectedItemTemplatesAsync(1))
-        .subscribe(_ => {
-            console.log("Шаблоны предмета: ", this.profileItemTemplates$.value);
-        });
+    /**
+     * Функция получает шаблоны урока.
+     * @returns - Шаблоны урока.
+     */
+    public async onSelectItemTemplatesAsync() {
+        (await this._profileTemplateService.getSelectedItemTemplatesAsync(this.selectedItemTemplates.templateItemId))
+            .subscribe(_ => {
+                console.log("Шаблоны предмета: ", this.profileItemTemplates$.value);
+            });
     };
 
-    onSelectTemplateAsync() {
+    /**
+     * Функция генерирует выбранный шаблон урока.
+     * @returns - Xml-шаблон.
+     */
+    public async onGenerateTemplateAsync() {
+        console.log("selectedTemplate", this.selectedTemplate);
 
+        (await this._profileTemplateService.generateTemplateAsync(this.selectedTemplate))
+            .subscribe(response => {
+                console.log("Генерация шаблона урока: ", response);
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(response.template, 'application/xml');
+                let xmlData: any = xml.documentElement;
+                console.log('type is', typeof xmlData);
+                console.log('typva is', xmlData);            
+                this.htmlData = this._sanitizer.bypassSecurityTrustHtml(response.template);
+            });
     };
 }

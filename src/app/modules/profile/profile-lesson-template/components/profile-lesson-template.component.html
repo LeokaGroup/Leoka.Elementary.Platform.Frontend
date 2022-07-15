@@ -13,7 +13,7 @@
 
         <div>
           <p-dropdown [options]="profileTemplates$.value" 
-              [(ngModel)]="selectedTemplate" 
+              [(ngModel)]="selectedItemTemplates" 
               optionLabel="itemName"
               placeholder="Выберите предмет"
               (onChange)="onSelectItemTemplatesAsync()">
@@ -80,10 +80,9 @@
 
         <div>
           <p-dropdown [options]="profileItemTemplates$.value" 
-              [(ngModel)]="selectedTemplate" 
-              
+              [(ngModel)]="selectedTemplate"               
               placeholder="Выберите шаблон"
-              (onChange)="onSelectTemplateAsync()">
+              (onChange)="onGenerateTemplateAsync()">
           </p-dropdown>
         </div>
 
@@ -134,8 +133,14 @@
               *ngIf="isEditFio"
               (click)="onChangeFioAsync()">
           </p-button> -->
+
+          
         </div>
-      </div>
+      </div>          
+    </div>
+
+    <div [(innerHTML)]="htmlData">
+
     </div>
   </div>
 </div>
