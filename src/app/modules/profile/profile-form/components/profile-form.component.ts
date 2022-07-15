@@ -18,6 +18,7 @@ import { MentorProfileItems } from "../models/mentor-profile-items";
 import { MentorTimes } from "../models/mentor-times";
 import { MentorTrainings } from "../models/mentor-trainings";
 import { ProfileFormService } from "../services/profile-form.service";
+import {PersonalAreaOptionsService} from "../../../base/services/personal-area-options.service";
 
 @Component({
     selector: "profile-form",
@@ -36,7 +37,7 @@ export class ProfileFormModule implements OnInit {
     public readonly profileDaysWeek$ = this._profileFormService.profileDaysWeek$;
     public readonly profileCerts$ = this._profileFormService.profileCerts$;
     public readonly profileAvatar$ = this._profileFormService.profileAvatar$;
-    public readonly profileWorksheet$ = this._profileFormService.profileWorksheet$; 
+    public readonly profileWorksheet$ = this._profileFormService.profileWorksheet$;
 
     checkedContact: boolean = false;
     selectedPurposes: MentorTrainings[] = [];
@@ -107,9 +108,15 @@ export class ProfileFormModule implements OnInit {
         "selectedComment": new FormControl("", Validators.required)
     });
 
-    constructor(private _profileFormService: ProfileFormService, private _sanitizer: DomSanitizer) {};
+    constructor(private _profileFormService: ProfileFormService,
+                private _sanitizer: DomSanitizer,
+                private _personalAreaOptions: PersonalAreaOptionsService
 
-    public async ngOnInit() {     
+    ) {
+    };
+
+    public async ngOnInit() {
+
         forkJoin([
             await this.getProfileItemsAsync(),
             await this.getLessonsDurationAsync(),
@@ -117,9 +124,11 @@ export class ProfileFormModule implements OnInit {
             await this.getDaysWeekAsync(),
             await this.getCertsAsync(),
             await this.getAvatarAsync(),
-            await this.getProfileWorkSheetAsync()
+            await this.getProfileWorkSheetAsync(),
         ]);
-    };    
+
+        this._personalAreaOptions.data();
+    };
 
     /**
      * Функция получит список предметов.
@@ -161,9 +170,9 @@ export class ProfileFormModule implements OnInit {
     public async onSaveProfileUserInfoAsync() {
         console.log("profileForm", this.profileForm);
 
-        this.profileFormInput.firstName = this.profileForm.controls["fio"].value.split(" ")[0];       
-        this.profileFormInput.lastName = this.profileForm.controls["fio"].value.split(" ")[1];    
-        this.profileFormInput.secondName = this.profileForm.controls["fio"].value.split(" ")[2];  
+        this.profileFormInput.firstName = this.profileForm.controls["fio"].value.split(" ")[0];
+        this.profileFormInput.lastName = this.profileForm.controls["fio"].value.split(" ")[1];
+        this.profileFormInput.secondName = this.profileForm.controls["fio"].value.split(" ")[2];
         this.profileFormInput.phoneNumber = this.profileForm.controls["phoneNumber"].value;
         this.profileFormInput.email = this.profileForm.controls["email"].value;
         this.profileFormInput.isVisibleAllContact = this.profileForm.controls["checkedContact"].value;
@@ -214,7 +223,7 @@ export class ProfileFormModule implements OnInit {
         let formData = new FormData();
         formData.append("profileData", JSON.stringify(this.profileFormInput));
         formData.append("mentorCertificates", this.profileForm.controls["certs"].value.get("certs"));
-        formData.append("profileImage", this.profileForm.controls["avatar"].value.get("avatar"));        
+        formData.append("profileImage", this.profileForm.controls["avatar"].value.get("avatar"));
 
         (await this._profileFormService.saveProfileUserInfoAsync(formData))
         .subscribe(_ => {
@@ -227,11 +236,11 @@ export class ProfileFormModule implements OnInit {
      * @param e - Файл.
      */
     public onUploadAvatar(e: any) {
-        console.log("onUploadAvatar", e);   
+        console.log("onUploadAvatar", e);
 
         this.profileForm.controls["avatar"].value.append("avatar", e.currentFiles[0]);
 
-        console.log("avatar", this.profileForm.controls["avatar"].value.get("avatar"));         
+        console.log("avatar", this.profileForm.controls["avatar"].value.get("avatar"));
     };
 
     /**
@@ -242,8 +251,8 @@ export class ProfileFormModule implements OnInit {
         console.log("onUploadCerts", e);
 
         this.profileForm.controls["certs"].value.append("certs", e.currentFiles[0]);
-        
-        console.log("cert", this.profileForm.controls["certs"].value.get("certs"));    
+
+        console.log("cert", this.profileForm.controls["certs"].value.get("certs"));
     };
 
     /**
@@ -256,7 +265,7 @@ export class ProfileFormModule implements OnInit {
         let training = new MentorTrainings();
         training.trainingSysName = purpose;
         this.selectedPurposes.push(training);
-        
+
         console.log("selectedPurposes", this.selectedPurposes);
     };
 
@@ -283,7 +292,7 @@ export class ProfileFormModule implements OnInit {
     /**
      * Функция запишет цены преподавателя.
      */
-    public addMentorPrices() {  
+    public addMentorPrices() {
         console.log("addMentorPrices", this.selectedPrice);
         let price = new MentorProfilePrices();
         price.price = this.selectedPrice;
@@ -305,7 +314,7 @@ export class ProfileFormModule implements OnInit {
 
         // Добавит цены преподавателя для вывода пользователю.
         this.displayMentorDurations.push(this.selectedDuration);
-        
+
         let duration = new MentorDurations();
         duration.time = this.selectedDuration.time;
         duration.unit = " минут";
@@ -464,7 +473,7 @@ export class ProfileFormModule implements OnInit {
         (await this._profileFormService.changeAvatarAsync(formData))
             .subscribe(response => {
                 console.log("Аватар изменен ок:");
-                
+
                 let img = this._sanitizer.bypassSecurityTrustResourceUrl("data:image/"
                         + response.extension
                         + ";base64,"
@@ -483,13 +492,13 @@ export class ProfileFormModule implements OnInit {
      * @returns - Новые фио.
      */
     public async onChangeFioAsync() {
-        this.profileFormInput.firstName = this.profileForm.controls["fio"].value.split(" ")[0];       
-        this.profileFormInput.lastName = this.profileForm.controls["fio"].value.split(" ")[1];    
-        this.profileFormInput.secondName = this.profileForm.controls["fio"].value.split(" ")[2];  
+        this.profileFormInput.firstName = this.profileForm.controls["fio"].value.split(" ")[0];
+        this.profileFormInput.lastName = this.profileForm.controls["fio"].value.split(" ")[1];
+        this.profileFormInput.secondName = this.profileForm.controls["fio"].value.split(" ")[2];
 
         (await this._profileFormService.changeFioAsync(this.profileFormInput))
             .subscribe(response => {
-                console.log("Новые фио: ", response);   
+                console.log("Новые фио: ", response);
                 this.userFio = response.firstName + " " + response.lastName + " " + response.secondName;
                 this.isEditFio = false;
             });
@@ -551,8 +560,8 @@ export class ProfileFormModule implements OnInit {
 
         (await this._profileFormService.updateMentorItemsAsync(items))
             .subscribe(response => {
-                console.log("Обновленные предметы: ", response);     
-                this.isEditItemRow = false; 
+                console.log("Обновленные предметы: ", response);
+                this.isEditItemRow = false;
             });
     };
 
@@ -570,8 +579,8 @@ export class ProfileFormModule implements OnInit {
     public async onUpdateMentorPricesAsync(prices: any) {
         (await this._profileFormService.updateMentorPricesAsync(prices))
             .subscribe(response => {
-                console.log("Обновленные цены: ", response);     
-                this.isEditPriceRow = false; 
+                console.log("Обновленные цены: ", response);
+                this.isEditPriceRow = false;
             });
     };
 
@@ -602,11 +611,11 @@ export class ProfileFormModule implements OnInit {
                 items.push(item);
             }
         });
-        
+
         (await this._profileFormService.updateMentorDurationsAsync(items))
         .subscribe(response => {
-            console.log("Обновленные длительности: ", response);     
-            this.isEditDuration = false; 
+            console.log("Обновленные длительности: ", response);
+            this.isEditDuration = false;
         });
     };
 
@@ -641,11 +650,11 @@ export class ProfileFormModule implements OnInit {
                 items.push(time);
             }
         });
-        
+
         (await this._profileFormService.updateMentorTimesAsync(items))
         .subscribe(response => {
-            console.log("Обновленные длительности: ", response);     
-            this.isEditDuration = false; 
+            console.log("Обновленные длительности: ", response);
+            this.isEditDuration = false;
         });
     };
 
@@ -661,11 +670,11 @@ export class ProfileFormModule implements OnInit {
             about.aboutInfoText = item.aboutInfoText;
             items.push(about);
         });
-        
+
         (await this._profileFormService.updateMentorAboutInfosAsync(items))
         .subscribe(response => {
-            console.log("Обновленные данные о себе: ", response);     
-            this.isEditAboutInfo = false; 
+            console.log("Обновленные данные о себе: ", response);
+            this.isEditAboutInfo = false;
         });
     };
 
@@ -688,11 +697,11 @@ export class ProfileFormModule implements OnInit {
             education.educationText = item.educationText;
             items.push(education);
         });
-        
+
         (await this._profileFormService.updateMentorEducationsAsync(items))
         .subscribe(response => {
-            console.log("Обновленные данные об образовании: ", response);     
-            this.isEditEducations = false; 
+            console.log("Обновленные данные об образовании: ", response);
+            this.isEditEducations = false;
         });
     };
 
@@ -711,11 +720,11 @@ export class ProfileFormModule implements OnInit {
             experience.experienceText = item.experienceText;
             items.push(experience);
         });
-        
+
         (await this._profileFormService.updateMentorExperienceAsync(items))
         .subscribe(response => {
-            console.log("Обновленные данные об опыте: ", response);     
-            this.isEditExperience = false; 
+            console.log("Обновленные данные об опыте: ", response);
+            this.isEditExperience = false;
         });
     };
 
@@ -733,12 +742,12 @@ export class ProfileFormModule implements OnInit {
 
         (await this._profileFormService.updateMentorCertsAsync(formData))
         .subscribe(response => {
-            console.log("Добавленные сертификаты: ", response);     
-            this.isEditCerts = false; 
+            console.log("Добавленные сертификаты: ", response);
+            this.isEditCerts = false;
         });
     };
 
-    public onAddMentorItems() {    
+    public onAddMentorItems() {
         this.profileWorksheet$.value.userItems.push({
             itemName: "",
             itemNumber: 0,
@@ -748,7 +757,7 @@ export class ProfileFormModule implements OnInit {
         });
     };
 
-      public onAddUserPrices() {    
+      public onAddUserPrices() {
         this.profileWorksheet$.value.userPrices.push({
             fullPrice: "",
             price: 0,
@@ -756,13 +765,13 @@ export class ProfileFormModule implements OnInit {
         });
     };
 
-    public onAddMentorDurations() {    
+    public onAddMentorDurations() {
         this.profileWorksheet$.value.userDurations.push({
             durationText: ""
         });
     };
 
-    public onAddMentorTimes() {    
+    public onAddMentorTimes() {
         this.profileWorksheet$.value.userTimes.push({
             dayName: "",
             daySysName: "",
@@ -771,7 +780,7 @@ export class ProfileFormModule implements OnInit {
         });
     };
 
-    // public onAddMentorAboutInfo() {    
+    // public onAddMentorAboutInfo() {
     //     this.profileWorksheet$.value.mentorAboutInfo.push({
     //         aboutInfoText: ""
     //     });
@@ -779,24 +788,24 @@ export class ProfileFormModule implements OnInit {
     //     console.log("this.profileWorksheet$.value.mentorAboutInfo",this.profileWorksheet$.value.mentorAboutInfo);
     // };
 
-    public async onAddDefaultMentorAboutInfoAsync() {    
+    public async onAddDefaultMentorAboutInfoAsync() {
         (await this._profileFormService.addDefaultMentorAboutInfoAsync())
         .subscribe(_ => {
-            this.isEditAboutInfo = true; 
+            this.isEditAboutInfo = true;
         });
     };
 
-    public async onAddDefaultMentorEducationAsync() {    
+    public async onAddDefaultMentorEducationAsync() {
         (await this._profileFormService.addDefaultMentorEducationAsync())
         .subscribe(_ => {
-            this.isEditEducations = true; 
+            this.isEditEducations = true;
         });
     };
 
-    public async onAddDefaultMentorExperienceAsync() {    
+    public async onAddDefaultMentorExperienceAsync() {
         (await this._profileFormService.addDefaultMentorExperienceAsync())
         .subscribe(_ => {
-            this.isEditExperience = true; 
+            this.isEditExperience = true;
         });
     };
 
@@ -809,33 +818,33 @@ export class ProfileFormModule implements OnInit {
 
         (await this._profileFormService.saveStudententorAgeAsync(modelInput))
         .subscribe(response => {
-            console.log("Сохранили желаемый возраст: ", response);     
+            console.log("Сохранили желаемый возраст: ", response);
         });
     };
 
     /**
      * Функция сохранит желаемый пол преподавателя.
      */
-     public async onSaveStudentMentorGenderAsync() {        
+     public async onSaveStudentMentorGenderAsync() {
         let modelInput = new StudentMentorGenderInput();
         modelInput.genderId = this.profileForm.controls["selectedGender"].value.genderId;
 
         (await this._profileFormService.saveStudentMentorGenderAsync(modelInput))
         .subscribe(response => {
-            console.log("Сохранили желаемый пол: ", response);     
+            console.log("Сохранили желаемый пол: ", response);
         });
     };
 
     /**
      * Функция сохранит комментарий студента.
      */
-     public async onSaveStudentCommentAsync() {        
+     public async onSaveStudentCommentAsync() {
         let modelInput = new StudentCommentInput();
         modelInput.comment = this.profileForm.controls["selectedComment"].value;
 
         (await this._profileFormService.saveStudentCommentAsync(modelInput))
         .subscribe(response => {
-            console.log("Сохранили комментарий: ", response);     
+            console.log("Сохранили комментарий: ", response);
         });
     };
 }
