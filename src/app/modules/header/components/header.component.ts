@@ -67,22 +67,20 @@ export class HeaderModule implements OnInit {
                 if (event instanceof NavigationEnd) {
                     console.log(event.url);
 
-                    !!sessionStorage["token"] ? this.isVisibleButtonsAuth = true : this.isVisibleButtonsAuth = false;     
-                    
-                    if (event.url == "/profile/signin") {
-                        this.isVisibleButtonsSignUp = false;
+                    if (!!sessionStorage["token"]) {                       
+                        this.isVisibleButtonsAuth = true;
+                        this.isVisibleButtonsSignUp = true;
                     }
 
                     else {
-                        this.isVisibleButtonsSignUp = true;
-                    }
+                        this.isVisibleButtonsAuth = false;
+                        this.isVisibleButtonsSignUp = false;
+                    }                                     
 
                     if (event.url == '/profile/welcome'
                         || event.url == "/profile/form") {
                         this.isBlockMenuMain = false;
                         this.isBlockMenuProfile = true;
-                        this.isVisibleButtonsSignUp = false;
-
                     }
 
                     else {
