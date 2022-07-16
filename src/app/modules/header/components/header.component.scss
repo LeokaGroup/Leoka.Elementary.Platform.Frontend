@@ -3,13 +3,15 @@
 @use "/src/styles/fonts.scss";
 
 .blockMenuMain {
-  padding-top: 20px;
-  padding-bottom: 70px;
+  // padding-top: 20px;
+  // padding-bottom: 70px;
   z-index: 2;
   position: absolute;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background: #7480F0;
+  padding: 15px 0px;
 
   .header-menu {
     list-style-type: none;
