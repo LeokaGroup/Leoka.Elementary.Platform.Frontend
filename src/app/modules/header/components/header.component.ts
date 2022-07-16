@@ -25,6 +25,7 @@ export class HeaderModule implements OnInit {
     isVisibleButtonsAuth: boolean = false;
     public currentRoute: string = "";
     isVisibleHeaderItems: boolean = false;
+    isVisibleButtonsSignUp: boolean = false;
 
     constructor(private readonly roleService: RoleService,
         private headerService: HeaderService,
@@ -65,10 +66,23 @@ export class HeaderModule implements OnInit {
             .subscribe((event: NavigationEvent) => {
                 if (event instanceof NavigationEnd) {
                     console.log(event.url);
+
+                    !!sessionStorage["token"] ? this.isVisibleButtonsAuth = true : this.isVisibleButtonsAuth = false;     
+                    
+                    if (event.url == "/profile/signin") {
+                        this.isVisibleButtonsSignUp = false;
+                    }
+
+                    else {
+                        this.isVisibleButtonsSignUp = true;
+                    }
+
                     if (event.url == '/profile/welcome'
                         || event.url == "/profile/form") {
                         this.isBlockMenuMain = false;
                         this.isBlockMenuProfile = true;
+                        this.isVisibleButtonsSignUp = false;
+
                     }
 
                     else {

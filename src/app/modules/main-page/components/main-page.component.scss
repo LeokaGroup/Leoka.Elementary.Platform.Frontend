@@ -37,23 +37,30 @@
   z-index: 3;
   width: 600px;
   height: 216px;
-  left: 112px;
+  // left: 112px;
+  left: 500px;
   top: 184px;
 
   .main-block-title {
-    color: #4C1D95;
+    // color: #4C1D95;
     font-family: 'Gilroy-Bold';
-    font-size: 64px;
-    line-height: 72px;
-    letter-spacing: -0.005em;
+    // font-size: 64px;    color: #FFFDFE;
+    font-size: 40px;
+    // line-height: 72px;
+    // letter-spacing: -0.005em;
+    color: #FFFDFE;
+
   }
 
   .main-block-subtitle {
     font-family: 'Gilroy-Bold';
-    font-size: 24px;
+    // font-size: 24px;
+    font-size: 40px;
     line-height: 28px;
-    margin: 37px 0px 0px 0;
-    color: #7C3AED;
+    // margin: 37px 0px 0px 0;
+    margin: 10px 0px 0px 0;
+    // color: #7C3AED;
+    color: #FFFDFE;
   }
 
   .main-items {
