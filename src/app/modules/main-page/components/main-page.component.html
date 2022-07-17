@@ -1,17 +1,25 @@
 <div class="block-fon">
   <!-- <img class="start-fon" src="../../../../../assets/images/main-page/First.jpg"> -->
-  <img class="start-fon" src="../../../../../assets/images/main-page/Безымянный 2.png">
+  <img class="start-fon" src="../../../../../assets/images/main-page/fon.png">
 </div>
 
 <!-- Блок фона. -->
 <div class="main-block">
   <div class="main-block-title">{{mainFon$.value.fonTitle}}</div>
-  <!-- <div class="main-block-subtitle">{{mainFon$.value.fonSubTitle}}</div> -->
-  <div class="main-block-subtitle">С нами все элементарно!</div>
+  <div class="main-block-subtitle">{{mainFon$.value.fonSubTitle}}</div>
+  <!-- <div class="main-block-subtitle">С нами все элементарно!</div> -->
 
   <!-- <ul class="main-items" *ngFor="let item of mainFon$.value.mainFonStudentItems">
     <li class="main-item">{{item.fonSubTitleText}}</li>
   </ul> -->
+
+  <button
+      pButton pRipple 
+      type="button" 
+      label="Начать занятие!" 
+      class="p-button-raised p-button-help btn-signin btn-start"
+      [routerLink]="['/user/signin']">
+</button>
 </div>
 
 <!-- Блок записи на урок. -->
@@ -259,7 +267,7 @@
 </div>
 
 <!-- Блок преподавателя. -->
-<div class="block-mentor">
+<!-- <div class="block-mentor">
   <div class="mentor-items col-lg-12 ">
     <div class="">
       <div class="mentor-title">
@@ -278,4 +286,4 @@
     <div class="">
       <img [src]="mentor$.value.mentorWorkUrl" alt="">
   </div>
-</div>
+</div> -->

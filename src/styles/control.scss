@@ -15,9 +15,9 @@
 .btn-signup {
   // background: #FFFFFF;
   // color: #7C3AED;
-  background: #F847B3;
+  background: #856BFD;
   // border: 1px solid #7C3AED;
-  border: 1px solid #F847B3;
+  border: 1px solid #856BFD;
   font-weight: 600;
   font-size: 18px;
   border-radius: 8px;
@@ -28,9 +28,11 @@
 // Кнопка регистрации (при наведении).
 .btn-signup.p-button.p-button-help:hover {
   // background: none;
-  background: #F847B3;
+  // background: #F847B3;
   color: white;
-  border: 1px solid #F847B3;
+  // border: 1px solid #F847B3;
+  background: #856BFD;
+  border: 1px solid #856BFD;
 }
 
 // Кнопка регистрации (при фокусе).
@@ -41,8 +43,8 @@
 // Кнопка авторизации.
 .btn-signin {
   // background: #7C3AED;
-  background: #F847B3;
-  color: white;
+  background: #856BFD;
+  border: 1px solid #856BFD;
   border-radius: 8px;
   box-shadow: none;
   margin: 0px 10px;
@@ -52,13 +54,18 @@
 
 // Кнопка авторизации (при наведении).
 .btn-signin.p-button.p-button-help:hover {
-  background: #F847B3;
   color: white;
+  background: #856BFD;
+  border: 1px solid #856BFD;
 }
 
 // Кнопка авторизации (при фокусе).
 .btn-signin.p-button.p-button-help:focus {
   box-shadow: none;
+}
+
+.btn-start {
+  margin: 37px 0px 0px 0;
 }
 
 // Поля ввода для форм регистрации, авторизации и подобных.
@@ -90,7 +97,10 @@
 .button-request {
   width: 243px;
   height: 50px;
-  background: #7C3AED;
+  // background: #7C3AED;
+  // border-radius: 8px;
+  background: #856BFD;
+  border: 1px solid #856BFD;
   border-radius: 8px;
   margin: 20px 0px;
   color: #FFFFFF;
