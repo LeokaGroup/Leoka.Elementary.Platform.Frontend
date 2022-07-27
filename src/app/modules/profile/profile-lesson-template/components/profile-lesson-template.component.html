@@ -5,7 +5,7 @@
 
   <div>
     <!-- Выбираем предмет, шаблон которого нужно подгрузить. -->
-    <div class="block-user-info pt-20-pb-20 d-flex">
+    <div class="block-user-info pt-20-pb-20 mt-20-mb-20 d-flex">
       <div class="col-lg-4">
         <div class="profile-title">
           <label>Выбор предмета</label>
@@ -72,7 +72,7 @@
     </div>
 
     <!-- Выбранный шаблон. -->
-    <div class="block-user-info pt-20-pb-20 d-flex">
+    <div class="block-user-info pt-20-pb-20 mt-20-mb-20 d-flex">
       <div class="col-lg-4">
         <div class="profile-title">
           <label>Выбор шаблона</label>
@@ -82,6 +82,7 @@
           <p-dropdown [options]="profileItemTemplates$.value" 
               [(ngModel)]="selectedTemplate"               
               placeholder="Выберите шаблон"
+              optionLabel="templateName"
               (onChange)="onGenerateTemplateAsync()">
           </p-dropdown>
         </div>

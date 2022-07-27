@@ -2,3 +2,7 @@
 @use "/src/styles/control.scss";
 @use "/src/styles/fonts.scss";
 @use "/src/app/modules/profile/profile-form/components/profile-form.component.scss";
+
+::ng-deep input {
+    margin: 10px 0px;
+}

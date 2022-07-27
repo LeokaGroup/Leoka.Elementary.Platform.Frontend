@@ -22,7 +22,7 @@ export class TemplateModule implements OnInit {
     public readonly profileGeneratedTemplate$ = this._profileTemplateService.profileGeneratedTemplate$;
 
     selectedItemTemplates = new ItemTemplate();
-    selectedTemplate: string = "";
+    selectedTemplate: ItemTemplate = new ItemTemplate();
     htmlData: any;
 
     public async ngOnInit() {
@@ -58,9 +58,9 @@ export class TemplateModule implements OnInit {
      * @returns - Xml-шаблон.
      */
     public async onGenerateTemplateAsync() {
-        console.log("selectedTemplate", this.selectedTemplate);
+        console.log("selectedTemplate", this.selectedTemplate.templateId);
 
-        (await this._profileTemplateService.generateTemplateAsync(this.selectedTemplate))
+        (await this._profileTemplateService.generateTemplateAsync(this.selectedTemplate.templateId))
             .subscribe(response => {
                 console.log("Генерация шаблона урока: ", response);
                 const parser = new DOMParser();
