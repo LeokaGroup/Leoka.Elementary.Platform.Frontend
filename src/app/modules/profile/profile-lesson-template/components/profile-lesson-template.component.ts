@@ -69,6 +69,6 @@ export class TemplateModule implements OnInit {
                 console.log('type is', typeof xmlData);
                 console.log('typva is', xmlData);            
                 this.htmlData = this._sanitizer.bypassSecurityTrustHtml(response.template);
-            });
+            });            
     };
 }

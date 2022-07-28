@@ -140,8 +140,54 @@
       </div>          
     </div>
 
-    <div [(innerHTML)]="htmlData">
+    <div class="block-user-info pt-20-pb-20 mt-20-mb-20 d-flex">
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Поля шаблона</label>
+        </div>
+
+         <div [(innerHTML)]="htmlData">
 
     </div>
+
+       
+      </div>
+
+      <div class="col-lg-8">      
+        <!-- <span type="text" 
+            placeholder="ФИО"            
+            *ngIf="!isEditFio">
+            {{userFio}}
+        </span> -->
+        <div>
+
+          <!-- <input 
+              type="text" 
+              pInputText
+              formControlName="fio"
+              placeholder="ФИО"
+              *ngIf="isEditFio">  -->
+        </div>
+
+        <div>
+          <!-- <p-button 
+              label="Изменить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="!isEditFio"
+              (click)="onChangeFioState()">
+          </p-button>          -->
+
+      
+
+          
+        </div>
+        
+      </div>          
+    </div>
+
+        <p-button 
+              label="Сохранить" 
+              styleClass="button-control-save">
+          </p-button>
   </div>
 </div>
