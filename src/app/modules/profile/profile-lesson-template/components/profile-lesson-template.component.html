@@ -146,9 +146,9 @@
           <label>Поля шаблона</label>
         </div>
 
-         <div [(innerHTML)]="htmlData">
+         <div [(innerHTML)]="htmlData" [(ngModel)]="data">
 
-    </div>
+         </div>
 
        
       </div>
@@ -186,8 +186,9 @@
     </div>
 
         <p-button 
-              label="Сохранить" 
-              styleClass="button-control-save">
-          </p-button>
+            label="Сохранить" 
+            styleClass="button-control-save"
+            (click)="onSaveTemplateAsync()">
+        </p-button>
   </div>
 </div>

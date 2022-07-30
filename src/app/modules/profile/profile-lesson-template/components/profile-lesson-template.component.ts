@@ -24,6 +24,7 @@ export class TemplateModule implements OnInit {
     selectedItemTemplates = new ItemTemplate();
     selectedTemplate: ItemTemplate = new ItemTemplate();
     htmlData: any;
+    data: any;
 
     public async ngOnInit() {
         forkJoin([
@@ -69,6 +70,14 @@ export class TemplateModule implements OnInit {
                 console.log('type is', typeof xmlData);
                 console.log('typva is', xmlData);            
                 this.htmlData = this._sanitizer.bypassSecurityTrustHtml(response.template);
+                this.data = response.template;
             });            
+    };
+
+    /**
+     * Функция сохраняет шаблон преподавателя, который он заполнил.
+     */
+    public async onSaveTemplateAsync() {
+        console.log("htmlData", this.htmlData);
     };
 }
