@@ -23,3 +23,6 @@
 2. npm install sass-loader@7.1.0 --save (или другую версию)
 3. npm install style-loader
 4. npm install node-sass
+
+## Content and Map of this Source is not available" error after upgrading to Webpack 5
+Решение: npm install source-map-support

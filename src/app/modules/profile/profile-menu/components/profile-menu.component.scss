@@ -1,6 +1,6 @@
 .left-items {
   list-style-type: none;
-  font-family: 'Gilroy-Regular';
+  font-family: 'Montserrat-Regular';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -10,7 +10,8 @@
 
   .left-item {
     padding: 18px 10px 18px 30px;
-    color: #087592;
+    // color: #087592;
+    color: #35365D;
     cursor: pointer;
 
     // &:hover {
@@ -30,7 +31,8 @@
     border-radius: 12px;
     padding: 20px 30px;
     width: 280px;
-    color: white;
+    // color: white;
+    color: #35365D;
     font-weight: 900;
   }
 }

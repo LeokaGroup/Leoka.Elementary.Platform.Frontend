@@ -21,7 +21,7 @@
         </ul>
         
         <div>
-          <button *ngIf="isVisibleButtonsAuth"
+          <button *ngIf="!isVisibleButtonsSignUp"
               pButton pRipple 
               type="button" 
               label="Регистрация" 
@@ -29,7 +29,7 @@
               [routerLink]="['/user/signup']">
           </button>
           
-          <button *ngIf="isVisibleButtonsAuth"
+          <button *ngIf="!isVisibleButtonsAuth"
               pButton pRipple 
               type="button" 
               label="Вход" 

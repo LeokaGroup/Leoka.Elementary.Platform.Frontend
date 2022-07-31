@@ -39,8 +39,9 @@
 }
 
 .profile-title {
-  color: #087592;
-  font-family: 'Gilroy-Bold';
+  // color: #087592;
+  color: #35365D;
+  font-family: 'Montserrat-ExtraBold';
   font-weight: 400;
   font-size: 24px;
   line-height: 36px;
@@ -65,7 +66,8 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    color: white;
+    // color: white;
+    color: #35365D;
     margin: 18px 18px;
     cursor: pointer;
   }
@@ -99,7 +101,8 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  color: white;
+  // color: white;
+  color: #35365D;
   margin: 18px 18px;
   cursor: pointer;
 }
@@ -113,7 +116,8 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  color: white;
+  // color: white;
+  color: #35365D;
   margin: 18px 18px;
   cursor: pointer;
 }
