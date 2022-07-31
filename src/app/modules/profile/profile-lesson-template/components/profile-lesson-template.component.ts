@@ -64,13 +64,6 @@ export class TemplateModule implements OnInit {
         (await this._profileTemplateService.generateTemplateAsync(this.selectedTemplate.templateId))
             .subscribe(response => {
                 console.log("Генерация шаблона урока: ", response);
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(response.template, 'application/xml');
-                let xmlData: any = xml.documentElement;
-                console.log('type is', typeof xmlData);
-                console.log('typva is', xmlData);            
-                this.htmlData = this._sanitizer.bypassSecurityTrustHtml(response.template);
-                this.data = response.template;
             });            
     };
 
