@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { API_URL } from 'src/app/core/core-urls/api-urls';
-import { ItemTemplate } from '../profile-lesson-template/models/shared/item-template';
 
 /**
  * Общий сервис шаблонов уроков.
@@ -43,15 +42,12 @@ export class ProfileTemplatesService {
     };
 
     /**
-     * Функция генерирует выбранный шаблон урока.
-       * @param templateType - тип шаблона для генерации.
-     * @returns - Xml-шаблон.
+     * Функция получает выбранный шаблон урока.
+       * @param templateId - Id шаблона.
+     * @returns - json-шаблон.
      */
-    public async generateTemplateAsync(templateId: number) {
-        const headers = new HttpHeaders({ 'Content-Type': 'text/xml' });
-        headers.append('Accept', 'text/xml');
-        headers.append('Content-Type', 'text/xml');
-        return await this._http.get(API_URL.apiUrl + "/template/generate?templateId=" + templateId, {headers: headers}).pipe(
+    public async getTemplateAsync(templateId: number) {
+        return await this._http.get(API_URL.apiUrl + "/template/template?templateId=" + templateId).pipe(
             tap((data: any) => {
                 this.profileGeneratedTemplate$.next(data);
             })

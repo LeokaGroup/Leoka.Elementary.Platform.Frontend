@@ -83,7 +83,7 @@
               [(ngModel)]="selectedTemplate"               
               placeholder="Выберите шаблон"
               optionLabel="templateName"
-              (onChange)="onGenerateTemplateAsync()">
+              (onChange)="onGetTemplateAsync()">
           </p-dropdown>
         </div>
 
@@ -146,11 +146,22 @@
           <label>Поля шаблона</label>
         </div>
 
-         <div [(innerHTML)]="htmlData" [(ngModel)]="data">
+        <!-- Блок с шаблоном преподавателя. -->
+         <div *ngFor="let item of templateItems">
+           <div class="mt-20 mb-20" *ngIf="item.FieldType === 'input'">
+             <input type="text" pInputText>
+           </div>
 
-         </div>
-
-       
+           <div class="mt-20 mb-20" *ngIf="item.FieldType === 'textarea'">
+            <textarea 
+                type="textarea" 
+                rows="15" 
+                cols="100" 
+                pInputTextarea 
+                [autoResize]="true">
+            </textarea>
+           </div>
+         </div>       
       </div>
 
       <div class="col-lg-8">      
@@ -176,10 +187,6 @@
               *ngIf="!isEditFio"
               (click)="onChangeFioState()">
           </p-button>          -->
-
-      
-
-          
         </div>
         
       </div>          

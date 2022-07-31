@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { forkJoin } from "rxjs";
 import { ProfileTemplatesService } from "../../services/template.service";
 import { ItemTemplate } from "../models/shared/item-template";
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: "lesson-template",
@@ -14,8 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
  * Класс модуля создания шаблона урока.
  */
 export class TemplateModule implements OnInit {
-    constructor(private _profileTemplateService: ProfileTemplatesService,
-        private _sanitizer: DomSanitizer) { };
+    constructor(private _profileTemplateService: ProfileTemplatesService) { };
 
     public readonly profileItemTemplates$ = this._profileTemplateService.profileItemTemplates$;
     public readonly profileTemplates$ = this._profileTemplateService.profileTemplates$;
@@ -23,8 +21,7 @@ export class TemplateModule implements OnInit {
 
     selectedItemTemplates = new ItemTemplate();
     selectedTemplate: ItemTemplate = new ItemTemplate();
-    htmlData: any;
-    data: any;
+    templateItems: any[] = [];
 
     public async ngOnInit() {
         forkJoin([
@@ -58,12 +55,14 @@ export class TemplateModule implements OnInit {
      * Функция генерирует выбранный шаблон урока.
      * @returns - Xml-шаблон.
      */
-    public async onGenerateTemplateAsync() {
+    public async onGetTemplateAsync() {
         console.log("selectedTemplate", this.selectedTemplate.templateId);
 
-        (await this._profileTemplateService.generateTemplateAsync(this.selectedTemplate.templateId))
+        (await this._profileTemplateService.getTemplateAsync(this.selectedTemplate.templateId))
             .subscribe(response => {
-                console.log("Генерация шаблона урока: ", response);
+                console.log("Получение шаблона урока: ", response);
+                this.templateItems = JSON.parse(response.template);
+                console.log(this.templateItems);
             });            
     };
 
@@ -71,6 +70,6 @@ export class TemplateModule implements OnInit {
      * Функция сохраняет шаблон преподавателя, который он заполнил.
      */
     public async onSaveTemplateAsync() {
-        console.log("htmlData", this.htmlData);
+        console.log("htmlData", this.templateItems);
     };
 }
