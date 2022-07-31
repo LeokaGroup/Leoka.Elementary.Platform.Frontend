@@ -78,7 +78,8 @@ export class HeaderModule implements OnInit {
                     }                                     
 
                     if (event.url == '/profile/welcome'
-                        || event.url == "/profile/form") {
+                        || event.url == "/profile/form"
+                        || event.url == "/profile/template") {
                         this.isBlockMenuMain = false;
                         this.isBlockMenuProfile = true;
                     }
@@ -125,7 +126,8 @@ export class HeaderModule implements OnInit {
                 if (event instanceof NavigationStart) {
                     console.log(event.url);               
                     if (event.url == '/profile/welcome'
-                        || event.url == "/profile/form") {
+                        || event.url == "/profile/form"
+                        || event.url == "/profile/template") {
                         this.isVisibleHeaderItems = true;
                     }      
                     

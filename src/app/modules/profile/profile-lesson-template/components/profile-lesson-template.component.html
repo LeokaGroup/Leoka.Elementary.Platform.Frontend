@@ -1,0 +1,201 @@
+<div class="col-lg-12 d-flex">
+  <div class="col-lg-4">
+    <profile-menu></profile-menu>
+  </div>
+
+  <div>
+    <!-- Выбираем предмет, шаблон которого нужно подгрузить. -->
+    <div class="block-user-info pt-20-pb-20 mt-20-mb-20 d-flex">
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Выбор предмета</label>
+        </div>
+
+        <div>
+          <p-dropdown [options]="profileTemplates$.value" 
+              [(ngModel)]="selectedItemTemplates" 
+              optionLabel="itemName"
+              placeholder="Выберите предмет"
+              (onChange)="onSelectItemTemplatesAsync()">
+          </p-dropdown>
+        </div>
+
+        <div>
+          <!-- <p-button 
+              label="Изменить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="!isEditAvatar"
+              (click)="onChangeAvatarState()">
+          </p-button>
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="isEditAvatar"
+              (click)="onChangeAvatarAsync()">
+          </p-button> -->
+        </div>
+      </div>
+
+      <div class="col-lg-8">      
+        <!-- <span type="text" 
+            placeholder="ФИО"            
+            *ngIf="!isEditFio">
+            {{userFio}}
+        </span> -->
+        <div>
+
+          <!-- <input 
+              type="text" 
+              pInputText
+              formControlName="fio"
+              placeholder="ФИО"
+              *ngIf="isEditFio">  -->
+        </div>
+
+        <div>
+          <!-- <p-button 
+              label="Изменить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="!isEditFio"
+              (click)="onChangeFioState()">
+          </p-button>         
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="isEditFio"
+              (click)="onChangeFioAsync()">
+          </p-button> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Выбранный шаблон. -->
+    <div class="block-user-info pt-20-pb-20 mt-20-mb-20 d-flex">
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Выбор шаблона</label>
+        </div>
+
+        <div>
+          <p-dropdown [options]="profileItemTemplates$.value" 
+              [(ngModel)]="selectedTemplate"               
+              placeholder="Выберите шаблон"
+              optionLabel="templateName"
+              (onChange)="onGetTemplateAsync()">
+          </p-dropdown>
+        </div>
+
+        <div>
+          <!-- <p-button 
+              label="Изменить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="!isEditAvatar"
+              (click)="onChangeAvatarState()">
+          </p-button>
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="isEditAvatar"
+              (click)="onChangeAvatarAsync()">
+          </p-button> -->
+        </div>
+      </div>
+
+      <div class="col-lg-8">      
+        <!-- <span type="text" 
+            placeholder="ФИО"            
+            *ngIf="!isEditFio">
+            {{userFio}}
+        </span> -->
+        <div>
+
+          <!-- <input 
+              type="text" 
+              pInputText
+              formControlName="fio"
+              placeholder="ФИО"
+              *ngIf="isEditFio">  -->
+        </div>
+
+        <div>
+          <!-- <p-button 
+              label="Изменить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="!isEditFio"
+              (click)="onChangeFioState()">
+          </p-button>         
+
+          <p-button 
+              label="Сохранить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="isEditFio"
+              (click)="onChangeFioAsync()">
+          </p-button> -->
+
+          
+        </div>
+      </div>          
+    </div>
+
+    <div class="block-user-info pt-20-pb-20 mt-20-mb-20 d-flex">
+      <div class="col-lg-4">
+        <div class="profile-title">
+          <label>Поля шаблона</label>
+        </div>
+
+        <!-- Блок с шаблоном преподавателя. -->
+         <div *ngFor="let item of templateItems">
+           <div class="mt-20 mb-20" *ngIf="item.FieldType === 'input'">
+             <input type="text" pInputText>
+           </div>
+
+           <div class="mt-20 mb-20" *ngIf="item.FieldType === 'textarea'">
+            <textarea 
+                type="textarea" 
+                rows="15" 
+                cols="100" 
+                pInputTextarea 
+                [autoResize]="true">
+            </textarea>
+           </div>
+         </div>       
+      </div>
+
+      <div class="col-lg-8">      
+        <!-- <span type="text" 
+            placeholder="ФИО"            
+            *ngIf="!isEditFio">
+            {{userFio}}
+        </span> -->
+        <div>
+
+          <!-- <input 
+              type="text" 
+              pInputText
+              formControlName="fio"
+              placeholder="ФИО"
+              *ngIf="isEditFio">  -->
+        </div>
+
+        <div>
+          <!-- <p-button 
+              label="Изменить" 
+              styleClass="btn-link-form p-button-link"
+              *ngIf="!isEditFio"
+              (click)="onChangeFioState()">
+          </p-button>          -->
+        </div>
+        
+      </div>          
+    </div>
+
+        <p-button 
+            label="Сохранить" 
+            styleClass="button-control-save"
+            (click)="onSaveTemplateAsync()">
+        </p-button>
+  </div>
+</div>

@@ -24,12 +24,15 @@ import {InputTextModule} from 'primeng/inputtext';
 import { ProfileFormService } from './profile-form/services/profile-form.service';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ImageModule} from 'primeng/image';
+import { TemplateModule } from './profile-lesson-template/components/profile-lesson-template.component';
+import { ProfileTemplatesService } from './services/template.service';
 
 @NgModule({
     declarations: [
         ProfileStartModule, 
         ProfileMenuModule,
-        ProfileFormModule        
+        ProfileFormModule,
+        TemplateModule        
     ],
 
     imports: [
@@ -64,7 +67,8 @@ import {ImageModule} from 'primeng/image';
         },
         CommonDataService,
         ProfileService,
-        ProfileFormService
+        ProfileFormService,
+        ProfileTemplatesService
     ],
 })
 
